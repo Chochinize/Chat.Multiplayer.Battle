@@ -1,11 +1,11 @@
 import React from 'react'
-import Field from './Field'
+import { Outlet } from 'react-router-dom'
 import Menu from './Menu/Menu'
 const Layout = () => {
   return (
-    <div className='w-[40%] h-full border-2 relative'>
+    <div className='w-[40%] h-full border-2 '>
         <Menu/>
-        <Field/>
+        <Outlet/>
  </div> 
   )
 }
