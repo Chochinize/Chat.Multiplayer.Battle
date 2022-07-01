@@ -1,4 +1,4 @@
-import { ActionType} from '../action-type/index'
+import { ActionType } from '../action-type/index'
 interface DepositAction {
     type:ActionType.DEPOSIT,
     payload:number
@@ -10,4 +10,9 @@ interface WithdrawAction {
 interface BankruptAction {
     type:ActionType.BANKRUPT
 }
-export type Action = DepositAction | WithdrawAction | BankruptAction
+interface JoinPlayerAction {
+    type:ActionType.JOIN,
+    payload:number
+
+}
+export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction
