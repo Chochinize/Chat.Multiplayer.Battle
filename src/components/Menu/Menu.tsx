@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { actionCreators,State } from '../../state';
-import { joinRoom } from './../../API_Call/apiCall'
+import { JoinMainRoom, ExitMainRoom } from './../../API_Call/apiCall'
 
 
 
@@ -24,7 +24,20 @@ const effectRan = useRef(false)
 useEffect(()=>{
 
 
+    // if(effectRan.current === false){
+    //     const fetchUsers = async () => {
+    //         const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    //         const json = await response.json()
+    //         console.log(json)
 
+            
+    //     }
+    //     fetchUsers()
+    //     return ()=>{  
+    //         console.log('unmounted')
+    //         effectRan.current = true
+    //     }
+    // }
 
 
 
@@ -39,20 +52,22 @@ useEffect(()=>{
     const amount = useSelector((state:State)=>state.bank)
 
 
-    console.log(amount)
+    
+    const  id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
 
     const wConnect = () => {
-        const  id = Math.floor(Math.random() * Math.floor(Math.random() * Date.now()))
+        
+       
         const frontclient = new ws('ws://localhost:5050'); //  Initialize  the client
-        console.log(frontclient)
+        
 
+        JoinMainRoom(id)
         setClient(frontclient)
         navigate("/room", { replace: true });
         console.log('you are connectet')
-        join(id)
+        
         
     }
-    joinRoom('sssssss')
 
     useEffect(() => {
         if (!client) return
@@ -67,6 +82,8 @@ useEffect(()=>{
 
     const wDisconnect = () => {
         client && client.close()
+        ExitMainRoom(id)
+        
         console.log('disconnect')
         navigate('/',{replace:true})
         setClient(null)

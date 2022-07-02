@@ -27,11 +27,11 @@ export const bankrupt = ()=>{
     }
 }
 
-export const join = (amount:number)=>{
+export const join = (id:number)=>{
     return (dispatch:Dispatch<Action>) =>{
         dispatch({
             type:ActionType.JOIN,
-            payload:amount
+            payload:id
         })
     }
 }

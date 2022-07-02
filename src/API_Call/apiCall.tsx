@@ -1,13 +1,27 @@
+import axios from "axios";
+export const JoinMainRoom = async (playerID: any) => {
+    try {
+        const res = await axios.post("/joinMainRoom",{playerID});
+        console.log(res)
+    } catch (err) {
+        console.log(err)
 
-export const  joinRoom= async(playerID:string)=>{
-    const response= await fetch('http://localhost:5050/',{
-        method:'POST',
-        mode:'no-cors',
-        headers:{'Content-Type':'application/json'},
-        body:'some very long string',
+    }
+};
 
-    })
-    const res = await response.json()
-    console.log(res)
-    return res
+export const ExitMainRoom = async (playerID: any) => {
+    try {
+        const res = await axios.post('/exitMainRoom', { playerID })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getPlayers = async()=>{
+    try {
+        const getPlayers = await axios.get('/getPlayers')
+        return  getPlayers;
+    } catch (error) {
+        
+    }
 }
