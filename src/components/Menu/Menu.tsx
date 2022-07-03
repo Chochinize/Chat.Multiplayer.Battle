@@ -20,13 +20,16 @@ interface Isocket {
 const Menu = () => {
 
 
-    const [cookies, setCookie] = useCookies(["user"]);
+    const [cookies, setCookie, removeCookie] = useCookies(["UID"]);
 
-    function handleCookie() {
-      setCookie("user", "gowtham", {
+    function handleCookie(arg:number) {
+      setCookie("UID", arg, {
         path: "/"
       });
-    }                       
+    }    
+    function handleRemoveCookie() {
+        removeCookie("UID");
+      }                   
 
     const effectRan = useRef(false)
 
@@ -63,6 +66,7 @@ const Menu = () => {
     const wConnect = () => {
         const frontclient = new ws('ws://localhost:5050'); //  Initialize  the client
         JoinMainRoom(id)
+        handleCookie(id)
         setClient(frontclient)
         navigate("/room", { replace: true });
         console.log('you are connectet')
@@ -78,7 +82,7 @@ const Menu = () => {
     const wDisconnect = () => {
         client && client.close()
         ExitMainRoom(id)
-
+        removeCookie('UID');
         console.log('disconnect')
         navigate('/', { replace: true })
         setClient(null)
@@ -86,6 +90,7 @@ const Menu = () => {
     return (
         <div className='w-full h-1/4'>
             <div className='flex flex-col gap-4 justify-center border-2 h-full '>
+                {cookies.UID}
                 <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 mx-24 rounded-md absolute top-2'}`}>Connect</button>
                 <button onClick={() => wDisconnect()} className={`${!client ? 'hidden' : 'bg-red-200 mx-24 rounded-md absolute top-2'}`}>Disconect</button>
             </div>
