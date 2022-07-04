@@ -46,6 +46,7 @@ const MainRoom = () => {
     amount.users?.send(JSON.stringify({
       type: 'subscribeToChannel',
       name: user.name,
+      id:Math.floor(Math.random()*1010)
     }))
   };
   const LeaveRoom = () => {
@@ -60,8 +61,12 @@ const MainRoom = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
+  // console.log(msg)
+  // console.log(amount.players.data.players[0].users.map((i:any)=>i.name))
+
   return (
-    <div className='w-full h-full flex flex-col m-auto gap-5  text-xs  border-2 relative '>
+    <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
       {amount.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
         <input disabled={userJoinned ? true : false}
           type="text"
@@ -73,26 +78,26 @@ const MainRoom = () => {
         />
         {userJoinned ? <button onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button> : <button onClick={() => JoinRoom()} className='border-2 p-2 hover:bg-slate-50'>Join Room</button>}
       </div>) : ''}
-      <div className=' relative h-[50vh] w-full overflow-x-auto'>
-        <h1 className='text-center text-[1.5vw] relative top-2 '>Players</h1>
-        <div className='relative border-2  top-10'>
+      <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
+      <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
+        <div className='relative    top-10'>
           {amount.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
-            <li className='flex items-center'>
-              {player}
+            <li className='flex items-center  m-2  '>
+              {player.name}
             </li>
             <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2'>
               invite player
             </li>
           </div>)}
           {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
-            <li className='flex items-center'>
+            <li className='flex items-center  m-2 '>
               {item}
             </li>
             <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2'>
               invite player
             </li>
           </div>)}
-          
+
 
 
         </div>

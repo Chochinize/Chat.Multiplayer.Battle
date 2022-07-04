@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
  
   content: ["./src/**/*.{js,jsx,tsx}"],
@@ -20,6 +21,9 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {},
+    fontFamily:{
+      'Dongle':['Dongle', 'sans-serif']
+    }
   },
   plugins: [],
 }
