@@ -12,7 +12,11 @@ interface BankruptAction {
 }
 interface JoinPlayerAction {
     type:ActionType.JOIN,
-    payload:number
+    payload:any
 
 }
-export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction
+interface GetPlayerAction {
+    type:ActionType.PLAYERS,
+    payload:any
+}
+export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction | GetPlayerAction

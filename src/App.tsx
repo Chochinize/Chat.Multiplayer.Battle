@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
 import Layout from './components/Layout';
 import Room from './components/Room/Room';
 import axios from "axios";
+import MainRoom from './components/Room/MainRoom';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route path="room" element={<Room />} />
+          <Route path="mainroom" element={<MainRoom />} />
         </Route>
       </Routes>
     </div>

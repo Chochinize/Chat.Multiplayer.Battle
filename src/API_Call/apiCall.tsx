@@ -25,3 +25,12 @@ export const getPlayers = async()=>{
         
     }
 }
+
+export const Cookies =async () => {
+    try {
+        const sendCookie = await axios.get('/')
+        return sendCookie
+    } catch (error) {
+        console.log(error)
+    }
+}

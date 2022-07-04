@@ -27,7 +27,7 @@ export const bankrupt = ()=>{
     }
 }
 
-export const join = (id:number)=>{
+export const join = (id:any)=>{
     return (dispatch:Dispatch<Action>) =>{
         dispatch({
             type:ActionType.JOIN,
@@ -35,3 +35,15 @@ export const join = (id:number)=>{
         })
     }
 }
+
+export const playersJoinned = (id:any)=>{
+    return (dispatch:Dispatch<Action>) =>{
+        dispatch({
+            type:ActionType.PLAYERS,
+            payload:id
+        })
+    }
+}
+
+
+
