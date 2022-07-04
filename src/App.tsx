@@ -12,7 +12,7 @@ function App() {
   axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_BASEURL : process.env.REACT_APP_PROD_BASEURL;
   axios.defaults.withCredentials = true;
   return (
-    <div className="border-2 border-black w-[70vw]  h-[70vh] m-auto relative top-[20vh] ">
+    <div className="border-2 border-black w-[99vw]  h-[80vh] m-auto relative top-[10vh] ">
 
       <Routes>
         <Route path='/' element={<Layout />}>
