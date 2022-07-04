@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { State } from '../../state';
 import { useNavigate } from "react-router-dom";
 import { IUser } from '../interfaces/IUser'
+import { useCookies } from 'react-cookie';
+
 
 
 
@@ -12,7 +14,7 @@ const MainRoom = () => {
   const amount = useSelector((state: State) => state.bank)
   const [userJoinned, setUserJoinned] = useState(false)
   const [user, setUser] = useState<IUser>({ name: '' })
-
+  const [ cookie, setCookies ] = useCookies(['UID']) 
   const navigate = useNavigate()
   useEffect(() => {
     if (amount.users.length == 0) {
@@ -40,15 +42,16 @@ const MainRoom = () => {
     //     console.log('Websocket close')
     // }
   }, [amount.users])
-
   const JoinRoom = () => {
+    const randomID = Math.floor(Math.random()*1000)
     setUserJoinned(true)
     amount.users?.send(JSON.stringify({
       type: 'subscribeToChannel',
       name: user.name,
-      id:Math.floor(Math.random()*1010)
+      id:   randomID
     }))
   };
+
   const LeaveRoom = () => {
     setUserJoinned(false)
     setMsg(msg => msg.filter(x => x !== user.name))
@@ -62,8 +65,7 @@ const MainRoom = () => {
     setUser({ ...user, [name]: value });
   };
 
-  // console.log(msg)
-  // console.log(amount.players.data.players[0].users.map((i:any)=>i.name))
+ 
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
@@ -73,7 +75,7 @@ const MainRoom = () => {
           name="name"
           required
           placeholder="Your Name"
-          className=" placeholder-shadow-xl outline-none text-center border-b-2"
+          className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
           onChange={onChangeInput}
         />
         {userJoinned ? <button onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button> : <button onClick={() => JoinRoom()} className='border-2 p-2 hover:bg-slate-50'>Join Room</button>}

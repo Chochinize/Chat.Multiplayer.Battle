@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { actionCreators, } from '../../state';
 import { getPlayers } from '../../API_Call/apiCall'
 import { ISocket } from '../interfaces/ISocket'
-
+import { useCookies } from 'react-cookie';
 
 const websocketURL:any =
 process.env.NODE_ENV == "development"
@@ -16,7 +16,7 @@ process.env.NODE_ENV == "development"
 
   console.log(websocketURL)
 const Menu = () => {
-    
+    const [ cookie, setCookies ] = useCookies(['UID']) 
     const dispatch = useDispatch()
     const {  join, playersJoinned } = bindActionCreators(actionCreators, dispatch)
     const [client, setClient] = useState<ISocket | null>()
@@ -35,9 +35,11 @@ const Menu = () => {
             }
         }
     }, [client])
+    const randomID = Math.floor(Math.random()*1000)
     const wConnect = () => {
         const frontclient = new ws(websocketURL); //  Initialize  the client
-        navigate('/mainroom', { replace: true })
+        navigate(`/mainroom/${randomID}`, { replace: true })
+        setCookies('UID',randomID);
         join(frontclient)
         setClient(frontclient)
         console.log('you are connectet')
