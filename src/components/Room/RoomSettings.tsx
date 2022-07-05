@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect,useRef } from 'react'
 import { State } from '../../state';
 import { useSelector } from 'react-redux'
 const RoomSettings = () => {
@@ -6,8 +6,11 @@ const RoomSettings = () => {
 
  
     const client = useSelector((state: State) => state.bank)
+    const effectRan = useRef(false)
 
-    console.log(client.players.data?.players[0].users)
+    useEffect(() => {
+        console.log(client.users)
+    },[])
 
     return (
     <>

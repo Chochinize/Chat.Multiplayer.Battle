@@ -12,32 +12,13 @@ const websocketURL:any =
 process.env.NODE_ENV == "development"
   ? process.env.REACT_APP_DEV_WEBSOCKET
   : process.env.REACT_APP_PROD_WEBSOCKET;
-
-
-
 const Menu = () => {
     const [ cookie, setCookies ] = useCookies(['UID']) 
     const dispatch = useDispatch()
     const {  joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
     const [client, setClient] = useState<ISocket | null>()
     let navigate = useNavigate();
-    const effectRan = useRef(false)
-    // useEffect(() => {
-    //     if (effectRan.current === false) {
-    //         const fetchPlayers = async () => {
-    //             let players = await getPlayers()
-
-    //             playersJoinned(players)
-    //         }
-    //         fetchPlayers()
-    //         return () => {
-    //             effectRan.current = true
-    //         }
-    //     }
-    // }, [client])
-    
-
-    
+    const effectRan = useRef(false)    
     useEffect(()=>{
         if(cookie.UID) {
             navigate(`/mainroom/${cookie.UID}`)

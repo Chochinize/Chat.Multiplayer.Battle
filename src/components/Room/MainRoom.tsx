@@ -52,19 +52,21 @@ const MainRoom = () => {
       navigate('/', { replace: true })
 
     }
+
+    
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
 
-        console.log('from server', dataFromServer)
+        // console.log('from server', dataFromServer)
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
-            console.log('datichka', dataFromServer)
+            // console.log('datichka', dataFromServer)
             break;
           case 'unsubscribe':
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
-            console.log('dati', dataFromServer)
+            // console.log('dati', dataFromServer)
             break;
         }
       }
