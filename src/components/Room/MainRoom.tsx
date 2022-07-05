@@ -27,7 +27,6 @@ const MainRoom = () => {
   const { join, playersJoinned } = bindActionCreators(actionCreators, dispatch)
 
 
-
   //   useEffect(() => {
   //     if (compareID.current === false) {
   //         const fetchPlayers = async () => {
@@ -47,14 +46,14 @@ const MainRoom = () => {
     console.log('run once')
     const fetchPlayers = async () => {
       let playersID = await axios.get('/getPlayers')
-      console.log('compare ID', playersID.data.players[0].users[0].id)
+      // console.log('compare ID', playersID.data?.players[0].users[0]?.id)
     
 
     }
     fetchPlayers()
 
   }, [userJoinned])
-  console.log(userJoinned)
+  
 
   useEffect(() => {
     if (client.users.length == 0) {
@@ -73,7 +72,7 @@ const MainRoom = () => {
             console.log('datichka', dataFromServer)
             break;
           case 'unsubscribe':
-            setMsg(msg => msg.filter(x => x !== dataFromServer.payload))
+            setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
             console.log('dati', dataFromServer)
             break;
         }
@@ -92,13 +91,15 @@ const MainRoom = () => {
       id: paramsID
     }))
   };
-
+  
+  // console.log('filtered message', msg.filter(x=> x.id == 496 && x.payload == 'rori'))
   const LeaveRoom = () => {
     setUserJoinned(false)
-    setMsg(msg => msg.filter(x => x !== user.name))
+    setMsg(msg => msg.filter(x => x.payload !== user.name ))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
+      id:paramsID
     }))
   }
   const onChangeInput = (e: any) => {
