@@ -35,7 +35,7 @@ const Menu = () => {
             }
         }
     }, [client])
-    console.log(cookie.UID)
+    
     useEffect(()=>{
         if(cookie.UID) {
             navigate(`/mainroom/${cookie.UID}`)
