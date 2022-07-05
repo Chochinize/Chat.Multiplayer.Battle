@@ -27,10 +27,10 @@ export const bankrupt = ()=>{
     }
 }
 
-export const join = (id:any)=>{
+export const joinUser = (id:any)=>{
     return (dispatch:Dispatch<Action>) =>{
         dispatch({
-            type:ActionType.JOIN,
+            type:ActionType.USERS,
             payload:id
         })
     }
@@ -45,13 +45,12 @@ export const playersJoinned = (id:any)=>{
     }
 }
 
-export const rejoin = (id:string)=>{
+export const inviteUser = (id:any)=>{
     return(dispatch:Dispatch<Action>)=>{
         dispatch({
-            type:ActionType.REJOIN,
+            type:ActionType.MODALS,
             payload:id
         })
     }
 }
-
 

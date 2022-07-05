@@ -14,11 +14,11 @@ process.env.NODE_ENV == "development"
   : process.env.REACT_APP_PROD_WEBSOCKET;
 
 
-  console.log(websocketURL)
+
 const Menu = () => {
     const [ cookie, setCookies ] = useCookies(['UID']) 
     const dispatch = useDispatch()
-    const {  join, playersJoinned } = bindActionCreators(actionCreators, dispatch)
+    const {  joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
     const [client, setClient] = useState<ISocket | null>()
     let navigate = useNavigate();
     const effectRan = useRef(false)
@@ -36,6 +36,8 @@ const Menu = () => {
         }
     }, [client])
     
+
+    
     useEffect(()=>{
         if(cookie.UID) {
             navigate(`/mainroom/${cookie.UID}`)
@@ -46,7 +48,7 @@ const Menu = () => {
         const frontclient = new ws(websocketURL); //  Initialize  the client
         navigate(`/mainroom/${randomID}`, { replace: true })
         setCookies('UID',randomID,{ path: `/mainroom/${randomID}` });
-        join(frontclient)
+        joinUser(frontclient)
         setClient(frontclient)
         console.log('you are connectet')
         console.log('status',)

@@ -11,7 +11,7 @@ interface BankruptAction {
     type:ActionType.BANKRUPT
 }
 interface JoinPlayerAction {
-    type:ActionType.JOIN,
+    type:ActionType.USERS,
     payload:any
 
 }
@@ -19,8 +19,15 @@ interface GetPlayerAction {
     type:ActionType.PLAYERS,
     payload:any
 }
-interface RejoinPlayerAction{
-    type:ActionType.REJOIN,
-    payload:string
+
+interface InvitePlayerAction {
+    type:ActionType.MODALS,
+    payload:boolean
 }
-export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction | GetPlayerAction | RejoinPlayerAction
+export type Action = 
+DepositAction |
+WithdrawAction|
+BankruptAction|
+JoinPlayerAction|
+GetPlayerAction|
+InvitePlayerAction

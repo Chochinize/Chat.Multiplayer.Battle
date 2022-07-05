@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux'
 import { actionCreators, } from '../../state';
 import axios from 'axios'
+import RoomSettings from './RoomSettings';
 
 
 
@@ -24,8 +25,8 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { join, playersJoinned, rejoin } = bindActionCreators(actionCreators, dispatch)
-  
+  const { inviteUser, joinUser } = bindActionCreators(actionCreators, dispatch)
+
 
 
 
@@ -34,18 +35,11 @@ const MainRoom = () => {
     console.log('run once')
     const fetchPlayers = async () => {
       let playersID = await axios.get('/getPlayers')
-      console.log('compare ID', playersID.data?.players[0].users[0]?.id)
-      const game:any = {
-        game:'martincho'
-      }
-      rejoin(game)
-  console.log(client)  
-
+      // console.log('compare ID', playersID.data?.players[0].users.find((num: any) => num.id = paramsID))
     }
     fetchPlayers()
-
   }, [userJoinned])
-  
+
 
   useEffect(() => {
     if (client.users.length == 0) {
@@ -75,6 +69,8 @@ const MainRoom = () => {
     //     console.log('Websocket close')
     // }
   }, [client.users])
+
+  console.log(client)
   const JoinRoom = () => {
     setUserJoinned(true)
     client.users?.send(JSON.stringify({
@@ -83,15 +79,15 @@ const MainRoom = () => {
       id: paramsID
     }))
   };
-  
+
   // console.log('filtered message', msg.filter(x=> x.id == 496 && x.payload == 'rori'))
   const LeaveRoom = () => {
     setUserJoinned(false)
-    setMsg(msg => msg.filter(x => x.payload !== user.name ))
+    setMsg(msg => msg.filter(x => x.payload !== user.name))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
-      id:paramsID
+      id: paramsID
     }))
   }
   const onChangeInput = (e: any) => {
@@ -120,30 +116,31 @@ const MainRoom = () => {
       </div>)
         :
         ''}
+
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
-          {client.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
+          {/* {client.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
             <ul className='flex items-center  m-2  '>
               <li>{player.name}</li>
               <li className='ml-1'>#{player.id}</li>
-              
-              
             </ul>
-            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2'>
+            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
               invite player
             </li>
-          </div>)}
+          </div>)} */}
+          <RoomSettings/>
+
           {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
-            <ul className='flex items-center  m-2 '>
+            <ul className='flex items-center  m-2 ' >
               <li className=''>
                 {item.payload}
               </li>
-              <li className='ml-1'> 
-              #{item.id}
+              <li className='ml-1'>
+                #{item.id}
               </li>
             </ul>
-            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2'>
+            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
               invite player
             </li>
           </div>)}

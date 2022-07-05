@@ -1,8 +1,8 @@
 export enum ActionType{
-    REJOIN = 'rejoin',
-    JOIN = 'join',
+    USERS = 'users',
     PLAYERS = 'players',
     DEPOSIT= 'deposit',
     WITHDRAW = 'withdraw',
     BANKRUPT = 'bankrupt',
+    MODALS = 'modals'
 }
