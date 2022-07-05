@@ -101,7 +101,6 @@ const MainRoom = () => {
           </div>)}
 
 
-
         </div>
       </div>
 
