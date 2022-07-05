@@ -24,30 +24,22 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { join, playersJoinned } = bindActionCreators(actionCreators, dispatch)
+  const { join, playersJoinned, rejoin } = bindActionCreators(actionCreators, dispatch)
+  
 
 
-  //   useEffect(() => {
-  //     if (compareID.current === false) {
-  //         const fetchPlayers = async () => {
-  //             let playersID = await axios.get('/getPlayers')
-  //             console.log('compare ID',playersID)
-
-  //         }
-  //         fetchPlayers()
-  //         return () => {
-  //           compareID.current = true
-  //         }
-  //     }
-  // }, [])
 
 
   useEffect(() => {
     console.log('run once')
     const fetchPlayers = async () => {
       let playersID = await axios.get('/getPlayers')
-      // console.log('compare ID', playersID.data?.players[0].users[0]?.id)
-    
+      console.log('compare ID', playersID.data?.players[0].users[0]?.id)
+      const game:any = {
+        game:'martincho'
+      }
+      rejoin(game)
+  console.log(client)  
 
     }
     fetchPlayers()

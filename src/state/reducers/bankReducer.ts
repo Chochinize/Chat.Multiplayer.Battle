@@ -4,7 +4,7 @@ import { Action } from '../actions/index'
 
 
 const initialState = {
-    users:[],players:[],joinnedPlayers:[]
+    users:[],players:[],joinnedPlayers:[],rejoinPlayer:{}
 }
 
 
@@ -19,6 +19,11 @@ const reducer = (state: any = initialState, action:Action)=>{
             return{
                 ...state,
                 players:action.payload
+            }
+        case ActionType.REJOIN:
+            return{
+                ...state,
+                rejoinPlayer:action.payload
             }
         default:
             return state 

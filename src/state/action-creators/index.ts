@@ -45,5 +45,13 @@ export const playersJoinned = (id:any)=>{
     }
 }
 
+export const rejoin = (id:string)=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.REJOIN,
+            payload:id
+        })
+    }
+}
 
 

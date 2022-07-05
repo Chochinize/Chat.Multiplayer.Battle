@@ -19,4 +19,8 @@ interface GetPlayerAction {
     type:ActionType.PLAYERS,
     payload:any
 }
-export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction | GetPlayerAction
+interface RejoinPlayerAction{
+    type:ActionType.REJOIN,
+    payload:string
+}
+export type Action = DepositAction | WithdrawAction | BankruptAction | JoinPlayerAction | GetPlayerAction | RejoinPlayerAction
