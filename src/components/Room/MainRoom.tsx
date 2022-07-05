@@ -27,7 +27,7 @@ const MainRoom = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
-
+  const [findName , setFindName ] = useState<IUser>({name:''})
 
 
 
@@ -114,37 +114,27 @@ const MainRoom = () => {
       }
   }
   },[])
+  useEffect(()=>{
+    if(cookie.UID && !user.name){
+      const refreshName = client.players.data?.players
+      console.log(refreshName)
+      
 
 
+    }
+  },[])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-console.log(user.name)
-
+ 
+  
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
-
       {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
         <input disabled={userJoinned ? true : false}
           type="text"
           name='name'
+          value={user.name || findName.name}
           required
-         
+          placeholder='Ýour Name'
           className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
           onChange={onChangeInput}
         />
@@ -160,15 +150,6 @@ console.log(user.name)
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
-          {/* {client.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
-            <ul className='flex items-center  m-2  '>
-              <li>{player.name}</li>
-              <li className='ml-1'>#{player.id}</li>
-            </ul>
-            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
-              invite player
-            </li>
-          </div>)} */}
           <RoomSettings/>
 
           {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
