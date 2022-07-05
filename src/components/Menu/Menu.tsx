@@ -22,19 +22,19 @@ const Menu = () => {
     const [client, setClient] = useState<ISocket | null>()
     let navigate = useNavigate();
     const effectRan = useRef(false)
-    useEffect(() => {
-        if (effectRan.current === false) {
-            const fetchPlayers = async () => {
-                let players = await getPlayers()
+    // useEffect(() => {
+    //     if (effectRan.current === false) {
+    //         const fetchPlayers = async () => {
+    //             let players = await getPlayers()
 
-                playersJoinned(players)
-            }
-            fetchPlayers()
-            return () => {
-                effectRan.current = true
-            }
-        }
-    }, [client])
+    //             playersJoinned(players)
+    //         }
+    //         fetchPlayers()
+    //         return () => {
+    //             effectRan.current = true
+    //         }
+    //     }
+    // }, [client])
     
 
     
@@ -50,8 +50,6 @@ const Menu = () => {
         setCookies('UID',randomID,{ path: `/mainroom/${randomID}` });
         joinUser(frontclient)
         setClient(frontclient)
-        console.log('you are connectet')
-        console.log('status',)
     }
     return (
         <div className='w-max flex flex-col m-auto gap-5  text-xs '>

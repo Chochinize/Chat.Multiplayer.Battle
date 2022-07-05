@@ -8,8 +8,8 @@ import { useParams } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux'
 import { actionCreators, } from '../../state';
-import axios from 'axios'
 import RoomSettings from './RoomSettings';
+import { getPlayers } from '../../API_Call/apiCall'
 
 
 
@@ -18,6 +18,7 @@ const MainRoom = () => {
 
   const paramsID = useParams().id;
   const compareID = useRef(false)
+  const effectRan = useRef(false)
   const [msg, setMsg] = useState<any[]>([])
   const client = useSelector((state: State) => state.bank)
   const [userJoinned, setUserJoinned] = useState(false)
@@ -25,20 +26,24 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser } = bindActionCreators(actionCreators, dispatch)
-
+  const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
 
 
 
 
   useEffect(() => {
-    console.log('run once')
-    const fetchPlayers = async () => {
-      let playersID = await axios.get('/getPlayers')
-      // console.log('compare ID', playersID.data?.players[0].users.find((num: any) => num.id = paramsID))
+    if (effectRan.current === false) {
+        const fetchPlayers = async () => {
+            let players = await getPlayers()
+
+            playersJoinned(players)
+        }
+        fetchPlayers()
+        return () => {
+            effectRan.current = true
+        }
     }
-    fetchPlayers()
-  }, [userJoinned])
+}, [client])
 
 
   useEffect(() => {
@@ -70,7 +75,7 @@ const MainRoom = () => {
     // }
   }, [client.users])
 
-  console.log(client)
+
   const JoinRoom = () => {
     setUserJoinned(true)
     client.users?.send(JSON.stringify({
