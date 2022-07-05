@@ -9,7 +9,7 @@ const RoomSettings = () => {
     const effectRan = useRef(false)
 
     useEffect(() => {
-        console.log(client.users)
+        
     },[])
 
     return (

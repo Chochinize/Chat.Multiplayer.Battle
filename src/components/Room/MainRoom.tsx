@@ -45,7 +45,7 @@ const MainRoom = () => {
     }
 }, [client])
 
-
+  
   useEffect(() => {
     if (client.users.length == 0) {
       setMsg([])
@@ -53,7 +53,7 @@ const MainRoom = () => {
 
     }
 
-    
+
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
@@ -62,11 +62,11 @@ const MainRoom = () => {
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
-            // console.log('datichka', dataFromServer)
+            console.log('datichka', dataFromServer)
             break;
           case 'unsubscribe':
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
-            // console.log('dati', dataFromServer)
+            console.log('dati', dataFromServer)
             break;
         }
       }
@@ -87,7 +87,7 @@ const MainRoom = () => {
     }))
   };
 
-  // console.log('filtered message', msg.filter(x=> x.id == 496 && x.payload == 'rori'))
+
   const LeaveRoom = () => {
     setUserJoinned(false)
     setMsg(msg => msg.filter(x => x.payload !== user.name))
@@ -102,16 +102,49 @@ const MainRoom = () => {
     setUser({ ...user, [name]: value });
   };
 
+  useEffect(()=>{
+    if (effectRan.current === false) {
+      if(cookie.UID){
+        console.log(cookie.UID)
+        console.log(userJoinned)
+        setUserJoinned(true)
+      }
+      return () => {
+          effectRan.current = true
+      }
+  }
+  },[])
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+console.log(user.name)
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
+
       {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
         <input disabled={userJoinned ? true : false}
           type="text"
-          name="name"
+          name='name'
           required
-          placeholder="Your Name"
+         
           className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
           onChange={onChangeInput}
         />
