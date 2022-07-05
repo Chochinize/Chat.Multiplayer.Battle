@@ -1,29 +1,60 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { State } from '../../state';
 import { useNavigate } from "react-router-dom";
 import { IUser } from '../interfaces/IUser'
 import { useCookies } from 'react-cookie';
-
+import { useParams } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux'
+import { actionCreators, } from '../../state';
+import axios from 'axios'
 
 
 
 
 const MainRoom = () => {
+
+  const paramsID = useParams().id;
+  const compareID = useRef(false)
+  console.log('PARAMETUR', paramsID)
   const [msg, setMsg] = useState<any[]>([])
-  const amount = useSelector((state: State) => state.bank)
+  const client = useSelector((state: State) => state.bank)
   const [userJoinned, setUserJoinned] = useState(false)
   const [user, setUser] = useState<IUser>({ name: '' })
   const [ cookie, setCookies ] = useCookies(['UID']) 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {  join, playersJoinned } = bindActionCreators(actionCreators, dispatch)
+
+
+
+//   useEffect(() => {
+//     if (compareID.current === false) {
+//         const fetchPlayers = async () => {
+//             let playersID = await axios.get('/getPlayers')
+//             console.log('compare ID',playersID)
+
+//         }
+//         fetchPlayers()
+//         return () => {
+//           compareID.current = true
+//         }
+//     }
+// }, [])
+
+
+
+
+
   useEffect(() => {
-    if (amount.users.length == 0) {
+    if (client.users.length == 0) {
       setMsg([])
       navigate('/', { replace: true })
 
     }
-    amount.users.onopen = () => {
-      amount.users.onmessage = (message: any) => {
+    client.users.onopen = () => {
+      client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
         switch (dataFromServer.type) {
           case 'subscribe':
@@ -41,21 +72,20 @@ const MainRoom = () => {
     //     client.close();
     //     console.log('Websocket close')
     // }
-  }, [amount.users])
+  }, [client.users])
   const JoinRoom = () => {
-    const randomID = Math.floor(Math.random()*1000)
     setUserJoinned(true)
-    amount.users?.send(JSON.stringify({
+    client.users?.send(JSON.stringify({
       type: 'subscribeToChannel',
       name: user.name,
-      id:   randomID
+      id:   paramsID
     }))
   };
 
   const LeaveRoom = () => {
     setUserJoinned(false)
     setMsg(msg => msg.filter(x => x !== user.name))
-    amount.users?.send(JSON.stringify({
+    client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
     }))
@@ -69,7 +99,7 @@ const MainRoom = () => {
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
-      {amount.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
+      {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
         <input disabled={userJoinned ? true : false}
           type="text"
           name="name"
@@ -83,7 +113,7 @@ const MainRoom = () => {
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
-          {amount.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
+          {client.players.data?.players[0].users.map((player: any, i: any) => <div key={i} className='list-none border-b-2 m-2 flex justify-between mx-4' >
             <li className='flex items-center  m-2  '>
               {player.name}
             </li>
