@@ -8,6 +8,7 @@ import { getPlayers } from '../../API_Call/apiCall'
 import { ISocket } from '../interfaces/ISocket'
 import { useCookies } from 'react-cookie';
 
+const randomID = Math.floor(Math.random()*1000)
 const websocketURL:any =
 process.env.NODE_ENV == "development"
   ? process.env.REACT_APP_DEV_WEBSOCKET
@@ -25,7 +26,6 @@ const Menu = () => {
         }   
     },[client])
     const wConnect = () => {
-        const randomID = Math.floor(Math.random()*1000)
         const frontclient = new ws(websocketURL); //  Initialize  the client
         navigate(`/mainroom/${randomID}`, { replace: true })
         setCookies('UID',randomID,{ path: `/mainroom/${randomID}` });

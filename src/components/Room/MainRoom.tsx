@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { State } from '../../state';
 import { useNavigate } from "react-router-dom";
-import { IUser } from '../interfaces/IUser'
+import { IUser, IFX } from '../interfaces/IUser'
 import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -19,6 +19,7 @@ const MainRoom = () => {
   const paramsID = useParams().id;
   const compareID = useRef(false)
   const effectRan = useRef(false)
+
   const [msg, setMsg] = useState<any[]>([])
   const client = useSelector((state: State) => state.bank)
   const [userJoinned, setUserJoinned] = useState(false)
@@ -27,7 +28,7 @@ const MainRoom = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
-  const [findName , setFindName ] = useState<IUser>({name:''})
+  const [findName , setFindName ] = useState<IFX>({founded:''})
 
 
 
@@ -88,9 +89,10 @@ const MainRoom = () => {
   };
 
 
-  const LeaveRoom = () => {
+  const LeaveRoom =() => {
     setUserJoinned(false)
-    setMsg(msg => msg.filter(x => x.payload !== user.name))
+    console.log(msg)
+    setMsg(msg => msg.filter(x => x.payload !== user.name && x.id !== cookie.UID ))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
@@ -102,37 +104,31 @@ const MainRoom = () => {
     setUser({ ...user, [name]: value });
   };
 
+
   useEffect(()=>{
-    if (effectRan.current === false) {
-      if(cookie.UID){
-        console.log(cookie.UID)
-        console.log(userJoinned)
-        setUserJoinned(true)
-      }
-      return () => {
+      if (effectRan.current === false) {
+     const index  = client.players.data?.players[0].users.find((findIndex:any)=> findIndex.id === cookie.UID)
+        console.log('passende',index?.id, index?.name)
+        console.log(index)
+        // setFindName({founded:index?.name})
+        return () => {
           effectRan.current = true
-      }
+        }
   }
   },[])
-  useEffect(()=>{
-    if(cookie.UID && !user.name){
-      const refreshName = client.players.data?.players
-      console.log(refreshName)
-      
 
 
-    }
-  },[])
 
- 
-  
+
+
+
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
       {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
         <input disabled={userJoinned ? true : false}
           type="text"
           name='name'
-          value={user.name || findName.name}
+          value={user.name || findName?.founded }
           required
           placeholder='Ýour Name'
           className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
@@ -165,7 +161,7 @@ const MainRoom = () => {
               invite player
             </li>
           </div>)}
-
+        
 
         </div>
       </div>

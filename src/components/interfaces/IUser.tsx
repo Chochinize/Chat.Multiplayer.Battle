@@ -1,3 +1,8 @@
 export interface IUser {
-    name:string
+    name:string;
+    
+}
+
+export interface IFX {
+    founded:string
 }
