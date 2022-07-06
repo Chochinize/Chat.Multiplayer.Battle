@@ -39,6 +39,7 @@ const Menu = () => {
             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-2 mx-24 rounded-md m-auto  '}`}>Reconnect</button> 
             :
              <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 p-2 mx-24 rounded-md m-auto  '}`}>Connect</button>}
+            
         </div>
     )
 }

@@ -92,7 +92,7 @@ const MainRoom = () => {
   const LeaveRoom =() => {
     setUserJoinned(false)
     console.log(msg)
-    setMsg(msg => msg.filter(x => x.payload !== user.name && x.id !== cookie.UID ))
+    setMsg(msg => msg.filter(x => x.payload !== user.name ))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
@@ -110,11 +110,12 @@ const MainRoom = () => {
      const index  = client.players.data?.players[0].users.find((findIndex:any)=> findIndex.id === cookie.UID)
         console.log('passende',index?.id, index?.name)
         console.log(index)
-        // setFindName({founded:index?.name})
+        setFindName({founded:index?.name})
         return () => {
           effectRan.current = true
         }
   }
+  console.log('run once')
   },[])
 
 
@@ -162,7 +163,7 @@ const MainRoom = () => {
             </li>
           </div>)}
         
-
+          {cookie.UID}
         </div>
       </div>
 
