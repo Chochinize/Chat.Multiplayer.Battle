@@ -29,9 +29,11 @@ const MainRoom = () => {
   const dispatch = useDispatch()
   const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
   const [findName , setFindName ] = useState<IFX>({founded:''})
+  const [ duplicateError, setDuplicateError] = useState(false)
+  // const busyUser = client.players.data?.players[0].users.some((e:any)=>e.name === user.name)
+  const busyUserMSG = msg
 
-
-
+console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
   useEffect(() => {
     if (effectRan.current === false) {
         const fetchPlayers = async () => {
@@ -79,7 +81,7 @@ const MainRoom = () => {
   }, [client.users])
 
 
-  const JoinRoom = () => {
+  const JoinRoom = () => { 
     setUserJoinned(true)
     client.users?.send(JSON.stringify({
       type: 'subscribeToChannel',
@@ -88,11 +90,11 @@ const MainRoom = () => {
     }))
   };
 
+  
 
   const LeaveRoom =() => {
     setUserJoinned(false)
-    console.log(msg)
-    setMsg(msg => msg.filter(x => x.payload !== user.name ))
+    setMsg(msg => msg.filter(x => x.payload !== user.name  ))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
@@ -108,20 +110,18 @@ const MainRoom = () => {
   useEffect(()=>{
       if (effectRan.current === false) {
      const index  = client.players.data?.players[0].users.find((findIndex:any)=> findIndex.id === cookie.UID)
-        console.log('passende',index?.id, index?.name)
-        console.log(index)
-        setFindName({founded:index?.name})
+        
+        // setFindName({founded:index?.name})
         return () => {
           effectRan.current = true
         }
   }
-  console.log('run once')
+  
   },[])
 
 
 
-
-
+  
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
@@ -137,13 +137,13 @@ const MainRoom = () => {
         />
         {userJoinned
           ?
-          <button onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
+          <button  onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
           :
-          <button onClick={() => JoinRoom()} className='border-2 p-2 hover:bg-slate-50'>Join Room</button>}
+          <button disabled={user.name.length === 0 ? true : false} onClick={() => JoinRoom()} className={`${user.name.length === 0 ? 'cursor-not-allowed' : '' } border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
       </div>)
         :
         ''}
-
+ {/* {busyUser ? 'Please choose another name' : ''} */}
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
@@ -163,7 +163,7 @@ const MainRoom = () => {
             </li>
           </div>)}
         
-          {cookie.UID}
+
         </div>
       </div>
 
