@@ -52,7 +52,7 @@ const MainRoom = () => {
 
 
 
-console.log(client)
+
 
   useEffect(() => {
 
@@ -75,7 +75,7 @@ console.log(client)
             
             break;
           case 'unsubscribe':
-            refreshPlayer(dataFromServer)
+            refreshPlayer(cookie.UID)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
             
             console.log('dati', dataFromServer)

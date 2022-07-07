@@ -27,7 +27,12 @@ const reducer = (state: any = initialState, action: Action) => {
         rejoinPlayer: action.payload,
       };
     case ActionType.REFRESH:
-      return {...state, players: state.players.filter((item:any)=> item.name !== action.payload.id ) }
+
+      return {...state, players: state.players.filter((item:any)=> { 
+          console.log('STATE FROM BANK', state)
+          console.log('ACTION FROM BANK', action)
+        return item.name !== action.payload
+      }) }
     default:
       return state;
   }
