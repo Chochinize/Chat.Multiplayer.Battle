@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef,useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { State } from '../../state';
 import { useNavigate } from "react-router-dom";
@@ -28,33 +28,34 @@ const MainRoom = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
-  const [findName , setFindName ] = useState<IFX>({founded:''})
-  const [ duplicateError, setDuplicateError] = useState(false)
-  // const busyUser = client.players.data?.players[0].users.some((e:any)=>e.name === user.name)
-  const busyUserMSG = msg
-
-console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
-  useEffect(() => {
-    if (effectRan.current === false) {
-        const fetchPlayers = async () => {
-            let players = await getPlayers()
-
-            playersJoinned(players)
-        }
-        fetchPlayers()
-        return () => {
-            effectRan.current = true
-        }
-    }
-}, [client])
+  const [findName, setFindName] = useState<IFX>({ founded: '' })
+  const [duplicateError, setDuplicateError] = useState(false)
 
   
-  useEffect(() => {
-    if (client.users.length == 0) {
-      setMsg([])
-      navigate('/', { replace: true })
 
+  useEffect(() => {
+    if (effectRan.current === false) {
+      const fetchPlayers = async () => {
+        let players = await getPlayers()
+
+        playersJoinned(players)
+      }
+      fetchPlayers()
+      return () => {
+        effectRan.current = true
+      }
     }
+  }, [client,playersJoinned])
+
+
+  useEffect(() => {
+    
+    if (client.users.length === 0) {
+      // setMsg([])
+      navigate('/', { replace: true })
+      
+    }
+    
 
 
     client.users.onopen = () => {
@@ -71,9 +72,10 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
             console.log('dati', dataFromServer)
             break;
+          }
         }
       }
-    }
+    
     // return () => {
     //     client.close();
     //     console.log('Websocket close')
@@ -81,7 +83,7 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
   }, [client.users])
 
 
-  const JoinRoom = () => { 
+  const JoinRoom = () => {
     setUserJoinned(true)
     client.users?.send(JSON.stringify({
       type: 'subscribeToChannel',
@@ -90,11 +92,11 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
     }))
   };
 
-  
 
-  const LeaveRoom =() => {
+
+  const LeaveRoom = () => {
     setUserJoinned(false)
-    setMsg(msg => msg.filter(x => x.payload !== user.name  ))
+    setMsg(msg => msg.filter(x => x.payload !== user.name))
     client.users?.send(JSON.stringify({
       type: 'unsubscribeToChannel',
       name: user.name,
@@ -107,21 +109,21 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
   };
 
 
-  useEffect(()=>{
-      if (effectRan.current === false) {
-     const index  = client.players.data?.players[0].users.find((findIndex:any)=> findIndex.id === cookie.UID)
-        
-        // setFindName({founded:index?.name})
-        return () => {
-          effectRan.current = true
-        }
-  }
-  
-  },[])
+  useEffect(() => {
+    if (effectRan.current === false) {
+      const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
+      // setFindName({founded:index?.name})
+      return () => {
+        effectRan.current = true
+      }
+    }
+    
+    
+  }, [])
 
 
 
-  
+
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
@@ -129,7 +131,7 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
         <input disabled={userJoinned ? true : false}
           type="text"
           name='name'
-          value={user.name || findName?.founded }
+          value={user.name || findName?.founded}
           required
           placeholder='Ýour Name'
           className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
@@ -137,17 +139,21 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
         />
         {userJoinned
           ?
-          <button  onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
+          <button onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
           :
-          <button disabled={user.name.length === 0 ? true : false} onClick={() => JoinRoom()} className={`${user.name.length === 0 ? 'cursor-not-allowed' : '' } border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
+          <button disabled={user.name.length === 0 ? true : false} onClick={() => JoinRoom()} className={`${user.name.length === 0 ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
       </div>)
         :
         ''}
- {/* {busyUser ? 'Please choose another name' : ''} */}
+      <div>
+
+          {duplicateError ? 'chppse new name' : ''}
+      </div>
+     {msg.some((e: any) => e.name === user.name)? 'choose new user name' : ''}
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
-          <RoomSettings/>
+          <RoomSettings />
 
           {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
             <ul className='flex items-center  m-2 ' >
@@ -162,7 +168,7 @@ console.log('bs',busyUserMSG.some((e:any)=>e.payload === user.name ))
               invite player
             </li>
           </div>)}
-        
+
 
         </div>
       </div>
