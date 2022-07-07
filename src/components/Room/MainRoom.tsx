@@ -56,12 +56,11 @@ const MainRoom = () => {
       
     }
     
-
-
+    
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
-
+        
         // console.log('from server', dataFromServer)
         switch (dataFromServer.type) {
           case 'subscribe':
@@ -112,18 +111,18 @@ const MainRoom = () => {
   useEffect(() => {
     if (effectRan.current === false) {
       const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
-      // setFindName({founded:index?.name})
+      
       return () => {
         effectRan.current = true
       }
     }
     
     
-  }, [])
+  }, [client.users])
 
 
 
-
+ 
 
   return (
     <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
@@ -137,6 +136,7 @@ const MainRoom = () => {
           className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
           onChange={onChangeInput}
         />
+        
         {userJoinned
           ?
           <button onClick={() => LeaveRoom()} className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
@@ -153,7 +153,7 @@ const MainRoom = () => {
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
-          <RoomSettings />
+          <RoomSettings /> 
 
           {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
             <ul className='flex items-center  m-2 ' >
