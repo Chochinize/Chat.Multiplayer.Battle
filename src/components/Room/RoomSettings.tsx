@@ -1,7 +1,7 @@
 import React, { useEffect,useRef } from 'react'
 import { State } from '../../state';
 import { useSelector } from 'react-redux'
-const RoomSettings = () => {
+export const RoomSettings = () => {
     
 
  
@@ -30,4 +30,3 @@ const RoomSettings = () => {
   )
 }
 
-export default RoomSettings

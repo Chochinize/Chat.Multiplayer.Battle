@@ -8,9 +8,10 @@ import { useParams } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux'
 import { actionCreators, } from '../../state';
-import RoomSettings from './RoomSettings';
+// import { RoomSettings } from './RoomSettings';
 import { getPlayers } from '../../API_Call/apiCall'
 import { JoinRoom, LeaveRoom } from '../ActionRoom'
+import {RoomSettings} from "./RoomSettings"
 
 
 
@@ -33,12 +34,12 @@ const MainRoom = () => {
   const [duplicateError, setDuplicateError] = useState(false)
 
 
-
+const [pla, setPla ] = useState<any>([])
   useEffect(() => {
     if (effectRan.current === false) {
       const fetchPlayers = async () => {
         let players = await getPlayers()
-
+        setPla(players)
         playersJoinned(players)
       }
       fetchPlayers()
@@ -47,6 +48,11 @@ const MainRoom = () => {
       }
     }
   }, [client, playersJoinned])
+  
+
+
+
+
 
 
   useEffect(() => {
@@ -57,7 +63,7 @@ const MainRoom = () => {
 
     }
 
-
+    
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
@@ -130,7 +136,7 @@ const MainRoom = () => {
 
         {duplicateError ? 'chppse new name' : ''}
       </div>
-      {msg.some((e: any) => e.name === user.name) ? 'choose new user name' : ''}
+      
       <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
       <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
         <div className='relative    top-10'>
@@ -149,8 +155,7 @@ const MainRoom = () => {
               invite player
             </li>
           </div>)}
-
-
+           
         </div>
       </div>
 

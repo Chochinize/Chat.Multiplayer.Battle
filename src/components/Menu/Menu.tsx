@@ -20,6 +20,9 @@ const Menu = () => {
     const [client, setClient] = useState<ISocket | null>()
     let navigate = useNavigate();
     const effectRan = useRef(false)    
+
+
+
     useEffect(()=>{
         if(cookie.UID) {
             navigate(`/mainroom/${cookie.UID}`)
