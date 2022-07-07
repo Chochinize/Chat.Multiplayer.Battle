@@ -34,12 +34,12 @@ const MainRoom = () => {
   const [duplicateError, setDuplicateError] = useState(false)
 
 
-const [pla, setPla ] = useState<any>([])
+
   useEffect(() => {
     if (effectRan.current === false) {
       const fetchPlayers = async () => {
         let players = await getPlayers()
-        setPla(players)
+      
         playersJoinned(players)
       }
       fetchPlayers()
