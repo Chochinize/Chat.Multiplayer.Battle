@@ -31,7 +31,9 @@ const reducer = (state: any = initialState, action: Action) => {
       return {...state, players: state.players.filter((item:any)=> { 
           console.log('STATE FROM BANK', state)
           console.log('ACTION FROM BANK', action)
-        return item.name !== action.payload
+          console.log('TYPE FROM BANK', action.type)
+          console.log('ITEM FROM BANK', item)
+        return 
       }) }
     default:
       return state;

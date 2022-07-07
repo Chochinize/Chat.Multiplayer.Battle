@@ -2,10 +2,10 @@
 
 import Menu from './components/Menu/Menu';
 import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
-import Layout from './components/Layout';
+import Layout from './Layout';
 
 import axios from "axios";
-import MainRoom from './components/Room/MainRoom';
+import MainRoom from './components/Room/MainRoom';  
 
 
 function App() {

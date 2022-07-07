@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { actionCreators, } from '../../state';
 import { getPlayers } from '../../API_Call/apiCall'
-import { ISocket } from '../interfaces/ISocket'
+import { ISocket } from '../../interfaces/ISocket'
 import { useCookies } from 'react-cookie';
 
 const randomID = Math.floor(Math.random()*1000)

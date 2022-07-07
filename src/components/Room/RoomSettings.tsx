@@ -19,7 +19,7 @@ export const RoomSettings = () => {
             </ul>
           
             <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
-              invite player
+              {/* invite player */}
             </li>
           </div>)}
 
