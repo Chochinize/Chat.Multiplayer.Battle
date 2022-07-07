@@ -8,7 +8,7 @@ export const RoomSettings = () => {
     const client = useSelector((state: State) => state.bank)
     const effectRan = useRef(false)
 
-   
+
 
     return (
     <>

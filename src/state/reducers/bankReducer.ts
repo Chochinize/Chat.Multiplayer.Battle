@@ -18,7 +18,7 @@ const reducer = (state: any = initialState, action: Action) => {
     case ActionType.PLAYERS:
       return {
         ...state,
-        players: action.payload,
+        players: [action.payload],
       };
 
     case ActionType.MODALS:
@@ -26,6 +26,8 @@ const reducer = (state: any = initialState, action: Action) => {
         ...state,
         rejoinPlayer: action.payload,
       };
+    case ActionType.REFRESH:
+      return {...state, players: state.players.filter((item:any)=> item.name !== action.payload.id ) }
     default:
       return state;
   }

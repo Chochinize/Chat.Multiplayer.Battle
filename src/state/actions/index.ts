@@ -24,10 +24,15 @@ interface InvitePlayerAction {
     type:ActionType.MODALS,
     payload:boolean
 }
+interface RefreshPlayerAction {
+    type:ActionType.REFRESH,
+    payload:any
+}
 export type Action = 
 DepositAction |
 WithdrawAction|
 BankruptAction|
 JoinPlayerAction|
 GetPlayerAction|
-InvitePlayerAction
+InvitePlayerAction|
+RefreshPlayerAction

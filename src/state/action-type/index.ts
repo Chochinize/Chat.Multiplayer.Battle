@@ -4,5 +4,6 @@ export enum ActionType{
     DEPOSIT= 'deposit',
     WITHDRAW = 'withdraw',
     BANKRUPT = 'bankrupt',
-    MODALS = 'modals'
+    MODALS = 'modals',
+    REFRESH = 'refresh'
 }

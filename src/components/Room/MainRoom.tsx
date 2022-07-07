@@ -29,7 +29,7 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
+  const { inviteUser, joinUser, playersJoinned,refreshPlayer } = bindActionCreators(actionCreators, dispatch)
   const [findName, setFindName] = useState<IFX>({ founded: '' })
   const [duplicateError, setDuplicateError] = useState(false)
 
@@ -47,13 +47,12 @@ const [pla, setPla ] = useState<any>([])
         effectRan.current = true
       }
     }
-  }, [client, playersJoinned])
+  }, [client.users])
   
 
 
 
-
-
+console.log(client)
 
   useEffect(() => {
 
@@ -67,15 +66,18 @@ const [pla, setPla ] = useState<any>([])
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
-
-        // console.log('from server', dataFromServer)
+        const arr = [1,2,3]
+      
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
             console.log('datichka', dataFromServer)
+            
             break;
           case 'unsubscribe':
+            refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
+            
             console.log('dati', dataFromServer)
             break;
         }

@@ -53,4 +53,11 @@ export const inviteUser = (id:any)=>{
         })
     }
 }
-
+export const refreshPlayer = (id:any)=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.REFRESH,
+            payload:id
+        })
+    }
+}
