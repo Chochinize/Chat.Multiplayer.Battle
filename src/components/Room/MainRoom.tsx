@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { actionCreators, } from '../../state';
 import RoomSettings from './RoomSettings';
 import { getPlayers } from '../../API_Call/apiCall'
-import { JoinRoom,LeaveRoom } from '../ActionRoom'
+import { JoinRoom, LeaveRoom } from '../ActionRoom'
 
 
 
@@ -76,26 +76,10 @@ const MainRoom = () => {
       }
     }
 
-    // return () => {
-    //     client.close();
-    //     console.log('Websocket close')
-    // }
+
   }, [client.users])
 
 
-
-
-
-
-  // const LeaveRoom = () => {
-  //   setUserJoinned(false)
-  //   setMsg(msg => msg.filter(x => x.payload !== user.name))
-  //   client.users?.send(JSON.stringify({
-  //     type: 'unsubscribeToChannel',
-  //     name: user.name,
-  //     id: paramsID
-  //   }))
-  // }
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
@@ -110,8 +94,6 @@ const MainRoom = () => {
         effectRan.current = true
       }
     }
-
-
   }, [client.users])
 
 
@@ -134,7 +116,7 @@ const MainRoom = () => {
         {userJoinned
           ?
           <button
-            onClick={() => LeaveRoom(user.name,paramsID,client,setUserJoinned(false),setMsg(msg => msg.filter(x => x.payload !== user.name)))}
+            onClick={() => LeaveRoom(user.name, paramsID, client, setUserJoinned(false), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
             className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
           :
           <button

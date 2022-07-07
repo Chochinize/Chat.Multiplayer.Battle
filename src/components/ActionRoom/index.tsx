@@ -5,17 +5,15 @@ import { useSelector } from 'react-redux'
 import { State } from '../../state';
 
 
-export const JoinRoom =(username:any,param:any,cl:any,userset:void) => {
+export const JoinRoom = (username: string, param: any, cl: any, userset: void) => {
 
-    cl.users?.send(JSON.stringify({
-        type: 'subscribeToChannel',
-        name: username,
-        id: param
-      }))
+  cl.users?.send(JSON.stringify({
+    type: 'subscribeToChannel',
+    name: username,
+    id: param
+  }))
 }
-export const LeaveRoom = (username:any,param:any,cl:any,userset:void,mapfilter:void) => {
-  // setUserJoinned(false)
-  // setMsg(msg => msg.filter(x => x.payload !== user.name))
+export const LeaveRoom = (username: any, param: any, cl: any, userset: void, mapfilter: void) => {
   cl.users?.send(JSON.stringify({
     type: 'unsubscribeToChannel',
     name: username,
@@ -30,3 +28,13 @@ export const LeaveRoom = (username:any,param:any,cl:any,userset:void,mapfilter:v
 //       id: paramsID
 //     }))
 //   };
+
+  // const LeaveRoom = () => {
+  //   setUserJoinned(false)
+  //   setMsg(msg => msg.filter(x => x.payload !== user.name))
+  //   client.users?.send(JSON.stringify({
+  //     type: 'unsubscribeToChannel',
+  //     name: user.name,
+  //     id: paramsID
+  //   }))
+  // }
