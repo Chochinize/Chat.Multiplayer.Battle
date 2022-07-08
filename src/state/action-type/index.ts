@@ -5,5 +5,6 @@ export enum ActionType{
     WITHDRAW = 'withdraw',
     BANKRUPT = 'bankrupt',
     MODALS = 'modals',
-    REFRESH = 'refresh'
+    REFRESH = 'refresh',
+    MESSAGE = 'message'
 }

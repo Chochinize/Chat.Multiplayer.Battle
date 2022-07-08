@@ -9,19 +9,17 @@ const TextArea = () => {
   const client = useSelector((state: State) => state.bank)
   const paramsID = useParams().id;
   const [chat, setChat] = useState<IUser>({ name: '' })
-  // const sendChatMessage = ()=>{
-  //   client.users?.send(JSON.stringify({
-  //     type:'chatMessageEvent'
-  //   }))
-  // }
 
-  console.log('looking for name',client)
+
+
+
+
+
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     setChat({ ...chat, [name]: value });
   };
-
-  console.log(chat)
+  
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         

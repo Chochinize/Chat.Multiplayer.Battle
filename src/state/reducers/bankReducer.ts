@@ -5,7 +5,8 @@ const initialState = {
   users: [],
   players: [],
   joinnedPlayers: [],
-  invitePlayerModal: true || false
+  invitePlayerModal: true || false,
+  chatPlayer:[],
 };
 
 const reducer = (state: any = initialState, action: Action) => {
@@ -35,6 +36,11 @@ const reducer = (state: any = initialState, action: Action) => {
           console.log('ITEM FROM BANK', item)
         return 
       }) }
+      case ActionType.MESSAGE:
+        return{
+          ...state,
+          chatPlayer:[...state.chatPlayer,action.payload]
+        }
     default:
       return state;
   }

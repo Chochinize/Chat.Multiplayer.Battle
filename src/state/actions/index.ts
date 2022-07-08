@@ -28,6 +28,11 @@ interface RefreshPlayerAction {
     type:ActionType.REFRESH,
     payload:any
 }
+interface CharMessageAction {
+    type:ActionType.MESSAGE,
+    payload:any
+}
+
 export type Action = 
 DepositAction |
 WithdrawAction|
@@ -35,4 +40,5 @@ BankruptAction|
 JoinPlayerAction|
 GetPlayerAction|
 InvitePlayerAction|
-RefreshPlayerAction
+RefreshPlayerAction|
+CharMessageAction

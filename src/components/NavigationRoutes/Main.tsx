@@ -32,7 +32,7 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser, playersJoinned, refreshPlayer } = bindActionCreators(actionCreators, dispatch)
+  const { inviteUser, joinUser, playersJoinned, refreshPlayer,playerChat } = bindActionCreators(actionCreators, dispatch)
   const [findName, setFindName] = useState<IFX>({ founded: '' })
   const [duplicateError, setDuplicateError] = useState(false)
 
@@ -84,7 +84,8 @@ const MainRoom = () => {
             console.log('dati', dataFromServer)
             break;
           case 'chatmsg':
-            console.log('cjat miesig', dataFromServer )
+            playerChat(dataFromServer)
+            console.log('````````````````````CHAT MESSAGE', dataFromServer )
             break;
         }
       }

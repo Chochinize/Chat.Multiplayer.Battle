@@ -61,3 +61,11 @@ export const refreshPlayer = (id:any)=>{
         })
     }
 }
+export const playerChat = (id:any)=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.MESSAGE,
+            payload:id
+        })
+    }
+}
