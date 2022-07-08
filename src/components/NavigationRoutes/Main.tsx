@@ -175,7 +175,7 @@ console.log(user)
       </div>
       
       <div className='w-[30%]  border-2 border-red-500'>
-        <ChatBox/>
+        {/* <ChatBox/> */}
       </div>
     </div>
   )
