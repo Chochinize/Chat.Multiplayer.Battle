@@ -13,7 +13,7 @@ import { getPlayers } from '../../API_Call/apiCall'
 // import { JoinRoom, LeaveRoom } from '../ActionRoom'
 import { RoomSettings } from "./RoomSettings"
 import { JoinRoom, LeaveRoom } from '../../RoomActions'
-import ChartBox from './../ChatBox.tsx'
+import ChatBox from './../ChatBox.tsx'
 
 
 
@@ -83,6 +83,9 @@ const MainRoom = () => {
 
             console.log('dati', dataFromServer)
             break;
+          case 'chatmsg':
+            console.log('cjat miesig', dataFromServer )
+            break;
         }
       }
     }
@@ -109,10 +112,10 @@ const MainRoom = () => {
 
 
 
-
+console.log(user)
 
   return (
-    <div className='w-[100%] h-full flex justify-between relative'>
+    <div className='w-[100%] h-full flex justify-between  relative'>
 
       <div className='w-[30%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-500 '>
 
@@ -170,8 +173,8 @@ const MainRoom = () => {
 
       </div>
       
-      <div className='w-[30%]  bg-teal-200'>
-        CHAT BOX
+      <div className='w-[30%]  border-2 border-red-500'>
+        <ChatBox/>
       </div>
     </div>
   )

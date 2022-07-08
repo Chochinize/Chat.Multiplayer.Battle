@@ -6,3 +6,4 @@ export interface IUser {
 export interface IFX {
     founded:string
 }
+
