@@ -11,14 +11,15 @@ import { actionCreators, } from '../../state';
 // import { RoomSettings } from './RoomSettings';
 import { getPlayers } from '../../API_Call/apiCall'
 // import { JoinRoom, LeaveRoom } from '../ActionRoom'
-import {RoomSettings} from "./RoomSettings"
-import { JoinRoom } from './../ActionRoom'
+import { RoomSettings } from "./RoomSettings"
+import { JoinRoom, LeaveRoom } from '../../RoomActions'
+import ChartBox from './../ChatBox.tsx'
 
 
 
 
 const MainRoom = () => {
-  
+
   const paramsID = useParams().id;
   const compareID = useRef(false)
   const effectRan = useRef(false)
@@ -31,7 +32,7 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser, playersJoinned,refreshPlayer } = bindActionCreators(actionCreators, dispatch)
+  const { inviteUser, joinUser, playersJoinned, refreshPlayer } = bindActionCreators(actionCreators, dispatch)
   const [findName, setFindName] = useState<IFX>({ founded: '' })
   const [duplicateError, setDuplicateError] = useState(false)
 
@@ -41,7 +42,7 @@ const MainRoom = () => {
     if (effectRan.current === false) {
       const fetchPlayers = async () => {
         let players = await getPlayers()
-      
+
         playersJoinned(players)
       }
       fetchPlayers()
@@ -50,7 +51,7 @@ const MainRoom = () => {
       }
     }
   }, [client.users])
-  
+
 
 
 
@@ -64,22 +65,22 @@ const MainRoom = () => {
 
     }
 
-    
+
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
-        const arr = [1,2,3]
-      
+        const arr = [1, 2, 3]
+
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
             console.log('datichka', dataFromServer)
-            
+
             break;
           case 'unsubscribe':
             refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
-            
+
             console.log('dati', dataFromServer)
             break;
         }
@@ -111,58 +112,67 @@ const MainRoom = () => {
 
 
   return (
-    <div className='w-full h-full flex flex-col m-auto gap-5 text-2xl  font-Dongle   relative '>
-      {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
-        <input disabled={userJoinned ? true : false}
-          type="text"
-          name='name' 
-          value={user.name || findName?.founded}        
-          required
-          placeholder='Ýour Name'
-          className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
-          onChange={onChangeInput}
-        />
-    
-        {userJoinned
-          ?
-          <button
-            // onClick={() => LeaveRoom(user.name, paramsID, client, setUserJoinned(false), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
-            className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
+    <div className='w-[100%] h-full flex justify-between relative'>
+
+      <div className='w-[30%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-500 '>
+
+
+        {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
+          <input disabled={userJoinned ? true : false}
+            type="text"
+            name='name'
+            value={user.name || findName?.founded}
+            required
+            placeholder='Ýour Name'
+            className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
+            onChange={onChangeInput}
+          />
+
+          {userJoinned
+            ?
+            <button
+              onClick={() => LeaveRoom(user.name, paramsID, client, setUserJoinned(false), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
+              className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
+            :
+            <button
+              disabled={user.name.length === 0 ? true : false}
+              onClick={() => JoinRoom(user.name, paramsID, client, setUserJoinned(true))}
+              className={`${user.name.length === 0 ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
+        </div>)
           :
-          <button
-            disabled={user.name.length === 0 ? true : false}
-            onClick={() => JoinRoom(user.name, paramsID, client, setUserJoinned(true))}
-            className={`${user.name.length === 0 ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
-      </div>)
-        :
-        ''}
-      <div>
-          
-        {duplicateError ? 'chppse new name' : ''}
+          ''}
+        <div>
+
+          {duplicateError ? 'chppse new name' : ''}
+        </div>
+
+        <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
+        <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
+          <div className='relative    top-10'>
+            <RoomSettings />
+
+            {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
+              <ul className='flex items-center  m-2 ' >
+                <li className=''>
+                  {item.payload}
+                </li>
+                <li className='ml-1'>
+                  #{item.id}
+                </li>
+              </ul>
+              <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
+                {/* invite player */}
+              </li>
+            </div>)}
+
+          </div>
+        </div>
+
       </div>
       
-      <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
-      <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
-        <div className='relative    top-10'>
-          <RoomSettings />
-
-          {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
-            <ul className='flex items-center  m-2 ' >
-              <li className=''>
-                {item.payload}
-              </li>
-              <li className='ml-1'>
-                #{item.id}
-              </li>
-            </ul>
-            <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
-              {/* invite player */}
-            </li>
-          </div>)}
-           
-        </div>
+      <div className='w-[30%]  bg-teal-200'>
+        CHAT BOX
       </div>
-
     </div>
   )
 }

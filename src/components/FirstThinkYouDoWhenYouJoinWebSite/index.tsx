@@ -13,7 +13,7 @@ const websocketURL:any =
 process.env.NODE_ENV == "development"
   ? process.env.REACT_APP_DEV_WEBSOCKET
   : process.env.REACT_APP_PROD_WEBSOCKET;
-const Menu = () => {
+const Connection = () => {
     const [ cookie, setCookies ] = useCookies(['UID']) 
     const dispatch = useDispatch()
     const {  joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
@@ -36,14 +36,14 @@ const Menu = () => {
         setClient(frontclient)
     }
     return (
-        <div className='w-max flex flex-col m-auto gap-5  text-xs '>
+        <div className='w-[31%]   text-xs absolute  border-blue-700 '>
             {cookie.UID 
             ? 
-            <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-2 mx-24 rounded-md m-auto  '}`}>Reconnect</button> 
+            <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-4 w-full   rounded-md    '}`}>WhatYouDoWhenYouDisconnectedForFirstTime / reconnect</button> 
             :
-             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 p-2 mx-24 rounded-md m-auto  '}`}>Connect</button>}
+             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 w-[100%] p-4 rounded-md    '}`}>WhatYouDoWhenYouJoinInWebSiteForFurstTime</button>}
             
         </div>
     )
 }
-export default Menu
+export default Connection
