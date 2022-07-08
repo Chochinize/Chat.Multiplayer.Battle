@@ -19,7 +19,18 @@ const TextArea = () => {
     const { name, value } = e.target;
     setChat({ ...chat, [name]: value });
   };
-  
+  const _handleKeyDown = (e:any) => {
+    if (e.key == 'Enter') {
+      sendChatMessage(chat.name,paramsID,client)
+    }
+  }
+  const _clearInput = (e:any)=>{
+    if(e.key == 'Enter'){
+      console.log('clear input')
+      setChat({name:''})
+    }
+  }
+
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
@@ -28,9 +39,11 @@ const TextArea = () => {
             name='name'
             value={chat.name}
             required
-            placeholder='Ýour Name'
+            placeholder='type something...'
             className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
             onChange={onChangeInput}
+            onKeyDown={(e)=>_handleKeyDown(e)}
+            onKeyUp={(e)=>_clearInput(e)}
           />
         
         <button onClick={()=>sendChatMessage(chat.name,paramsID,client)} className=' w-[20%] h-full border-2 border-yellow-800'>input</button>
