@@ -6,5 +6,6 @@ export enum ActionType{
     BANKRUPT = 'bankrupt',
     MODALS = 'modals',
     REFRESH = 'refresh',
-    MESSAGE = 'message'
+    MESSAGE = 'message',
+    USERJOINNED = 'userjoinned'
 }

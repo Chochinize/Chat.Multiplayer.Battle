@@ -69,3 +69,12 @@ export const playerChat = (id:any)=>{
         })
     }
 }
+
+export const userSetName = (id:boolean)=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.USERJOINNED,
+            payload:id
+        })
+    }
+}

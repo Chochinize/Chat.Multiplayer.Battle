@@ -32,7 +32,10 @@ interface CharMessageAction {
     type:ActionType.MESSAGE,
     payload:any
 }
-
+interface UserJoinnedAction {
+    type:ActionType.USERJOINNED,
+    payload:boolean
+}
 export type Action = 
 DepositAction |
 WithdrawAction|
@@ -41,4 +44,6 @@ JoinPlayerAction|
 GetPlayerAction|
 InvitePlayerAction|
 RefreshPlayerAction|
-CharMessageAction
+CharMessageAction|
+UserJoinnedAction
+

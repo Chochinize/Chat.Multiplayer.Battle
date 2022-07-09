@@ -32,6 +32,7 @@ const Connection = () => {
         const frontclient = new ws(websocketURL); //  Initialize  the client
         navigate(`/mainroom/${randomID}`, { replace: true })
         setCookies('UID',randomID,{ path: `/mainroom/${randomID}` });
+   
         joinUser(frontclient)
         setClient(frontclient)
     }

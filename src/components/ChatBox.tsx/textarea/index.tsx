@@ -28,13 +28,14 @@ const TextArea = () => {
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
-        <input 
+        <input
+            disabled={true}
             type="text"
             name='name'
             value={chat.name}
             required
-            placeholder='Ýour Name'
-            className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
+            placeholder='type something...'
+            className="   outline-none text-center border-b-0 lg:border-b-2"
             onChange={onChangeInput}
             onKeyDown={(e)=>_handleKeyDown(e)}
           />

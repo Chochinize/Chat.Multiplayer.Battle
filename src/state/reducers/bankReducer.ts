@@ -5,7 +5,7 @@ const initialState = {
   users: [],
   players: [],
   joinnedPlayers: [],
-  invitePlayerModal: true || false,
+  userJoinned: false,
   chatPlayer:[],
 };
 
@@ -22,10 +22,10 @@ const reducer = (state: any = initialState, action: Action) => {
         players: [action.payload],
       };
 
-    case ActionType.MODALS:
+    case ActionType.USERJOINNED:
       return {
-        ...state,
-        rejoinPlayer: action.payload,
+        
+        userJoinned: action.payload,
       };
     case ActionType.REFRESH:
 
