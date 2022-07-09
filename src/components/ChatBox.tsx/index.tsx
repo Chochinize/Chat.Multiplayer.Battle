@@ -1,6 +1,6 @@
 import React from 'react'
-import ShowArea from './Showarea'
-import TextArea from './TextArea.tsx'
+import ShowArea from './showarea'
+import TextArea from './textarea'
 
 const index = () => {
   return (

@@ -9,7 +9,7 @@ const ShowArea = () => {
 
   const client = useSelector((state: State) => state.bank)
   const effectRan = useRef(false)
-  const [ doNotsetLocalState ] = useState('' )
+
 
   
   console.log('a client', client.chatPlayer)
