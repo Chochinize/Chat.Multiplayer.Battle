@@ -32,7 +32,7 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser, playersJoinned, refreshPlayer,playerChat } = bindActionCreators(actionCreators, dispatch)
+  const { inviteUser, joinUser, playersJoinned, refreshPlayer,playerChat,userSetName } = bindActionCreators(actionCreators, dispatch)
   const [findName, setFindName] = useState<IFX>({ founded: '' })
   const [duplicateError, setDuplicateError] = useState(false)
 
@@ -113,7 +113,6 @@ const MainRoom = () => {
 
 
 
-console.log(user)
 
   return (
     <div className='w-[100%] h-full flex justify-between  relative'>
@@ -146,7 +145,7 @@ console.log(user)
           :
           ''}
         <div>
-
+            <button onClick={()=>userSetName}>SET TRUE USER</button>
           {duplicateError ? 'chppse new name' : ''}
         </div>
 

@@ -24,8 +24,7 @@ const reducer = (state: any = initialState, action: Action) => {
 
     case ActionType.USERJOINNED:
       return {
-        
-        userJoinned: action.payload,
+        userJoinned:action.payload,
       };
     case ActionType.REFRESH:
 

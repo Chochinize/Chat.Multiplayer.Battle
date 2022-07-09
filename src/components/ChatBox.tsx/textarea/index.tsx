@@ -24,12 +24,11 @@ const TextArea = () => {
       console.log('do validate');
     }
   }
-
+  console.log('checking the available',client.userJoinned)
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
         <input
-            disabled={true}
             type="text"
             name='name'
             value={chat.name}
