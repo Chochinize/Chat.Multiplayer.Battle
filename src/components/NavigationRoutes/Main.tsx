@@ -27,14 +27,13 @@ const MainRoom = () => {
 
   const [msg, setMsg] = useState<any[]>([])
   const client = useSelector((state: State) => state.bank)
-  const [userJoinned, setUserJoinned] = useState(false)
   const [user, setUser] = useState<IUser>({ name: '' })
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { inviteUser, joinUser, playersJoinned, refreshPlayer,playerChat,userSetName } = bindActionCreators(actionCreators, dispatch)
+  const { playersJoinned, refreshPlayer,playerChat,userSetName } = bindActionCreators(actionCreators, dispatch)
   const [findName, setFindName] = useState<IFX>({ founded: '' })
-  const [duplicateError, setDuplicateError] = useState(false)
+
 
 
 
@@ -69,23 +68,23 @@ const MainRoom = () => {
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
-        const arr = [1, 2, 3]
+       
 
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
-            console.log('datichka', dataFromServer)
+            // console.log('datichka', dataFromServer)
 
             break;
           case 'unsubscribe':
             refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
 
-            console.log('dati', dataFromServer)
+            // console.log('dati', dataFromServer)
             break;
           case 'chatmsg':
             playerChat(dataFromServer)
-            console.log('````````````````````CHAT MESSAGE', dataFromServer )
+            // console.log('````````````````````CHAT MESSAGE', dataFromServer )
             break;
         }
       }
@@ -112,8 +111,17 @@ const MainRoom = () => {
   }, [client.users])
 
 
+  const setStateOnUserInput = (e:any)=>{
+    const { name } = e.target
+    console.log(name)
+    if(name === 'join') userSetName(true)
+    if(name === 'leave') userSetName(false)
 
 
+  }
+  console.log(client.userJoinned)
+  // console.log('userstate',client.userJoinned)
+  // console.log('userstate',client)
   return (
     <div className='w-[100%] h-full flex justify-between  relative'>
 
@@ -121,7 +129,7 @@ const MainRoom = () => {
 
 
         {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
-          <input disabled={userJoinned ? true : false}
+          <input disabled={client.userJoinned ? true : false}
             type="text"
             name='name'
             value={user.name || findName?.founded}
@@ -131,22 +139,24 @@ const MainRoom = () => {
             onChange={onChangeInput}
           />
 
-          {userJoinned
+          {client.userJoinned
             ?
             <button
-              onClick={() => LeaveRoom(user.name, paramsID, client, setUserJoinned(false), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
+            name='leave'
+              onClick={(e) => LeaveRoom(user.name, paramsID, client, setStateOnUserInput(e), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
               className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
             :
             <button
+            name='join'
               disabled={user.name.length === 0 ? true : false}
-              onClick={() => JoinRoom(user.name, paramsID, client, setUserJoinned(true))}
+              onClick={(e) => JoinRoom(user.name, paramsID, client, setStateOnUserInput(e))}
               className={`${user.name.length === 0 ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
         </div>)
           :
           ''}
         <div>
-            <button onClick={()=>userSetName}>SET TRUE USER</button>
-          {duplicateError ? 'chppse new name' : ''}
+        
+    
         </div>
 
         <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>

@@ -10,7 +10,7 @@ export const RoomSettings = () => {
     const client = useSelector((state: State) => state.bank)
     const effectRan = useRef(false)
 
-  console.log('what is happening',client)
+
 
     return (
     <div className='border-2 border-green-600'>

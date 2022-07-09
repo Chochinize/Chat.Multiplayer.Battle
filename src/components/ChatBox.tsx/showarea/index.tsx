@@ -12,7 +12,7 @@ const ShowArea = () => {
 
 
   
-  console.log('a client', client.chatPlayer)
+  
   return (
     <div className='border-4 w-full p-2 h-[100%] border-red-400 '>
       

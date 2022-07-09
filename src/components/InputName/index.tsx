@@ -37,7 +37,6 @@ const InputName = () => {
                     setUser({ ...user, [name]: value });
 };
                     
-                    console.log('looking for user true/false',client.userJoinned)
                     const setUserName = ()=>{
                                         userSetName(false)               
                     }

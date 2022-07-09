@@ -70,7 +70,7 @@ export const playerChat = (id:any)=>{
     }
 }
 
-export const userSetName = (id:boolean)=>{
+export const userSetName = (id:any)=>{
     return(dispatch:Dispatch<Action>)=>{
         dispatch({
             type:ActionType.USERJOINNED,

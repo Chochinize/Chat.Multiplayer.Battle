@@ -11,12 +11,12 @@ const TextArea = () => {
   const [chat, setChat] = useState<IUser>({ name: '' })
 
 
-  console.log('looking for name',client)
+
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     setChat({ ...chat, [name]: value });
   };
-  
+  console.log('dalie  on',client.userJoinned)
   const _handleKeyDown =  (e:any)=> {
     if (e.key === 'Enter') {
       setChat({name:''})
@@ -24,11 +24,11 @@ const TextArea = () => {
       console.log('do validate');
     }
   }
-  console.log('checking the available',client.userJoinned)
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
         <input
+            disabled={!client.userJoinned ? true : false}
             type="text"
             name='name'
             value={chat.name}

@@ -5,7 +5,7 @@ const initialState = {
   users: [],
   players: [],
   joinnedPlayers: [],
-  userJoinned: false,
+  userJoinned: false ,
   chatPlayer:[],
 };
 
@@ -24,17 +24,17 @@ const reducer = (state: any = initialState, action: Action) => {
 
     case ActionType.USERJOINNED:
       return {
-        userJoinned:action.payload,
-      };
+        ...state,
+        userJoinned:action.payload };
     case ActionType.REFRESH:
 
       return {...state, players: state.players.filter((item:any)=> { 
-          console.log('STATE FROM BANK', state)
-          console.log('ACTION FROM BANK', action)
-          console.log('TYPE FROM BANK', action.type)
-          console.log('ITEM FROM BANK', item)
+          // console.log('STATE FROM BANK', state)
+          // console.log('ACTION FROM BANK', action)
+          // console.log('TYPE FROM BANK', action.type)
+          // console.log('ITEM FROM BANK', item)
         return 
-      }) }
+      })}
       case ActionType.MESSAGE:
         return{
           ...state,
