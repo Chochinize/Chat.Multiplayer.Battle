@@ -17,6 +17,14 @@ const TextArea = () => {
     setChat({ ...chat, [name]: value });
   };
   
+  const _handleKeyDown =  (e:any)=> {
+    if (e.key === 'Enter') {
+      setChat({name:''})
+      sendChatMessage(chat.name,paramsID,client)
+      console.log('do validate');
+    }
+  }
+
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
@@ -28,6 +36,7 @@ const TextArea = () => {
             placeholder='Ýour Name'
             className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
             onChange={onChangeInput}
+            onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
         <button onClick={()=>sendChatMessage(chat.name,paramsID,client)} className=' w-[20%] h-full border-2 border-yellow-800'>input</button>
