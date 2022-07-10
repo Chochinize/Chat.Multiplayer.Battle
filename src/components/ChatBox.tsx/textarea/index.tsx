@@ -11,19 +11,19 @@ const TextArea = () => {
   const [chat, setChat] = useState<IUser>({ name: '' })
 
 
-
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     setChat({ ...chat, [name]: value });
   };
-  console.log('dalie  on',client.userJoinned)
   const _handleKeyDown =  (e:any)=> {
     if (e.key === 'Enter') {
       setChat({name:''})
-      sendChatMessage(chat.name,paramsID,client)
-      console.log('do validate');
+      sendChatMessage(chat.name,paramsID,client,client.setUserName.name)
+   
     }
   }
+  const searchName = client.players[0]?.data?.players[0].users.find((i:any)=>i.id === paramsID)
+
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
@@ -39,7 +39,7 @@ const TextArea = () => {
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
-        <button onClick={()=>sendChatMessage(chat.name,paramsID,client)} className=' w-[20%] h-full border-2 border-yellow-800'>input</button>
+        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[20%] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
         </div>
   )
 }

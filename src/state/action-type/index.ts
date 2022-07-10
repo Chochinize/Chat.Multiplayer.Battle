@@ -3,7 +3,7 @@ export enum ActionType{
     PLAYERS = 'players',
     DEPOSIT= 'deposit',
     WITHDRAW = 'withdraw',
-    BANKRUPT = 'bankrupt',
+    SETUSERNAME = 'setusername',
     MODALS = 'modals',
     REFRESH = 'refresh',
     MESSAGE = 'message',

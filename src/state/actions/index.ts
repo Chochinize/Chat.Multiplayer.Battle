@@ -7,8 +7,9 @@ interface WithdrawAction {
     type:ActionType.WITHDRAW,
     payload:number
 }
-interface BankruptAction {
-    type:ActionType.BANKRUPT
+interface SetUserNameAction {
+    type:ActionType.SETUSERNAME
+    payload:any
 }
 interface JoinPlayerAction {
     type:ActionType.USERS,
@@ -39,7 +40,7 @@ interface UserJoinnedAction {
 export type Action = 
 DepositAction |
 WithdrawAction|
-BankruptAction|
+SetUserNameAction|
 JoinPlayerAction|
 GetPlayerAction|
 InvitePlayerAction|

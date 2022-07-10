@@ -19,10 +19,11 @@ export const withDraw = (amount:number)=>{
     }
 }
 
-export const bankrupt = ()=>{
+export const setUser = (id:any)=>{
     return (dispatch:Dispatch<Action>) =>{
         dispatch({
-            type:ActionType.BANKRUPT
+            type:ActionType.SETUSERNAME,
+            payload:id
         })
     }
 }

@@ -27,12 +27,11 @@ const MainRoom = () => {
 
   const [msg, setMsg] = useState<any[]>([])
   const client = useSelector((state: State) => state.bank)
-  const [user, setUser] = useState<IUser>({ name: '' })
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { playersJoinned, refreshPlayer,playerChat,userSetName } = bindActionCreators(actionCreators, dispatch)
-  const [findName, setFindName] = useState<IFX>({ founded: '' })
+  const { playersJoinned, refreshPlayer, playerChat, userSetName,setUser } = bindActionCreators(actionCreators, dispatch)
+  // const [findName, setFindName] = useState<IFX>({ founded: '' })
 
 
 
@@ -64,11 +63,18 @@ const MainRoom = () => {
 
     }
 
-
+    //                                  Info:                                   //
+    //    In this component recive data from backend through websockets         //
+    //    case:'subscribe'  subscribe to room and                               //
+    //    case:'unsubscribe' unsubscribe and filter your name from the list     //
+    //    case:'chatmsg' push msg to chatArr                                    //
+    //                                                                          //
+    //                                                                          //
+    
     client.users.onopen = () => {
       client.users.onmessage = (message: any) => {
         const dataFromServer = JSON.parse(message.data)
-       
+
 
         switch (dataFromServer.type) {
           case 'subscribe':
@@ -96,7 +102,9 @@ const MainRoom = () => {
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    const target = e.target
+    
+    setUser(target);
   };
 
 
@@ -111,17 +119,15 @@ const MainRoom = () => {
   }, [client.users])
 
 
-  const setStateOnUserInput = (e:any)=>{
+  const setStateOnUserInput = (e: any) => {
     const { name } = e.target
-    console.log(name)
-    if(name === 'join') userSetName(true)
-    if(name === 'leave') userSetName(false)
+
+    if (name === 'join') userSetName(true)
+    if (name === 'leave') userSetName(false)
 
 
   }
-  console.log(client.userJoinned)
-  // console.log('userstate',client.userJoinned)
-  // console.log('userstate',client)
+
   return (
     <div className='w-[100%] h-full flex justify-between  relative'>
 
@@ -132,31 +138,31 @@ const MainRoom = () => {
           <input disabled={client.userJoinned ? true : false}
             type="text"
             name='name'
-            value={user.name || findName?.founded}
+            value={client.setUserName.name }
             required
             placeholder='Ýour Name'
             className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
-            onChange={onChangeInput}
+            onChange={(e)=>onChangeInput(e)}
           />
 
           {client.userJoinned
             ?
             <button
-            name='leave'
-              onClick={(e) => LeaveRoom(user.name, paramsID, client, setStateOnUserInput(e), setMsg(msg => msg.filter(x => x.payload !== user.name)))}
+              name='leave'
+              onClick={(e) => LeaveRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e), setMsg(msg => msg.filter(x => x.payload !== client.setUserName.name)))}
               className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
             :
             <button
-            name='join'
-              disabled={user.name.length === 0 ? true : false}
-              onClick={(e) => JoinRoom(user.name, paramsID, client, setStateOnUserInput(e))}
-              className={`${user.name.length === 0 ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
+              name='join'
+              disabled={!client.setUserName.name  ? true : false}
+              onClick={(e) => JoinRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e))}
+              className={`${!client.setUserName.name  ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
         </div>)
           :
           ''}
         <div>
-        
-    
+
+
         </div>
 
         <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
@@ -182,9 +188,9 @@ const MainRoom = () => {
         </div>
 
       </div>
-      
+
       <div className='w-[30%]  border-2 border-red-500'>
-        <ChatBox/>
+        <ChatBox />
       </div>
     </div>
   )
