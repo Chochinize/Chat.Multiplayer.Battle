@@ -53,6 +53,20 @@ const MainRoom = () => {
   }, [client.users])
 
 
+useEffect(()=>{
+  if(effectRan.current == false){
+    console.log('once run')
+    const interval = setInterval(function ping(){
+      client.users?.send(JSON.stringify({
+        type: 'keepAlive',
+
+      }))
+    },10000)
+  }
+    return ()=>{
+      effectRan.current = true
+    }
+},[])
 
 
 
