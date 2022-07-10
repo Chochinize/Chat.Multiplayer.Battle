@@ -26,13 +26,13 @@ const MainRoom = () => {
   const compareID = useRef(false)
   const effectRan = useRef(false)
 
-
+  const [controversial, setControversial ] = useState<any[]>([])
   const [msg, setMsg] = useState<any[]>([])
   const client = useSelector((state: State) => state.bank)
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { playersJoinned, refreshPlayer, playerChat, userSetName,setUser } = bindActionCreators(actionCreators, dispatch)
+  const { playersJoinned, refreshPlayer, playerChat, userSetName, setUser } = bindActionCreators(actionCreators, dispatch)
   // const [findName, setFindName] = useState<IFX>({ founded: '' })
 
 
@@ -53,20 +53,20 @@ const MainRoom = () => {
   }, [client.users])
 
 
-useEffect(()=>{
-  if(effectRan.current == false){
-    console.log('once run')
-    const interval = setInterval(function ping(){
-      client.users?.send(JSON.stringify({
-        type: 'keepAlive',
+  // useEffect(() => {
+  //   if (effectRan.current == false) {
+  //     console.log('once run')
+  //     const interval = setInterval(function ping() {
+  //       client.users?.send(JSON.stringify({
+  //         type: 'keepAlive',
 
-      }))
-    },25000)
-  }
-    return ()=>{
-      effectRan.current = true
-    }
-},[])
+  //       }))
+  //     }, 25000)
+  //   }
+  //   return () => {
+  //     effectRan.current = true
+  //   }
+  // }, [])
 
 
 
@@ -88,10 +88,10 @@ useEffect(()=>{
     //                                                                          //
     console.log(client)
     client.users.onopen = () => {
-      // client.users.send(JSON.stringify({
-      //   type:'ping',
-        
-      // }));
+      client.users.send(JSON.stringify({
+        type:'pushUsersBack',
+
+      }));
       client.users.onmessage = (message: any) => {
         console.log('message')
         const dataFromServer = JSON.parse(message.data)
@@ -100,39 +100,48 @@ useEffect(()=>{
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
+            setControversial(controversial => [...controversial, dataFromServer])
             console.log('datichka', dataFromServer)
-
+            
             break;
-          case 'unsubscribe':
+            case 'unsubscribe':
+
+            console.log('what is los',dataFromServer)
             refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
+            setControversial(controversial => controversial.filter(x => x.name !== dataFromServer.name))
 
             console.log('dati', dataFromServer)
             break;
           case 'chatmsg':
             playerChat(dataFromServer)
-            console.log('````````````````````CHAT MESSAGE', dataFromServer )
+            console.log('````````````````````CHAT MESSAGE', dataFromServer)
             break;
-        }
+            case 'updateUserBox':
+            
+            setControversial(dataFromServer.usersUpdate.users)
+            break;
+          }
       }
     }
-    return ()=>{
+    return () => {
       console.log('close connection')
-      client.users.onclose = ()=>
+      client.users.onclose = () =>
       client.users?.send(JSON.stringify({
-        type:'closeConnection',
-        reason:'fall',
-        id:'random',
-      }))
-    }
-
-  }, [client.users])
+          type: 'closeConnection',
+          reason: 'fall',
+          id: 'random',
+        }))
+      }
+      
+    }, [client.users])
+    
 
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     const target = e.target
-    
+
     setUser(target);
   };
 
@@ -157,25 +166,31 @@ useEffect(()=>{
 
   }
 
+  const sendInvitation = ()=>{
+    console.log('LFN',client.players[0]?.data.players[0].users[2])
+  }
+
+  console.log('realdatafrom server', controversial.filter((item)=>item.id ))
+
   return (
     <div className='w-[100%] h-full flex justify-between  relative'>
 
       <div className='w-[30%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-500 '>
 
-
         {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
           <input disabled={client.userJoinned ? true : false}
             type="text"
             name='name'
-            value={client.setUserName.name }
+            value={client.setUserName.name}
             required
             placeholder='Ýour Name'
             className=" placeholder-shadow-xl outline-none text-center border-b-0 lg:border-b-2"
-            onChange={(e)=>onChangeInput(e)}
+            onChange={(e) => onChangeInput(e)}
           />
 
           {client.userJoinned
             ?
+     
             <button
               name='leave'
               onClick={(e) => LeaveRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e), setMsg(msg => msg.filter(x => x.payload !== client.setUserName.name)))}
@@ -183,23 +198,37 @@ useEffect(()=>{
             :
             <button
               name='join'
-              disabled={!client.setUserName.name  ? true : false}
+              disabled={!client.setUserName.name ? true : false}
               onClick={(e) => JoinRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e))}
-              className={`${!client.setUserName.name  ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
+              className={`${!client.setUserName.name ? 'cursor-not-allowed' : ''} border-2 p-2 hover:bg-slate-100`}>Join Room</button>}
         </div>)
           :
           ''}
         <div>
 
-
+            {/* { controversial.map((item:any,indx)=> 
+            <div key={indx}>
+             <ul className='flex items-center  m-2 ' >
+                <li className=''>
+                  {item?.name}
+                </li>
+                <li className='ml-1'>
+                  #{item?.id}
+                </li>
+              </ul>
+              <li className='flex gap-4    rounded-full p-2' >
+                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
+                <BsChatDots size={22} className='cursor-pointer'/>
+                </li>
+            </div>
+            )} */}
         </div>
-
-        <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
+          <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
         <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
           <div className='relative    top-10'>
-            <RoomSettings />
-
-            {msg.map((item: any, index) => <div className='list-none border-b-2 m-2 flex justify-between mx-4 ' key={index}>
+            {/* <RoomSettings /> */}
+            
+            {/* {msg.map((item: any, index) => <div className='list-none border-2 border-b-2 m-2 flex justify-between mx-4 ' key={index}>
               <ul className='flex items-center  m-2 ' >
                 <li className=''>
                   {item.payload}
@@ -209,11 +238,26 @@ useEffect(()=>{
                 </li>
               </ul>
               <li className='flex gap-4    rounded-full p-2' >
-              <FcPlus size={22}  className='cursor-pointer'/>
-            <BsChatDots size={22} className='cursor-pointer'/>
+                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
+                <BsChatDots size={22} className='cursor-pointer'/>
               </li>
-            </div>)}
-
+            </div>)} */}
+               { controversial.map((item:any,indx)=> 
+            <div key={indx} className='list-none border-2 border-b-2 m-2 flex justify-between mx-4 '>
+             <ul className='flex items-center  m-2 ' >
+                <li className=''>
+                  {item?.name}
+                </li>
+                <li className='ml-1'>
+                  #{item?.id}
+                </li>
+              </ul>
+              <li className='flex gap-4    rounded-full p-2' >
+                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
+                <BsChatDots size={22} className='cursor-pointer'/>
+                </li>
+            </div>
+            )}
           </div>
         </div>
 

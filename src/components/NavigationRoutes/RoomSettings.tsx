@@ -12,7 +12,7 @@ export const RoomSettings = () => {
     const effectRan = useRef(false)
 
   const sendInvitation = ()=>{
-    console.log('send invitation')
+    console.log('LFN',client.players[0]?.data.players[0].users[1])
   }
 
     return (
