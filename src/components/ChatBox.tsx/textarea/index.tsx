@@ -23,7 +23,7 @@ const TextArea = () => {
     }
   }
   const searchName = client.players[0]?.data?.players[0].users.find((i:any)=>i.id === paramsID)
-
+  console.log(client)
   return (
     <div className='w-full border-4 flex border-cyan-500 h-[10%]  gap-x-4   p-1 relative'>
         
