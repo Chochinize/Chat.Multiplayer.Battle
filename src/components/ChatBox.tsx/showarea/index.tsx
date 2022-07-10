@@ -5,16 +5,27 @@ import { useSelector } from 'react-redux'
 
 const ShowArea = () => {
 
-
+  const el = useRef<null | HTMLDivElement>(null); 
 
   const client = useSelector((state: State) => state.bank)
   const effectRan = useRef(false)
 
+  const [messages, setMessages] = useState([]);
 
+
+  useEffect(() => {
+      if (el.current === null) { }
+      else
+          el!.current!.scrollIntoView({ block: 'end', behavior: 'smooth' });
   
+      
+  
+  }, [])
   
   return (
-    <div className='border-4 text-[24px]   w-full p-2 h-[100%] overflow-x-auto border-red-400 font-Dongle '>
+    <div 
+    ref={el}
+    className='border-4 text-[24px]   w-full p-2 h-[100%] overflow-x-auto border-red-400 font-Dongle '>
       
     {client.chatPlayer?.map((item: any, index:number) =>
     <ul key={index} className='flex items-center gap-[2px] border-2  border-teal-400 w-full break-words  '>

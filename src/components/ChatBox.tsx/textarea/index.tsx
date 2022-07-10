@@ -39,7 +39,7 @@ const TextArea = () => {
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
-        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%]  text-[24px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
+        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%] hover:bg-blue-500  text-[24px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
         </div>
   )
 }
