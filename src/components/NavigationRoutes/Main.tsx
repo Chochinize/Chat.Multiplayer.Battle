@@ -61,7 +61,7 @@ useEffect(()=>{
         type: 'keepAlive',
 
       }))
-    },10000)
+    },25000)
   }
     return ()=>{
       effectRan.current = true
@@ -208,9 +208,9 @@ useEffect(()=>{
                   #{item.id}
                 </li>
               </ul>
-              <li className='hover:bg-yellow-200 flex gap-4  cursor-pointer rounded-full p-2' >
-              <FcPlus size={22}/>
-            <BsChatDots size={22} />
+              <li className='flex gap-4    rounded-full p-2' >
+              <FcPlus size={22}  className='cursor-pointer'/>
+            <BsChatDots size={22} className='cursor-pointer'/>
               </li>
             </div>)}
 

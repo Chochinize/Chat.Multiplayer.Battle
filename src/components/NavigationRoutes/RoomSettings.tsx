@@ -23,9 +23,9 @@ export const RoomSettings = () => {
               <li className='ml-1'>#{player.id}</li>
             </ul>
           
-            <li className='cursor-pointer rounded-full p-2 flex gap-4' >
-            <FcPlus size={22} onClick={()=>sendInvitation()}/>
-            <BsChatDots size={22} />
+            <li className=' p-2 flex gap-4' >
+            <FcPlus size={22} onClick={()=>sendInvitation()} className='cursor-pointer'/>
+            <BsChatDots size={22} className=' cursor-pointer'/>
             </li>
           </div>)}
 
