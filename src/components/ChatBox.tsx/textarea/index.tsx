@@ -4,6 +4,7 @@ import { State } from '../../../state';
 import { IUser } from '../../../interfaces/IUser';
 import sendChatMessage from '../../../RoomActions/SendMessageAction';
 import { useParams } from 'react-router-dom';
+import { BsEmojiSmile } from 'react-icons/bs';
 
 const TextArea = () => {
   const client = useSelector((state: State) => state.bank)
@@ -23,9 +24,12 @@ const TextArea = () => {
     }
   }
   const searchName = client.players[0]?.data?.players[0].users.find((i:any)=>i.id === paramsID)
-
+  const  popIconMenu = ()=>{
+    console.log('popIcon')
+  }
   return (
-    <div className='w-full border-4 flex items-end border-cyan-500 h-10      relative font-Dongle'>
+    <div className='w-full border-4 flex items-center  border-cyan-500 h-10      '>
+        <BsEmojiSmile size={47} className='px-1' onClick={()=>popIconMenu()}/>
         
         <input
             disabled={!client.userJoinned ? true : false}
@@ -34,12 +38,12 @@ const TextArea = () => {
             value={chat.name}
             required
             placeholder='type something...'
-            className="   outline-none text-start rounded-full h-8  text-[24px]   lg:border-b-2  border-4 w-full "
+            className="   outline-none  pl-2  text-start   rounded-full h-8  text-[18px]       border-2 w-full "
             onChange={onChangeInput}
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
-        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%] hover:bg-blue-500  text-[24px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
+        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%] hover:bg-blue-500  px-4 text-[18px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
         </div>
   )
 }

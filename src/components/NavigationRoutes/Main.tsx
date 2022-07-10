@@ -202,7 +202,7 @@ const MainRoom = () => {
 
       </div>
 
-      <div className='w-[30%]  border-2 border-red-500'>
+      <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />
       </div>
     </div>

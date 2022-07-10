@@ -3,6 +3,7 @@ import { State } from '../../../state';
 import { useSelector } from 'react-redux'
 
 
+
 const ShowArea = () => {
 
   const el = useRef<null | HTMLDivElement>(null); 
