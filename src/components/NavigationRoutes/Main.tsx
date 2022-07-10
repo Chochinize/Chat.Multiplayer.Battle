@@ -79,18 +79,18 @@ const MainRoom = () => {
         switch (dataFromServer.type) {
           case 'subscribe':
             setMsg(msg => [...msg, dataFromServer])
-            // console.log('datichka', dataFromServer)
+            console.log('datichka', dataFromServer)
 
             break;
           case 'unsubscribe':
             refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
 
-            // console.log('dati', dataFromServer)
+            console.log('dati', dataFromServer)
             break;
           case 'chatmsg':
             playerChat(dataFromServer)
-            // console.log('````````````````````CHAT MESSAGE', dataFromServer )
+            console.log('````````````````````CHAT MESSAGE', dataFromServer )
             break;
         }
       }
