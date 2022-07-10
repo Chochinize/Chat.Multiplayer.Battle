@@ -1,7 +1,7 @@
 import React, { useEffect,useRef } from 'react'
 import { State } from '../../state';
 import { useSelector } from 'react-redux'
-import { BsChatDotsFill } from 'react-icons/bs';
+import { BsChatDots } from 'react-icons/bs';
 import { FcInvite } from 'react-icons/fc';
 
 export const RoomSettings = () => {
@@ -23,7 +23,7 @@ export const RoomSettings = () => {
           
             <li className='cursor-pointer rounded-full p-2 flex gap-4' >
             <FcInvite size={22} />
-            <BsChatDotsFill size={22} />
+            <BsChatDots size={22} />
             </li>
           </div>)}
 
