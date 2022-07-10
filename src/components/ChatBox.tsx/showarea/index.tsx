@@ -14,15 +14,15 @@ const ShowArea = () => {
   
   
   return (
-    <div className='border-4  w-full p-2 h-[100%] overflow-x-auto border-red-500 font-Dongle '>
+    <div className='border-4   w-full p-2 h-[100%] overflow-x-auto border-red-400 font-Dongle '>
       
     {client.chatPlayer?.map((item: any, index:number) =>
     <ul key={index} className='flex items-center gap-[2px] border-2  border-teal-400 w-full break-words  '>
-      <li className='font-black ml-2'> {item?.name}</li>  
-      <li className='font-black'> #</li>  
+      <li className='ml-2 font-semibold'> {item?.name}</li>  
+      <li className='font-semibold'> #</li>  
       
-      <li className='font-black'> {item?.id} </li> :
-      <li className='ml-2 w-full  border-2 border-black'> {item?.chatMessage} </li> 
+      <li className='font-norsemiboldmal'> {item?.id} </li> :
+      <li className='ml-2 w-full  border-2 border-semibold'> {item?.chatMessage} </li> 
     </ul>
   )}
       
