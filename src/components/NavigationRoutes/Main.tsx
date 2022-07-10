@@ -14,6 +14,8 @@ import { getPlayers } from '../../API_Call/apiCall'
 import { RoomSettings } from "./RoomSettings"
 import { JoinRoom, LeaveRoom } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
+import { BsChatDots } from 'react-icons/bs';
+import { FcPlus } from 'react-icons/fc';
 
 
 
@@ -192,8 +194,9 @@ const MainRoom = () => {
                   #{item.id}
                 </li>
               </ul>
-              <li className='hover:bg-yellow-200 cursor-pointer rounded-full p-2' >
-                {/* invite player */}
+              <li className='hover:bg-yellow-200 flex gap-4  cursor-pointer rounded-full p-2' >
+              <FcPlus size={22}/>
+            <BsChatDots size={22} />
               </li>
             </div>)}
 

@@ -5,6 +5,7 @@ import { IUser } from '../../../interfaces/IUser';
 import sendChatMessage from '../../../RoomActions/SendMessageAction';
 import { useParams } from 'react-router-dom';
 import { BsEmojiSmile } from 'react-icons/bs';
+import { RiSendPlane2Line} from 'react-icons/ri';
 
 const TextArea = () => {
   const client = useSelector((state: State) => state.bank)
@@ -45,7 +46,12 @@ const TextArea = () => {
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
-        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%] hover:bg-blue-500  px-4 text-[18px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
+        <button 
+        disabled={!client.userJoinned ? true : false}
+        onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-max hover:bg-blue-500  p-1 text-[18px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>
+
+          <RiSendPlane2Line className='w-5'/>
+        </button>
         </div>
   )
 }
