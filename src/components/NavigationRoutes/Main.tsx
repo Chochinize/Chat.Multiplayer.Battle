@@ -70,9 +70,14 @@ const MainRoom = () => {
     //    case:'chatmsg' push msg to chatArr                                    //
     //                                                                          //
     //                                                                          //
-    
+    console.log(client)
     client.users.onopen = () => {
+      // client.users.send(JSON.stringify({
+      //   type:'ping',
+        
+      // }));
       client.users.onmessage = (message: any) => {
+        console.log('message')
         const dataFromServer = JSON.parse(message.data)
 
 
@@ -95,7 +100,15 @@ const MainRoom = () => {
         }
       }
     }
-
+    return ()=>{
+      console.log('close connection')
+      client.users.onclose = ()=>
+      client.users?.send(JSON.stringify({
+        type:'closeConnection',
+        reason:'fall',
+        id:'random',
+      }))
+    }
 
   }, [client.users])
 

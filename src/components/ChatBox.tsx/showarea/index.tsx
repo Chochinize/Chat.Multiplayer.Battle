@@ -14,7 +14,7 @@ const ShowArea = () => {
   
   
   return (
-    <div className='border-4   w-full p-2 h-[100%] overflow-x-auto border-red-400 font-Dongle '>
+    <div className='border-4 text-[24px]   w-full p-2 h-[100%] overflow-x-auto border-red-400 font-Dongle '>
       
     {client.chatPlayer?.map((item: any, index:number) =>
     <ul key={index} className='flex items-center gap-[2px] border-2  border-teal-400 w-full break-words  '>

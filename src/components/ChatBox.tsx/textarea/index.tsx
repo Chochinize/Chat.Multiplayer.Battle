@@ -25,7 +25,7 @@ const TextArea = () => {
   const searchName = client.players[0]?.data?.players[0].users.find((i:any)=>i.id === paramsID)
 
   return (
-    <div className='w-full border-4 flex items-center border-cyan-500 h-10  text-[24px]    relative font-Dongle'>
+    <div className='w-full border-4 flex items-end border-cyan-500 h-10      relative font-Dongle'>
         
         <input
             disabled={!client.userJoinned ? true : false}
@@ -34,12 +34,12 @@ const TextArea = () => {
             value={chat.name}
             required
             placeholder='type something...'
-            className="   outline-none text-start h-8   lg:border-b-2 border-4 w-full "
+            className="   outline-none text-start rounded-full h-8  text-[24px]   lg:border-b-2  border-4 w-full "
             onChange={onChangeInput}
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
         
-        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
+        <button onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-[30%]  text-[24px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>Send</button>
         </div>
   )
 }
