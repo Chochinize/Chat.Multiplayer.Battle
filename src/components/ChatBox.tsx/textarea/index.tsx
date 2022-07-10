@@ -29,6 +29,8 @@ const TextArea = () => {
   }
   return (
     <div className='w-full border-4 flex items-center  border-cyan-500 h-10      '>
+
+      
         <BsEmojiSmile size={47} className='px-1' onClick={()=>popIconMenu()}/>
         
         <input
