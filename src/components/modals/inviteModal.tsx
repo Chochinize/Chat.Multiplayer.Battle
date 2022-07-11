@@ -15,13 +15,13 @@ export default function InvitePlayerModal() {
     const { InvitationModal } = bindActionCreators(actionCreators, dispatch)
   const cancelButtonRef = useRef(null)
   const client = useSelector((state: State) => state.bank)
-    const  [ open, setOpen ] = useState(true)
+    const  [ open, setOpen ] = useState(false)
 
-    console.log('invitation',client)
+  console.log('working on modals', client)
     
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={()=>setOpen(true)}>
+    <Transition.Root show={client.modals.length !== 0 ? true : false} as={Fragment}>
+      <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={()=>InvitationModal(true)}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -60,7 +60,7 @@ export default function InvitePlayerModal() {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                      You have been invited to play from ' '
+                       {client.modals.senderName}#{client.modals.senderID} invited you to play
                       </p>
                     </div>
                   </div>
@@ -70,14 +70,14 @@ export default function InvitePlayerModal() {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={() => InvitationModal(false)}
                 >
                 Accept 
                 </button>
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={() => InvitationModal([])}
                   ref={cancelButtonRef}
                 >
                   Decline

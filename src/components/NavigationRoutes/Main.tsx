@@ -66,7 +66,7 @@ const MainRoom = () => {
 
 
 
-  console.log('lfn', client)
+  
   useEffect(() => {
 
     if (client.users.length === 0) {
@@ -119,8 +119,7 @@ const MainRoom = () => {
           case 'sendInvitation':
             // console.log('last cookie',paramsID)  
             if (dataFromServer.userID === paramsID) {
-              console.log('founded user', dataFromServer)
-              console.log('founded user', client)
+     
               InvitationModal(dataFromServer)
             }
             break;
@@ -140,7 +139,7 @@ const MainRoom = () => {
   }, [client.users])
 
 
-  console.log('modals', client)
+  
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -226,7 +225,7 @@ const MainRoom = () => {
                   <FcPlus
                     size={22}
                     className='cursor-pointer'
-                    onClick={(e) => sendInvitation(item.name, item.id, client, paramsID, client.setUserName.name)} />
+                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name,paramsID)} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
               </div>
@@ -237,7 +236,7 @@ const MainRoom = () => {
       </div>
               <InvitePlayerModal/>
       <div className='w-full border-2 border-teal-200'>
-        dasdasds
+        {client.modals.senderID}
       </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />
