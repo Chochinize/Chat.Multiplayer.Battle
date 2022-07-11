@@ -45,19 +45,10 @@ export const playersJoinned = (id:any)=>{
         })
     }
 }
-
-export const inviteUser = (id:any)=>{
+export const InvitationModal = (id:any)=>{
     return(dispatch:Dispatch<Action>)=>{
         dispatch({
             type:ActionType.MODALS,
-            payload:id
-        })
-    }
-}
-export const refreshPlayer = (id:any)=>{
-    return(dispatch:Dispatch<Action>)=>{
-        dispatch({
-            type:ActionType.REFRESH,
             payload:id
         })
     }

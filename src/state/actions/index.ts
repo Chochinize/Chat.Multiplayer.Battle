@@ -25,10 +25,7 @@ interface InvitePlayerAction {
     type:ActionType.MODALS,
     payload:boolean
 }
-interface RefreshPlayerAction {
-    type:ActionType.REFRESH,
-    payload:any
-}
+
 interface CharMessageAction {
     type:ActionType.MESSAGE,
     payload:any
@@ -44,7 +41,6 @@ SetUserNameAction|
 JoinPlayerAction|
 GetPlayerAction|
 InvitePlayerAction|
-RefreshPlayerAction|
 CharMessageAction|
 UserJoinnedAction
 

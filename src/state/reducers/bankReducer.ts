@@ -7,6 +7,7 @@ const initialState = {
       setUserName: { name:'' },
       userJoinned: false,
       chatPlayer: [],
+      modals:[],
 };
 
 const reducer = (state: any = initialState, action: Action) => {
@@ -17,40 +18,32 @@ const reducer = (state: any = initialState, action: Action) => {
                         users: action.payload,
                   };
             case ActionType.PLAYERS:
-              
-                  {
-                  }
                   return {
                         ...state,
                         players: [action.payload],
                   };
-
             case ActionType.USERJOINNED:
                   return {
                         ...state,
                         userJoinned: action.payload,
                   };
-            case ActionType.REFRESH:
-                  return {
-                        ...state,
-                        players: state.players.filter((item: any) => {
-                              return;
-                        }),
-                  };
             case ActionType.MESSAGE:
                   return {
                         ...state,
                         chatPlayer: [...state.chatPlayer, action.payload],
-                  };
+                        };
             case ActionType.SETUSERNAME:
-              const { name , value } = action.payload
-
-
-              console.log('lets see value and action ',value ,name )
-                  return {
+                        const { name , value } = action.payload      
+                  return{
                         ...state,
                         setUserName: { ...state.setUserName.name, [name]: value },
-                  };
+                        };
+            case ActionType.MODALS:
+                  console.log('modal used')
+                  return{
+                        ...state,
+                        modals: action.payload
+                        };
 
             default:
                   return state;
