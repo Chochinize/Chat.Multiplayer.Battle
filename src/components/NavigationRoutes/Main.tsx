@@ -222,7 +222,7 @@ const MainRoom = () => {
                     #{item?.id}
                   </li>
                 </ul>
-                <li className='flex gap-4 border-2   rounded-full p-2' >
+                <li className='flex items-center gap-4   p-2' >
                   <FcPlus
                     size={22}
                     className='cursor-pointer'
