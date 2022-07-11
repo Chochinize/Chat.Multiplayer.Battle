@@ -227,7 +227,7 @@ const MainRoom = () => {
                     size={22}
                     className='cursor-pointer'
                     onClick={(e) => sendInvitation(item.name, item.id, client, paramsID, client.setUserName.name)} />
-                  <BsChatDots size={22} className='cursor-pointer' />
+                  {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
               </div>
             )}
