@@ -90,7 +90,7 @@ const MainRoom = () => {
 
       }));
       client.users.onmessage = (message: any) => {
-        console.log('message')
+    
         const dataFromServer = JSON.parse(message.data)
 
 
@@ -119,7 +119,12 @@ const MainRoom = () => {
             setControversial(dataFromServer.usersUpdate.users)
             break;
             case 'sendInvitation':
-              console.log('last data from server',dataFromServer)  
+
+              console.log('last cookie',paramsID)  
+              if(dataFromServer.userID === paramsID  ){
+                console.log('founded user')
+              }
+              // console.log('last data from server',dataFromServer)  
             break;
           }
       }
@@ -170,7 +175,7 @@ const MainRoom = () => {
   console.log('realdatafrom server', controversial.filter((item)=>item.id ))
 
   return (
-    <div className='w-[100%] h-full flex justify-between  relative'>
+    <div className='w-[100%] h-full flex   relative'>
 
       <div className='w-[30%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-500 '>
 
@@ -201,10 +206,7 @@ const MainRoom = () => {
         </div>)
           :
           ''}
-        <div>
-
-        
-        </div>
+       
           <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
         <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
           <div className='relative    top-10'>
@@ -232,6 +234,9 @@ const MainRoom = () => {
 
       </div>
 
+      <div className='w-full border-2 border-teal-200'>
+dasdasds
+      </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />
       </div>
