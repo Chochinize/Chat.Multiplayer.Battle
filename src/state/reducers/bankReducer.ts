@@ -7,7 +7,7 @@ const initialState = {
       setUserName: { name:'' },
       userJoinned: false,
       chatPlayer: [],
-      modals:[],
+      modals:[] ,
 };
 
 const reducer = (state: any = initialState, action: Action) => {
