@@ -12,15 +12,15 @@ export default function InvitePlayerModal() {
   
 
     const dispatch = useDispatch()
-    const { joinUser, playersJoinned,InvitationModal } = bindActionCreators(actionCreators, dispatch)
+    const { InvitationModal } = bindActionCreators(actionCreators, dispatch)
   const cancelButtonRef = useRef(null)
   const open = useSelector((state: State) => state.bank)
     // const  [ open, setOpen ] = useState(false)
 
-    console.log('invitation',open.invitePlayerModal)
+    console.log('invitation')
     
   return (
-    <Transition.Root show={false} as={Fragment}>
+    <Transition.Root show={true} as={Fragment}>
       <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={()=>InvitationModal(false)}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -56,11 +56,11 @@ export default function InvitePlayerModal() {
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Email confirmation
+                      Invitation
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                      We have send a link  to  your email addres. Please visit it and log in.
+                      You have been invited to play from ' '
                       </p>
                     </div>
                   </div>
@@ -72,16 +72,16 @@ export default function InvitePlayerModal() {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => InvitationModal(false)}
                 >
-                  Ok
+                Accept 
                 </button>
-                {/* <button
+                <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setOpen(false)}
+                  onClick={() => InvitationModal(false)}
                   ref={cancelButtonRef}
                 >
-                  Cancel
-                </button> */}
+                  Decline
+                </button>
               </div>
             </div>
           </Transition.Child>

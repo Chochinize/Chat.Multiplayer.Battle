@@ -12,6 +12,7 @@ import { JoinRoom, LeaveRoom, sendInvitation } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
 import { BsChatDots } from 'react-icons/bs';
 import { FcPlus } from 'react-icons/fc';
+import InvitePlayerModal  from './../modals/inviteModal'
 
 
 
@@ -234,7 +235,7 @@ const MainRoom = () => {
         </div>
 
       </div>
-
+              <InvitePlayerModal/>
       <div className='w-full border-2 border-teal-200'>
         dasdasds
       </div>
