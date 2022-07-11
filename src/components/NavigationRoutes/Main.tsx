@@ -1,21 +1,18 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { State } from '../../state';
 import { useNavigate } from "react-router-dom";
-import { IUser, IFX } from '../../interfaces/IUser'
 import { useCookies } from 'react-cookie';
 import { useParams } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux'
 import { actionCreators, } from '../../state';
-// import { RoomSettings } from './RoomSettings';
 import { getPlayers } from '../../API_Call/apiCall'
-// import { JoinRoom, LeaveRoom } from '../ActionRoom'
-import { RoomSettings } from "./RoomSettings"
-import { JoinRoom, LeaveRoom } from '../../RoomActions'
+import { JoinRoom, LeaveRoom,sendInvitation } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
 import { BsChatDots } from 'react-icons/bs';
 import { FcPlus } from 'react-icons/fc';
+
 
 
 
@@ -109,7 +106,7 @@ const MainRoom = () => {
             console.log('what is los',dataFromServer)
             refreshPlayer(dataFromServer)
             setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
-            setControversial(controversial => controversial.filter(x => x.name !== dataFromServer.name))
+            setControversial(controversial => controversial.filter(x => x.name !== dataFromServer.name && x.id !== dataFromServer.id))
 
             console.log('dati', dataFromServer)
             break;
@@ -120,6 +117,9 @@ const MainRoom = () => {
             case 'updateUserBox':
             
             setControversial(dataFromServer.usersUpdate.users)
+            break;
+            case 'sendInvitation':
+              console.log('last data from server',dataFromServer)  
             break;
           }
       }
@@ -166,9 +166,6 @@ const MainRoom = () => {
 
   }
 
-  const sendInvitation = ()=>{
-    console.log('LFN',client.players[0]?.data.players[0].users[2])
-  }
 
   console.log('realdatafrom server', controversial.filter((item)=>item.id ))
 
@@ -206,42 +203,14 @@ const MainRoom = () => {
           ''}
         <div>
 
-            {/* { controversial.map((item:any,indx)=> 
-            <div key={indx}>
-             <ul className='flex items-center  m-2 ' >
-                <li className=''>
-                  {item?.name}
-                </li>
-                <li className='ml-1'>
-                  #{item?.id}
-                </li>
-              </ul>
-              <li className='flex gap-4    rounded-full p-2' >
-                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
-                <BsChatDots size={22} className='cursor-pointer'/>
-                </li>
-            </div>
-            )} */}
+        
         </div>
           <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
         <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
           <div className='relative    top-10'>
             {/* <RoomSettings /> */}
             
-            {/* {msg.map((item: any, index) => <div className='list-none border-2 border-b-2 m-2 flex justify-between mx-4 ' key={index}>
-              <ul className='flex items-center  m-2 ' >
-                <li className=''>
-                  {item.payload}
-                </li>
-                <li className='ml-1'>
-                  #{item.id}
-                </li>
-              </ul>
-              <li className='flex gap-4    rounded-full p-2' >
-                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
-                <BsChatDots size={22} className='cursor-pointer'/>
-              </li>
-            </div>)} */}
+   
                { controversial.map((item:any,indx)=> 
             <div key={indx} className='list-none border-2 border-b-2 m-2 flex justify-between mx-4 '>
              <ul className='flex items-center  m-2 ' >
@@ -253,7 +222,7 @@ const MainRoom = () => {
                 </li>
               </ul>
               <li className='flex gap-4    rounded-full p-2' >
-                <FcPlus size={22} className='cursor-pointer' onClick={()=>sendInvitation()} />
+                <FcPlus size={22} className='cursor-pointer' onClick={(e)=>sendInvitation(item.name,item.id,client)} />
                 <BsChatDots size={22} className='cursor-pointer'/>
                 </li>
             </div>
