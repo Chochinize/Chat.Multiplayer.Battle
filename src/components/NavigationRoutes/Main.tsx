@@ -95,33 +95,21 @@ const MainRoom = () => {
 
         switch (dataFromServer.type) {
           case 'subscribe':
-            // setMsg(msg => [...msg, dataFromServer])
             setControversial(controversial => [...controversial, dataFromServer])
-            // console.log('datichka', dataFromServer)
-
             break;
           case 'unsubscribe':
-
-            // console.log('what is los',dataFromServer)
-            // refreshPlayer(dataFromServer)
-            // setMsg(msg => msg.filter(x => x.payload !== dataFromServer.payload && x.id !== dataFromServer.id))
             setControversial(controversial => controversial.filter(x => x.name !== dataFromServer.name && x.id !== dataFromServer.id))
-
-            // console.log('dati', dataFromServer)
             break;
           case 'chatmsg':
             playerChat(dataFromServer)
-            // console.log('````````````````````CHAT MESSAGE', dataFromServer)
             break;
           case 'updateUserBox':
-
             setControversial(dataFromServer.usersUpdate.users)
             break;
           case 'sendInvitation':
             console.log('last cookie',dataFromServer)  
             if (dataFromServer.userID === paramsID) {
               console.log('last cookie',dataFromServer)  
-              
               InvitationModal(dataFromServer)
               console.log('last cookie',client)  
             }
@@ -130,7 +118,6 @@ const MainRoom = () => {
       }
     }
     return () => {
-      // console.log('close connection')
       client.users.onclose = () =>
         client.users?.send(JSON.stringify({
           type: 'closeConnection',
@@ -222,6 +209,9 @@ console.log('cl',client)
                   </li>
                   <li className='ml-1'>
                     #{item?.id}
+                  </li>
+                  <li className='ml-1'>
+                    {item?.status}
                   </li>
                 </ul>
 
