@@ -121,8 +121,9 @@ const MainRoom = () => {
             console.log('last cookie',dataFromServer)  
             if (dataFromServer.userID === paramsID) {
               console.log('last cookie',dataFromServer)  
-
+              
               InvitationModal(dataFromServer)
+              console.log('last cookie',client)  
             }
             break;
         }
@@ -141,7 +142,7 @@ const MainRoom = () => {
   }, [client.users])
 
 
-
+console.log('cl',client)
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
