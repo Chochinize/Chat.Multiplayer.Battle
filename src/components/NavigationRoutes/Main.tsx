@@ -11,6 +11,7 @@ import { getPlayers } from '../../API_Call/apiCall'
 import { JoinRoom, LeaveRoom, sendInvitation } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
 import { BsChatDots } from 'react-icons/bs';
+import { RiSwordLine } from 'react-icons/ri';
 import { FcPlus } from 'react-icons/fc';
 import InvitePlayerModal  from './../modals/inviteModal'
 
@@ -175,7 +176,7 @@ const MainRoom = () => {
   return (
     <div className='w-[100%] h-full flex   relative'>
 
-      <div className='w-[30%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-500 '>
+      <div className='w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-700 '>
 
         {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
           <input disabled={client.userJoinned ? true : false}
@@ -221,10 +222,10 @@ const MainRoom = () => {
                     #{item?.id}
                   </li>
                 </ul>
-                <li className='flex items-center gap-4   p-2' >
-                  <FcPlus
-                    size={22}
-                    className='cursor-pointer'
+                <li className='flex items-center gap-4  rounded-full bg-gray-200 p-2 m-2' >
+                  <RiSwordLine
+                    size={14}
+                    className='cursor-pointer text-red-600 hover:scale-150'
                     onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name,paramsID,true)} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
