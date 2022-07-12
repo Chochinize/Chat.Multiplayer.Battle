@@ -225,7 +225,7 @@ const MainRoom = () => {
                   <FcPlus
                     size={22}
                     className='cursor-pointer'
-                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name,paramsID)} />
+                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name,paramsID,true)} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
               </div>
@@ -236,7 +236,7 @@ const MainRoom = () => {
       </div>
               <InvitePlayerModal/>
       <div className='w-full border-2 border-teal-200'>
-        {client.modals.senderID}
+        
       </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />
