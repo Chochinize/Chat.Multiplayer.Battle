@@ -10,10 +10,10 @@ import { actionCreators, } from '../../state';
 import { getPlayers } from '../../API_Call/apiCall'
 import { JoinRoom, LeaveRoom, sendInvitation } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
-import { BsChatDots } from 'react-icons/bs';
 import { RiSwordLine } from 'react-icons/ri';
-import { FcPlus } from 'react-icons/fc';
 import InvitePlayerModal from './../modals/inviteModal'
+
+
 
 
 
@@ -26,7 +26,7 @@ const MainRoom = () => {
   const effectRan = useRef(false)
 
   const [controversial, setControversial] = useState<any[]>([])
-  const [msg, setMsg] = useState<any[]>([])
+
   const client = useSelector((state: State) => state.bank)
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
@@ -95,7 +95,7 @@ const MainRoom = () => {
 
         switch (dataFromServer.type) {
           case 'subscribe':
-            setMsg(msg => [...msg, dataFromServer])
+            // setMsg(msg => [...msg, dataFromServer])
             setControversial(controversial => [...controversial, dataFromServer])
             // console.log('datichka', dataFromServer)
 
@@ -150,15 +150,15 @@ const MainRoom = () => {
   };
 
 
-  useEffect(() => {
-    if (effectRan.current === false) {
-      const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
+  // useEffect(() => {
+  //   if (effectRan.current === false) {
+  //     const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
 
-      return () => {
-        effectRan.current = true
-      }
-    }
-  }, [client.users])
+  //     return () => {
+  //       effectRan.current = true
+  //     }
+  //   }
+  // }, [client.users])
 
 
   const setStateOnUserInput = (e: any) => {
@@ -194,7 +194,7 @@ const MainRoom = () => {
 
             <button
               name='leave'
-              onClick={(e) => LeaveRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e), setMsg(msg => msg.filter(x => x.payload !== client.setUserName.name)))}
+              onClick={(e) => LeaveRoom(client.setUserName.name, paramsID, client, setStateOnUserInput(e))}
               className='border-2   p-2 hover:bg-slate-50'>Leave Room</button>
             :
             <button
@@ -222,15 +222,18 @@ const MainRoom = () => {
                     #{item?.id}
                   </li>
                 </ul>
+
+                {/*                                       LOADING ANIMATION                                         */}
                 <li className='flex items-center gap-2  rounded-full  p-2 m-2' >
                   <div className="flex items-center justify-center space-x-[2px] ">
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
+                {/*                                       LOADING ANIMATION END                                     */}
                   </div>
                   <RiSwordLine
-                    size={16}
-                    className='cursor-pointer text-red-600  '
+                    size={22}
+                    className='cursor-pointer text-blue-400 bg-black rounded-full p-1   '
                     onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, true)} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
