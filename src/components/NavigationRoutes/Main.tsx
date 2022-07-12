@@ -118,7 +118,7 @@ const MainRoom = () => {
             setControversial(dataFromServer.usersUpdate.users)
             break;
           case 'sendInvitation':
-            // console.log('last cookie',paramsID)  
+            console.log('last cookie',paramsID)  
             if (dataFromServer.userID === paramsID) {
 
               InvitationModal(dataFromServer)
@@ -171,7 +171,7 @@ const MainRoom = () => {
   }
 
 
-  // console.log('realdatafrom server', controversial.filter((item)=>item.id ))
+  console.log('looking fo status', client.modalsInvitation.status)
 
   return (
     <div className='w-[100%] h-full flex   relative'>
@@ -225,16 +225,16 @@ const MainRoom = () => {
 
                 {/*                                       LOADING ANIMATION                                         */}
                 <li className='flex items-center gap-2  rounded-full  p-2 m-2' >
-                  <div className="flex items-center justify-center space-x-[2px] ">
+                  {client.modalsInvitation.status === 'busy' ?  <div className="flex items-center justify-center space-x-[2px] ">
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
-                {/*                                       LOADING ANIMATION END                                     */}
-                  </div>
+                  </div> : '' }
+                  
                   <RiSwordLine
                     size={22}
                     className='cursor-pointer text-blue-400 bg-black rounded-full p-1   '
-                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, true)} />
+                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID,'busy')} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
               </div>

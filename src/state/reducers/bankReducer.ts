@@ -7,7 +7,7 @@ const initialState = {
       setUserName: { name:'' },
       userJoinned: false,
       chatPlayer: [],
-      modalsInvitation:{name:'',userID:'',senderName:'',senderID:'',status:'busy'} ,
+      modalsInvitation:{name:'',userID:'',senderName:'',senderID:'',status:'free'} ,
 };
 
 const reducer = (state: any = initialState, action: Action) => {
@@ -40,6 +40,7 @@ const reducer = (state: any = initialState, action: Action) => {
                         };
             case ActionType.MODALS:
                   console.log('modal used')
+                  console.log('modal used',action.payload)
                   return{
                         ...state,
                         modalsInvitation: action.payload
