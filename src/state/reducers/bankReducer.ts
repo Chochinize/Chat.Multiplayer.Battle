@@ -39,8 +39,8 @@ const reducer = (state: any = initialState, action: Action) => {
                         setUserName: { ...state.setUserName.name, [name]: value },
                         };
             case ActionType.MODALS:
-                  console.log('modal used')
-                  console.log('modal used',action.payload)
+                  // console.log('modal used')
+                  // console.log('modal used',action.payload)
                   return{
                         ...state,
                         modalsInvitation: action.payload

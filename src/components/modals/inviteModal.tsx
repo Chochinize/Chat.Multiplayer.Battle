@@ -21,16 +21,13 @@ export default function InvitePlayerModal() {
   const client = useSelector((state: State) => state.bank)
   const [open, setOpen] = useState(true)
 
-  console.log('check for cl', client)
   const createNewRoom = () => {
     navigate(`/mainroom/${paramsID}/NEWROOMID`, { replace: false })
   }
-  const look = () => {
-    console.log('what the fuck is going on here')
-  }
+
   return (
     <Transition.Root show={client.modalsInvitation.status === 'free' ? false : true} as={Fragment}>
-      <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={look}>
+      <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
