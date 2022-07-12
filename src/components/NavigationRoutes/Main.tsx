@@ -13,7 +13,7 @@ import ChatBox from './../ChatBox.tsx'
 import { BsChatDots } from 'react-icons/bs';
 import { RiSwordLine } from 'react-icons/ri';
 import { FcPlus } from 'react-icons/fc';
-import InvitePlayerModal  from './../modals/inviteModal'
+import InvitePlayerModal from './../modals/inviteModal'
 
 
 
@@ -67,7 +67,7 @@ const MainRoom = () => {
 
 
 
-  
+
   useEffect(() => {
 
     if (client.users.length === 0) {
@@ -120,7 +120,7 @@ const MainRoom = () => {
           case 'sendInvitation':
             // console.log('last cookie',paramsID)  
             if (dataFromServer.userID === paramsID) {
-     
+
               InvitationModal(dataFromServer)
             }
             break;
@@ -140,7 +140,7 @@ const MainRoom = () => {
   }, [client.users])
 
 
-  
+
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -222,11 +222,16 @@ const MainRoom = () => {
                     #{item?.id}
                   </li>
                 </ul>
-                <li className='flex items-center gap-4  rounded-full bg-gray-200 p-2 m-2' >
+                <li className='flex items-center gap-2  rounded-full  p-2 m-2' >
+                  <div className="flex items-center justify-center space-x-[2px] ">
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
+                  </div>
                   <RiSwordLine
-                    size={14}
-                    className='cursor-pointer text-red-600 hover:scale-150'
-                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name,paramsID,true)} />
+                    size={16}
+                    className='cursor-pointer text-red-600  '
+                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, true)} />
                   {/* <BsChatDots size={22} className='cursor-pointer' /> */}
                 </li>
               </div>
@@ -235,9 +240,9 @@ const MainRoom = () => {
         </div>
 
       </div>
-              <InvitePlayerModal/>
+      <InvitePlayerModal />
       <div className='w-full border-2 border-teal-200'>
-        
+
       </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />

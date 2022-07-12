@@ -20,7 +20,25 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        wiggle1: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '10%': { transform: 'scale(0.5)' },
+        },
+        wiggle2: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '20%': { transform: 'scale(0.5)' },
+        },
+        wiggle3: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '30%': { transform: 'scale(0.5)' },
+        }
+      },
+      // animation: {
+      //   wiggle: "wiggle 2000ms ease-in-out infinite"
+      // }
+    },
     fontFamily:{
       'Dongle':['Dongle', 'sans-serif']
     }
