@@ -104,16 +104,16 @@ const MainRoom = () => {
             playerChat(dataFromServer)
             break;
           case 'updateUserBox':
-            
+
             setControversial(dataFromServer.usersUpdate.users)
             break;
-            case 'sendInvitation':
-              if (dataFromServer.userID === paramsID) {
-                client.users.send(JSON.stringify({
-                  type: 'pushUsersBack',
-                }));
-                console.log('controversial',controversial)
-              console.log('invitation sended',dataFromServer)
+          case 'sendInvitation':
+            if (dataFromServer.userID === paramsID) {
+              client.users.send(JSON.stringify({
+                type: 'pushUsersBack',
+              }));
+              console.log('controversial', controversial)
+              console.log('invitation sended', dataFromServer)
               InvitationModal(dataFromServer)
               // setControversial(controversial => [...controversial, dataFromServer])
 
@@ -133,7 +133,7 @@ const MainRoom = () => {
 
   }, [client.users])
 
-console.log('client',client)
+  console.log('client', client)
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -210,21 +210,25 @@ console.log('client',client)
                   <li>{item?.name}</li>
                   <li>#{item?.id}</li>
                 </ul>
-                
+
                 <div className='flex items-center gap-2  rounded-full  p-2 m-2  ' >
-                {item.status === 'busy' ? <div className="flex space-x-[2px] ">
-                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
-                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
-                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
-                    </div> : ''}
+                  {item.status === 'busy' ? <div className="flex space-x-[2px]  has-tooltip ">
+                    
+                      <span className='tooltip rounded-tl-full rounded-tr-full h-8 rounded-bl-full  bg-gray-100 shadow-xl right-24 -top-1 -m-4 p-1 w-max    text-blue-500 text-[16px] '>This player is in queue</span>
+                      
+                    
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
+                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
+                  </div> : ''}
                   <RiSwordLine
                     size={22}
                     className='cursor-pointer text-blue-400 bg-black rounded-full p-1   '
                     onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')} />
-                
+
                 </div>
 
-           
+
               </div>
             )}
           </div>
@@ -243,4 +247,3 @@ console.log('client',client)
 }
 
 export default MainRoom
-            

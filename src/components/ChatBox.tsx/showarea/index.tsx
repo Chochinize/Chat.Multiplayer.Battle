@@ -33,7 +33,7 @@ const ShowArea = () => {
       <li className='ml-2 font-semibold'> {item?.name}</li>  
       <li className='font-semibold'> #</li>  
       <li className='font-norsemiboldmal mr-2'>{item?.id}</li>
-      <li className='font-norsemiboldmal'> {moment().format('dddd')} </li> :
+      <li className='font-norsemiboldmal'> {} </li> :
       <li className='ml-2 w-max  border-2 border-semibold '> {item?.chatMessage} </li> 
     </ul>
   )}
