@@ -109,6 +109,9 @@ const MainRoom = () => {
             break;
             case 'sendInvitation':
               if (dataFromServer.userID === paramsID) {
+                client.users.send(JSON.stringify({
+                  type: 'pushUsersBack',
+                }));
                 console.log('controversial',controversial)
               console.log('invitation sended',dataFromServer)
               InvitationModal(dataFromServer)
@@ -130,7 +133,7 @@ const MainRoom = () => {
 
   }, [client.users])
 
-
+console.log('client',client)
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
