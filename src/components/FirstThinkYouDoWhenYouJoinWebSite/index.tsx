@@ -40,9 +40,9 @@ const Connection = () => {
         <div className='w-[31%]   text-xs absolute  border-blue-700 '>
             {cookie.UID 
             ? 
-            <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-4 w-full   rounded-md    '}`}>WhatYouDoWhenYouDisconnectedForFirstTime / reconnect</button> 
+            <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-4 w-full   rounded-md    '}`}> Reconnect</button> 
             :
-             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 w-[100%] p-4 rounded-md    '}`}>WhatYouDoWhenYouJoinInWebSiteForFurstTime</button>}
+             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 w-[100%] p-4 rounded-md    '}`}>Connect</button>}
             
         </div>
     )

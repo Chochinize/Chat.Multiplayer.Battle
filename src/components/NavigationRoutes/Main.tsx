@@ -104,14 +104,16 @@ const MainRoom = () => {
             playerChat(dataFromServer)
             break;
           case 'updateUserBox':
+            
             setControversial(dataFromServer.usersUpdate.users)
             break;
-          case 'sendInvitation':
-            console.log('last cookie',dataFromServer)  
-            if (dataFromServer.userID === paramsID) {
-              console.log('last cookie',dataFromServer)  
+            case 'sendInvitation':
+              if (dataFromServer.userID === paramsID) {
+                console.log('controversial',controversial)
+              console.log('invitation sended',dataFromServer)
               InvitationModal(dataFromServer)
-              console.log('last cookie',client)  
+              // setControversial(controversial => [...controversial, dataFromServer])
+
             }
             break;
         }
@@ -129,7 +131,6 @@ const MainRoom = () => {
   }, [client.users])
 
 
-console.log('cl',client)
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -160,7 +161,6 @@ console.log('cl',client)
   }
 
 
-  
 
   return (
     <div className='w-[100%] h-full flex   relative'>
@@ -202,33 +202,26 @@ console.log('cl',client)
 
 
             {controversial.map((item: any, indx) =>
-              <div key={indx} className='list-none border-2 border-b-2 m-2 flex justify-between mx-4 '>
-                <ul className='flex items-center  m-2 ' >
-                  <li className=''>
-                    {item?.name}
-                  </li>
-                  <li className='ml-1'>
-                    #{item?.id}
-                  </li>
-                  <li className='ml-1'>
-                    {item?.status}
-                  </li>
+              <div key={indx} className='list-none border-[1px]   border-black m-2 w-52 flex justify-between mx-4 '>
+                <ul className='flex items-center m-4' >
+                  <li>{item?.name}</li>
+                  <li>#{item?.id}</li>
                 </ul>
-
-                {/*                                       LOADING ANIMATION                                         */}
-                <li className='flex items-center gap-2  rounded-full  p-2 m-2' >
-                  {/* {client.modalsInvitation.status === 'busy' ?  : '' } */}
-                   {/* <div className="flex items-center justify-center space-x-[2px] ">
-                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
-                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
-                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
-                  </div> */}
+                
+                <div className='flex items-center gap-2  rounded-full  p-2 m-2  ' >
+                {item.status === 'busy' ? <div className="flex space-x-[2px] ">
+                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
+                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
+                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
+                    </div> : ''}
                   <RiSwordLine
                     size={22}
                     className='cursor-pointer text-blue-400 bg-black rounded-full p-1   '
-                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID,'busy')} />
-                  {/* <BsChatDots size={22} className='cursor-pointer' /> */}
-                </li>
+                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')} />
+                
+                </div>
+
+           
               </div>
             )}
           </div>
@@ -247,3 +240,4 @@ console.log('cl',client)
 }
 
 export default MainRoom
+            
