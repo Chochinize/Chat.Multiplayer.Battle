@@ -65,12 +65,13 @@ export default function InvitePlayerModal() {
                     <RiSwordLine className="h-6 w-6 text-red-600" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Invitation
+                    <Dialog.Title as="h3" className="text-lg items-center py-2 leading-6 font-medium text-gray-900">
+                      You have been challenged 
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500 h-10">
-                        {client.modalsInvitation.senderName}{client.modalsInvitation.status === 'free' ? '' : '#'}
+                        {client.modalsInvitation.senderName}
+                        {client.modalsInvitation.status === 'free' ? '' : '#'}
                         {client.modalsInvitation.senderID}
                         {/* {client.modals.senderName}#{client.modals.senderID} invited you to play */}
                       </p>
@@ -92,7 +93,6 @@ export default function InvitePlayerModal() {
                   onClick={() =>CancelInvitation(client,paramsID)}
                   ref={cancelButtonRef}
                 >
-                  {/* InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:'free'}) */}
                   Decline
                 </button>
               </div>

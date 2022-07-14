@@ -107,6 +107,7 @@ const MainRoom = () => {
             setControversial(dataFromServer.usersUpdate.users)
             break;
           case 'sendInvitation':
+            console.log('check the invitatio n',client)  
             if (dataFromServer.userID === paramsID) {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
@@ -115,11 +116,12 @@ const MainRoom = () => {
             }
             break;
           case 'cancelInvitationResend':
-            if (dataFromServer.userID === paramsID) {
+          console.log('check the client',client)  
+          if (dataFromServer.userID === paramsID) {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
               }));
-              InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:dataFromServer.status})
+              InvitationModal({status:dataFromServer.status})
             }
           break;
         }
@@ -136,6 +138,8 @@ const MainRoom = () => {
 
   }, [client.users])
   
+  console.log('outside',client) 
+
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
     const target = e.target
