@@ -111,11 +111,17 @@ const MainRoom = () => {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
               }));
-              // console.log('controversial', controversial)
-              // console.log('invitation sended', dataFromServer)
               InvitationModal(dataFromServer)
             }
             break;
+          case 'cancelInvitationResend':
+            if (dataFromServer.userID === paramsID) {
+              client.users.send(JSON.stringify({
+                type: 'pushUsersBack',
+              }));
+              InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:dataFromServer.status})
+            }
+          break;
         }
       }
     }

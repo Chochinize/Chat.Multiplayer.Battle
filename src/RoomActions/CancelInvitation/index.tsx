@@ -1,12 +1,8 @@
-const CancelInvitation = (userName: any, userID: any, cl: any,senderName:any,senderID:any,senderStatus:any) => {
+const CancelInvitation = (cl:any,userID:string | undefined) => {
                     cl.users?.send(JSON.stringify({
-                      type:'invitePlayer',
-                      name: userName,
-                      id: userID,
-                      senderName:senderName,
-                      senderID:senderID,
-                      status:senderStatus
-
+                     type:'cancelInvtiation',
+                     id:userID,
+                     status:'free'
                     }))
                   }
 export default CancelInvitation
