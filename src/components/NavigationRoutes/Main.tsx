@@ -11,6 +11,7 @@ import { getPlayers } from '../../API_Call/apiCall'
 import { JoinRoom, LeaveRoom, sendInvitation } from '../../RoomActions'
 import ChatBox from './../ChatBox.tsx'
 import { RiSwordLine } from 'react-icons/ri';
+import { FcSettings } from 'react-icons/fc';
 import InvitePlayerModal from './../modals/inviteModal'
 
 
@@ -65,6 +66,16 @@ const MainRoom = () => {
   //   }
   // }, [])
 
+    useEffect(() => {
+    if (effectRan.current == false) {
+      console.log('modals changes')
+    }
+    return () => {
+      effectRan.current = true
+    }
+  }, [client.modalsInvitation])
+
+
 
 
 
@@ -95,6 +106,10 @@ const MainRoom = () => {
 
         switch (dataFromServer.type) {
           case 'subscribe':
+            console.log('check user', client)
+            client.users.send(JSON.stringify({
+              type: 'pushUsersBack',
+            }));
             setControversial(controversial => [...controversial, dataFromServer])
             break;
           case 'unsubscribe':
@@ -107,7 +122,6 @@ const MainRoom = () => {
             setControversial(dataFromServer.usersUpdate.users)
             break;
           case 'sendInvitation':
-            console.log('check the invitatio n',client)  
             if (dataFromServer.userID === paramsID) {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
@@ -116,14 +130,23 @@ const MainRoom = () => {
             }
             break;
           case 'cancelInvitationResend':
-          console.log('check the client',client)  
-          if (dataFromServer.userID === paramsID) {
+
+            if (dataFromServer.userID === paramsID) {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
               }));
-              InvitationModal({status:dataFromServer.status})
+              InvitationModal({ status: dataFromServer.status })
             }
-          break;
+            break;
+          case 'acceptGameInvitation':
+            client.users.send(JSON.stringify({
+              type: 'pushUsersBack',
+            }));
+            if (dataFromServer.userID === paramsID) {
+              // console.log(dataFromServer)
+              InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:'busy'})
+            }
+            break;
         }
       }
     }
@@ -137,8 +160,7 @@ const MainRoom = () => {
     }
 
   }, [client.users])
-  
-  console.log('outside',client) 
+
 
   const onChangeInput = (e: any) => {
     const { name, value } = e.target;
@@ -226,13 +248,18 @@ const MainRoom = () => {
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
                   </div> : ''}
-                  
 
-                  <RiSwordLine
-                   
-                   size={22}
-                   className={`${item.status === 'busy' ? 'cursor-wait' : 'cursor-pointer'} text-blue-400 bg-black rounded-full p-1 z-2  `}
-                   onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')} />
+                  {item?.id === paramsID ?
+                    <FcSettings
+                      size={22}
+                    />
+                    :
+                    <RiSwordLine
+                      size={22}
+                      className={`${item.status === 'busy' ? 'cursor-wait' : 'cursor-pointer'} text-blue-400 bg-black rounded-full p-1 z-2  `}
+                      onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')}
+                    />}
+
 
 
                 </div>

@@ -9,7 +9,7 @@ import { State } from '../../state';
 import { RiSwordLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { CancelInvitation } from '../../RoomActions'
+import { CancelInvitation, JoinGameRoom } from '../../RoomActions'
 
 
 export default function InvitePlayerModal() {
@@ -20,15 +20,14 @@ export default function InvitePlayerModal() {
   const { InvitationModal } = bindActionCreators(actionCreators, dispatch)
   const cancelButtonRef = useRef(null)
   const client = useSelector((state: State) => state.bank)
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const createNewRoom = () => {
-    navigate(`/mainroom/${paramsID}/NEWROOMID`, { replace: false })
+    navigate(`/mainroom/${paramsID}/NEWROOMID`, { replace: true })
   }
-  const cancel = ()=>{
-    console.log('cancel d thing')
-    InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:'free'})
-  }
+
+  
+
   return (
     <Transition.Root show={client.modalsInvitation.status === 'free' ? false : true} as={Fragment}>
       <Dialog as="div" className="fixed  z-50 inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -83,7 +82,7 @@ export default function InvitePlayerModal() {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => createNewRoom()}
+                  onClick={() => JoinGameRoom(client)}
                 >
                   Accept
                 </button>
