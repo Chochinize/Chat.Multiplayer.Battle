@@ -219,18 +219,21 @@ const MainRoom = () => {
                 <div className='flex items-center gap-2  rounded-full  p-2 m-2  ' >
                   {item.status === 'busy' ? <div className="flex h-4 items-center space-x-[2px]  has-tooltip ">
 
-                    <span className='tooltip rounded-tl-full  rounded-tr-full h-8 rounded-bl-full  bg-gray-100 shadow-xl right-24 -top-1 -m-4 p-1 w-max    text-blue-500 text-[16px] '>This player is in queue</span>
+                    <span className='tooltip rounded-tl-full  rounded-tr-full h-8 rounded-bl-full  bg-black shadow-xl right-24 -top-1 -m-4 px-2 w-max    text-white text-[16px] '>This player is in queue</span>
 
 
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
                   </div> : ''}
-                  <RiSwordLine
+                  
 
-                    size={22}
-                    className='cursor-pointer text-blue-400 bg-black rounded-full p-1   '
-                    onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')} />
+                  <RiSwordLine
+                   
+                   size={22}
+                   className={`${item.status === 'busy' ? 'cursor-wait' : 'cursor-pointer'} text-blue-400 bg-black rounded-full p-1 z-2  `}
+                   onClick={(e) => sendInvitation(item.name, item.id, client, client.setUserName.name, paramsID, 'busy')} />
+
 
                 </div>
 
