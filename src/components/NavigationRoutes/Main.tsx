@@ -66,14 +66,14 @@ const MainRoom = () => {
   //   }
   // }, [])
 
-    useEffect(() => {
-    if (effectRan.current == false) {
-      console.log('modals changes')
-    }
-    return () => {
-      effectRan.current = true
-    }
-  }, [client.modalsInvitation])
+  //   useEffect(() => {
+  //   if (effectRan.current == false) {
+  //     console.log('modals changes')
+  //   }
+  //   return () => {
+  //     effectRan.current = true
+  //   }
+  // }, [client.modalsInvitation])
 
 
 
@@ -106,7 +106,6 @@ const MainRoom = () => {
 
         switch (dataFromServer.type) {
           case 'subscribe':
-            console.log('check user', client)
             client.users.send(JSON.stringify({
               type: 'pushUsersBack',
             }));
@@ -139,12 +138,11 @@ const MainRoom = () => {
             }
             break;
           case 'acceptGameInvitation':
-            client.users.send(JSON.stringify({
-              type: 'pushUsersBack',
-            }));
-            if (dataFromServer.userID === paramsID) {
-              // console.log(dataFromServer)
-              InvitationModal({name:'',userID:'',senderName:'',senderID:'',status:'busy'})
+            const { userID, status } = dataFromServer
+            if (userID === paramsID) {
+             if(status === 'playing'){
+              navigate(`/manroom/${userID}/newroom`, { replace:true})
+             }
             }
             break;
         }

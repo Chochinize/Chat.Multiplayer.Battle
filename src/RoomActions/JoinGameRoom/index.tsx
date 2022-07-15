@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+
 const JoinGameRoom = (cl:any) => {
 
-                    const navigate = useNavigate();
+                    
                     cl.users?.send(JSON.stringify({
                     type:'acceptInvitation',
                     name:cl.modalsInvitation.name,
