@@ -125,6 +125,7 @@ const MainRoom = () => {
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
               }));
+              console.log('join on accept', dataFromServer)
               InvitationModal(dataFromServer)
             }
             break;
@@ -138,10 +139,13 @@ const MainRoom = () => {
             }
             break;
           case 'acceptGameInvitation':
+            navigate(`/manroom/${dataFromServer.userID}/newroom`, { replace:true})
+
             const { userID, status } = dataFromServer
             if (userID === paramsID) {
-             if(status === 'playing'){
-              navigate(`/manroom/${userID}/newroom`, { replace:true})
+              if(status === 'playing'){
+                navigate(`/manroom/${userID}/newroom`, { replace:true})
+                console.log(dataFromServer)
              }
             }
             break;
