@@ -193,7 +193,7 @@ const MainRoom = () => {
   return (
     <div className='w-[100%] h-full flex   relative'>
 
-      <div className='w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-4 border-red-700 '>
+      <div className='w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-2 border-red-700 '>
 
         {client.users ? (<div className='w-max flex flex-col lg:flex-row m-auto gap-2  '>
           <input disabled={client.userJoinned ? true : false}
