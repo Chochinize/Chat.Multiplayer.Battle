@@ -139,10 +139,10 @@ const MainRoom = () => {
             }
             break;
           case 'acceptGameInvitation':
-            navigate(`/manroom/${dataFromServer.userID}/${dataFromServer.roomID}`, { replace:true})
-
+            InvitationModal(dataFromServer)
             const { userID, status, roomID } = dataFromServer
             if (userID === paramsID) {
+              navigate(`/manroom/${dataFromServer.userID}/${dataFromServer.roomID}`, { replace:true})
               if(status === 'playing'){
                 navigate(`/manroom/${userID}/${roomID}`, { replace:true})
                 console.log(dataFromServer)
@@ -182,6 +182,16 @@ const MainRoom = () => {
   //   }
   // }, [client.users])
 
+
+
+   useEffect(() => {
+    console.log('see what is in client',client)
+      // if(client.modalsInvitation.status === 'playing'){
+      //   navigate(`/manroom/21313/2313132`)
+      // }
+
+     
+  }, [client.modalsInvitation.status])
 
   const setStateOnUserInput = (e: any) => {
     const { name } = e.target
