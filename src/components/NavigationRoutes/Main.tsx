@@ -139,12 +139,12 @@ const MainRoom = () => {
             }
             break;
           case 'acceptGameInvitation':
-            navigate(`/manroom/${dataFromServer.userID}/newroom`, { replace:true})
+            navigate(`/manroom/${dataFromServer.userID}/${dataFromServer.roomID}`, { replace:true})
 
-            const { userID, status } = dataFromServer
+            const { userID, status, roomID } = dataFromServer
             if (userID === paramsID) {
               if(status === 'playing'){
-                navigate(`/manroom/${userID}/newroom`, { replace:true})
+                navigate(`/manroom/${userID}/${roomID}`, { replace:true})
                 console.log(dataFromServer)
              }
             }
