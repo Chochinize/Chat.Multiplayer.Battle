@@ -7,6 +7,7 @@ import { actionCreators, } from '../../state';
 import { getPlayers } from '../../API_Call/apiCall'
 import { ISocket } from '../../interfaces/ISocket'
 import { useCookies } from 'react-cookie';
+import Canvas from '../GameRoom/Canvas';
 
 const randomID = Math.floor(Math.random()*1000)
 const websocketURL:any =
@@ -43,6 +44,7 @@ const Connection = () => {
             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-4 w-full   rounded-md    '}`}> Reconnect</button> 
             :
              <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-blue-200 w-[100%] p-4 rounded-md    '}`}>Connect</button>}
+             
             
         </div>
     )

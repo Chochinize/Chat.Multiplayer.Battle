@@ -1,18 +1,18 @@
-import React, { useRef, useEffect } from 'react'
-import { ICanvas } from '../../interfaces/ICanvas'
+import React, { useRef, useEffect } from "react";
+// import { ICanvas } from "../../interfaces/ICanvas";
 
-const Canvas = (props: ICanvas) => {
-                    const canvasRef = useRef(null)
-                    useEffect(() => {
-                                        const canvas:any = canvasRef.current
-                                        const context = canvas.getContext('2d')
-                                        //Our first draw
-                                        context.fillStyle = '#000000'
-                                        context.fillRect(0, 0, context.canvas.width, context.canvas.height)
-                    }, [])
+const Canvas = () => {
+      const canvasRef = useRef(null);
+      useEffect(() => {
+                    
+            const canvas: any = canvasRef.current;
+            const ctx = canvas.getContext("2d");
+            //Our first draw
+            ctx.fillStyle = 'green';
+            ctx.fillRect(10,100,500,100);
+      }, []);
 
-                    return <canvas ref={canvasRef} {...props} />
+      return <canvas ref={canvasRef} className='border-2 w-full h-full' />;
+};
 
-}
-
-export default Canvas
+export default Canvas;
