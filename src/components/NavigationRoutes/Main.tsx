@@ -186,10 +186,13 @@ const MainRoom = () => {
 
    useEffect(() => {
     console.log('see what is in client',client)
-      // if(client.modalsInvitation.status === 'playing'){
-      //   navigate(`/manroom/21313/2313132`)
-      // }
-
+    const { senderID, status, roomID,userID } = client.modalsInvitation
+    if(paramsID === senderID && status === 'playing'){
+      navigate(`/mainroom/${userID}/${roomID}`)
+    }
+    console.log('wwow',senderID)
+    console.log('wwow',status)
+    console.log('wwow',roomID)
      
   }, [client.modalsInvitation.status])
 
