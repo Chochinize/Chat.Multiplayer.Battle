@@ -2,7 +2,7 @@ import React from 'react'
 
 const GameRoom = () => {
   return (
-    <div>GameRoom</div>
+    <div>EVERYWHERE</div>
   )
 }
 

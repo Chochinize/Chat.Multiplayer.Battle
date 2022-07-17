@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { actionCreators, } from './state/';
 import { useSelector } from 'react-redux';
 import { State } from './state';
+import GameRoom from './components/GameRoom/RoomGame';
 
 
 
@@ -29,7 +30,7 @@ function App() {
         <Route path='/' element={<Layout />}>
 
           <Route path="/mainroom/:id" element={<Main/>} />
-          <Route path="/mainroom/:id/:roomid" element={<Main/>} />
+          <Route path="/mainroom/:id/:roomid" element={<GameRoom/>} />
           {/* <Route path="/mainroom/:id/createRoom" element={<Second/>} /> */}
           {/* <Route path="/mainroom/" element={< />} /> */}
 

@@ -144,7 +144,7 @@ const MainRoom = () => {
             if (userID === paramsID) {
               navigate(`/manroom/${dataFromServer.userID}/${dataFromServer.roomID}`, { replace:true})
               if(status === 'playing'){
-                navigate(`/manroom/${userID}/${roomID}`, { replace:true})
+                navigate(`/mainroom/${userID}/${roomID}`, { replace:true})
                 console.log(dataFromServer)
              }
             }
@@ -188,7 +188,7 @@ const MainRoom = () => {
     console.log('see what is in client',client)
     const { senderID, status, roomID,userID } = client.modalsInvitation
     if(paramsID === senderID && status === 'playing'){
-      navigate(`/mainroom/${userID}/${roomID}`)
+      navigate(`/mainroom/${senderID}/${roomID}`)
     }
     console.log('wwow',senderID)
     console.log('wwow',status)
