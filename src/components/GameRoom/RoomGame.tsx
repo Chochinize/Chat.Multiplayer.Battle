@@ -2,9 +2,9 @@ import React from 'react'
 import Canvas from './Canvas'
 const GameRoom = () => {
   return (
-    <>
-  <Canvas/>
-    </>
+    <div className=''>
+  {/* <Canvas/> */}
+    </div>
   )
 }
 
