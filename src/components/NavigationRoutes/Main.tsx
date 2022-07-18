@@ -13,6 +13,7 @@ import ChatBox from './../ChatBox.tsx'
 import { RiSwordLine } from 'react-icons/ri';
 import { FcSettings } from 'react-icons/fc';
 import InvitePlayerModal from './../modals/inviteModal'
+import Canvas from '../GameRoom/Canvas';
 
 
 
@@ -287,8 +288,8 @@ const MainRoom = () => {
 
       </div>
       <InvitePlayerModal />
-      <div className='w-full border-2 border-teal-200'>
-
+      <div className='w-full h-full border-2 border-teal-200'>
+        {/* <Canvas/> */}
       </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />

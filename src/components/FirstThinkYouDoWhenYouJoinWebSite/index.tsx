@@ -1,26 +1,26 @@
-import  { useEffect, useState, useRef } from 'react'
+import  { useEffect, useState } from 'react'
 import { w3cwebsocket as ws } from 'websocket'
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { actionCreators, } from '../../state';
-import { getPlayers } from '../../API_Call/apiCall'
+
 import { ISocket } from '../../interfaces/ISocket'
 import { useCookies } from 'react-cookie';
-import Canvas from '../GameRoom/Canvas';
+
 
 const randomID = Math.floor(Math.random()*1000)
 const websocketURL:any =
-process.env.NODE_ENV == "development"
+process.env.NODE_ENV === "development"
   ? process.env.REACT_APP_DEV_WEBSOCKET
   : process.env.REACT_APP_PROD_WEBSOCKET;
 const Connection = () => {
     const [ cookie, setCookies ] = useCookies(['UID']) 
     const dispatch = useDispatch()
-    const {  joinUser, playersJoinned } = bindActionCreators(actionCreators, dispatch)
+    const {  joinUser } = bindActionCreators(actionCreators, dispatch)
     const [client, setClient] = useState<ISocket | null>()
     let navigate = useNavigate();
-    const effectRan = useRef(false)    
+      
 
 
 
