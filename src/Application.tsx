@@ -17,7 +17,7 @@ function App() {
       : process.env.REACT_APP_PROD_BASEURL;
   axios.defaults.withCredentials = true;
 
-  const [cursorPosition, setCursorPosition] = useState<Point2D>({ x: 0, y: 0 });
+ 
 
   return (
     <div className="border-l-[20px]  w-full  h-screen     border-2 border-yellow-400  ">
