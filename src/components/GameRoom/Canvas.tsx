@@ -46,7 +46,7 @@ export default function Canvas() {
     requestAnimationFrame(renderFrame);
     window.addEventListener("keydown", handlePressKeyDown);
     window.addEventListener("keyup", handlePressKeyUp);
-
+    
     return () => {
       window.removeEventListener("keydown", handlePressKeyDown);
       window.removeEventListener("keyup", handlePressKeyUp);
@@ -58,33 +58,41 @@ export default function Canvas() {
     if (context != null) {
       clearBackground(context);
       drawBox(context, box.position.xPos, box.position.yPos);
-      setBox((prevState: any) => ({
-        position: {
-          ...prevState.position,
-          xPos: prevState.position.xPos,
-        },
-        velocity: {
-          ...prevState.velocity,
-          x: prevState.velocity.x + 10,
-        },
-        h: 150,
-        gravity: 0.2,
-        keys: {
-          a: {
-            pressed: false,
-          },
-          d: {
-            pressed: false,
-          },
-          w:{
-            pressed:false
-          },
-          s:{
-            pressed:false
-          }
-        },
-      }));
-      
+      // setBox((prevState: any) => ({
+      //   position: {
+      //     ...prevState.position,
+      //     xPos: prevState.position.xPos,
+      //   },
+      //   velocity: {
+      //     ...prevState.velocity,
+      //     x: prevState.velocity.x + 10,
+      //   },
+      //   h: 150,
+      //   gravity: 0.2,
+      //   keys: {
+      //     a: {
+      //       pressed: false,
+      //     },
+      //     d: {
+      //       pressed: false,
+      //     },
+      //     w:{
+      //       pressed:false
+      //     },
+      //     s:{
+      //       pressed:false
+      //     }
+      //   },
+      // }));
+
+      if(box.keys.d.pressed){
+        box.velocity.x = 2;
+        box.position.xPos += box.velocity.x
+      }
+      if(box.keys.a.pressed){
+        box.velocity.x = 2;
+        box.position.xPos -= box.velocity.x
+      }
       box.position.yPos += box.velocity.y;
       update();
       if (box.position.yPos + box.h + box.velocity.y >= context.canvas.height) {
@@ -118,8 +126,9 @@ export default function Canvas() {
     switch (key) {
       case "d":
         console.log(key);
-        console.log(box.keys);
+        console.log(box);
 
+        
         setBox((prevState: any) => ({
           position: {
             ...prevState.position,
@@ -147,6 +156,34 @@ export default function Canvas() {
           }
         }));
         break;
+        case 'a':
+          setBox((prevState: any) => ({
+            position: {
+              ...prevState.position,
+              xPos: prevState.position.xPos-1,
+            },
+            velocity: {
+              ...prevState.velocity,
+              x: prevState.velocity.x + 10,
+            },
+            h: 150,
+            gravity: 0.2,
+            keys: {
+              a: {
+                pressed: true,
+              },
+              d: {
+                pressed: false,
+              },
+              w:{
+                pressed:false
+              },
+              s:{
+                pressed:false
+              }
+            }
+          }));
+        break;
         case 'w':
         console.log('click w')
         console.log(box)
@@ -162,20 +199,13 @@ export default function Canvas() {
           h: 150,
           gravity: 0.2,
           keys: {
-            a: {
-              pressed: false,
-            },
-            d: {
-              pressed: false,
-            },
+            ...prevState.keys,
             w:{
-              pressed:false
-            },
-            s:{
-              pressed:false
+              pressed:true
             }
           },
         }));
+        console.log(box)
         break;
     }
   };
@@ -183,7 +213,7 @@ export default function Canvas() {
   const handlePressKeyUp = (event: any) => {
     switch (event.key) {
       case "d":
-        console.log("event",box);
+        console.log("event",box.keys.d.pressed);
         
         setBox((prevState: any) => ({
           position: {
@@ -197,35 +227,57 @@ export default function Canvas() {
           h: 150,
           gravity: 0.2,
           keys: {
-            a: {
-              pressed: false,
-            },
-            d: {
-              pressed: false,
-            },
-            w:{
-              pressed:false,
-            },
-            s:{
-              pressed:false,
-            }
+            ...prevState.keys,
+            d:prevState.keys.d.pressed = false
           },
         }));
         break;
-      case "a":
+        case "a":
+          console.log("event",box.keys.d.pressed);
+          
+          setBox((prevState: any) => ({
+            position: {
+              ...prevState.position,
+              xPos: prevState.position.xPos,
+            },
+            velocity: {
+              ...prevState.velocity,
+              x: prevState.velocity.x + 10,
+            },
+            h: 150,
+            gravity: 0.2,
+            keys: {
+              ...prevState.keys,
+              a:prevState.keys.a.pressed = false
+            },
+          }));
+          break;
+        case "w":
 
-        break;
+        console.log('event on key UP', event.key)
+          setBox((prevState: any) => ({
+            position: {
+              ...prevState.position,
+              xPos: prevState.position.xPos,
+            },
+            velocity: {
+              ...prevState.velocity,
+              x: prevState.velocity.x,
+            },
+            h: 150,
+            gravity: 0.2,
+            keys: {
+              ...prevState.keys,
+              w:{
+                pressed:false
+              }
+            },
+          }));
+          console.log('W', box)
+          break;
+       
     }
   };
-
-  // useEffect(()=>{
-  //   window.addEventListener("keydown", handleUserKeyPress);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handleUserKeyPress);
-  //   };
-  // },[])
-
   return (
     <canvas ref={canvasRef}>
       Oops! Your browser doesn't support the canvas component.
