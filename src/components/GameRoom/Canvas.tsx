@@ -46,7 +46,6 @@ export default function Canvas() {
     requestAnimationFrame(renderFrame);
     window.addEventListener("keydown", handlePressKeyDown);
     window.addEventListener("keyup", handlePressKeyUp);
-    
     return () => {
       window.removeEventListener("keydown", handlePressKeyDown);
       window.removeEventListener("keyup", handlePressKeyUp);
@@ -122,7 +121,7 @@ export default function Canvas() {
   };
 
   const handlePressKeyDown = (event: any) => {
-    const { key, keyCode } = event;
+    const { key } = event;
     switch (key) {
       case "d":
         console.log(key);
@@ -157,6 +156,7 @@ export default function Canvas() {
         }));
         break;
         case 'a':
+          console.log("event",box.keys);
           setBox((prevState: any) => ({
             position: {
               ...prevState.position,
@@ -213,7 +213,7 @@ export default function Canvas() {
   const handlePressKeyUp = (event: any) => {
     switch (event.key) {
       case "d":
-        console.log("event",box.keys.d.pressed);
+        console.log("event",box.keys);
         
         setBox((prevState: any) => ({
           position: {
@@ -233,7 +233,7 @@ export default function Canvas() {
         }));
         break;
         case "a":
-          console.log("event",box.keys.d.pressed);
+          console.log("event",box.keys);
           
           setBox((prevState: any) => ({
             position: {
@@ -242,7 +242,7 @@ export default function Canvas() {
             },
             velocity: {
               ...prevState.velocity,
-              x: prevState.velocity.x + 10,
+              x: prevState.velocity.x,
             },
             h: 150,
             gravity: 0.2,
