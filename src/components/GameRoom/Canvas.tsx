@@ -33,22 +33,50 @@ export default function Canvas() {
       d: {
         pressed: false,
       },
-      w:{
-        pressed:false,
+      w: {
+        pressed: false,
       },
-      s:{
-        pressed:false
-      }
+      s: {
+        pressed: false,
+      },
+    },
+  });
+  const [enemy, setEnemy] = useState({
+    position: {
+      xPos: 0,
+      yPos: 0,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    h: 150,
+    gravity: 0.2,
+    keys: {
+      a: {
+        pressed: false,
+      },
+      d: {
+        pressed: false,
+      },
+      w: {
+        pressed: false,
+      },
+      s: {
+        pressed: false,
+      },
     },
   });
 
   useEffect(() => {
-    requestAnimationFrame(renderFrame);
+    const aniFrameId = requestAnimationFrame(renderFrame);
     window.addEventListener("keydown", handlePressKeyDown);
     window.addEventListener("keyup", handlePressKeyUp);
+    console.log("ENEMY:");
     return () => {
       window.removeEventListener("keydown", handlePressKeyDown);
       window.removeEventListener("keyup", handlePressKeyUp);
+      window.cancelAnimationFrame(aniFrameId);
     };
   }, [counter]);
 
@@ -57,46 +85,36 @@ export default function Canvas() {
     if (context != null) {
       clearBackground(context);
       drawBox(context, box.position.xPos, box.position.yPos);
-      // setBox((prevState: any) => ({
-      //   position: {
-      //     ...prevState.position,
-      //     xPos: prevState.position.xPos,
-      //   },
-      //   velocity: {
-      //     ...prevState.velocity,
-      //     x: prevState.velocity.x + 10,
-      //   },
-      //   h: 150,
-      //   gravity: 0.2,
-      //   keys: {
-      //     a: {
-      //       pressed: false,
-      //     },
-      //     d: {
-      //       pressed: false,
-      //     },
-      //     w:{
-      //       pressed:false
-      //     },
-      //     s:{
-      //       pressed:false
-      //     }
-      //   },
-      // }));
-
-      if(box.keys.d.pressed){
+      drawEnemyBox(context, box.position.xPos, box.position.yPos);
+      if (enemy.keys.d.pressed) {
         box.velocity.x = 2;
-        box.position.xPos += box.velocity.x
+        box.position.xPos += box.velocity.x;
       }
-      if(box.keys.a.pressed){
+      if (enemy.keys.a.pressed) {
         box.velocity.x = 2;
-        box.position.xPos -= box.velocity.x
+        box.position.xPos -= box.velocity.x;
+      }
+      // Enemy
+      if (box.keys.d.pressed) {
+        box.velocity.x = 2;
+        box.position.xPos += box.velocity.x;
+      }
+      if (box.keys.a.pressed) {
+        box.velocity.x = 2;
+        box.position.xPos -= box.velocity.x;
       }
       box.position.yPos += box.velocity.y;
+      enemy.position.yPos += enemy.velocity.y;
       update();
       if (box.position.yPos + box.h + box.velocity.y >= context.canvas.height) {
         box.velocity.y = 0;
       } else box.velocity.y += box.gravity;
+      if (
+        enemy.position.yPos + enemy.h + enemy.velocity.y >=
+        context.canvas.height
+      ) {
+        enemy.velocity.y = 0;
+      } else enemy.velocity.y += enemy.gravity;
     }
   }
   const update = () => {
@@ -119,6 +137,16 @@ export default function Canvas() {
     context.fillStyle = "red";
     context.fillRect(xPos, yPos, 50, box.h);
   };
+  const drawEnemyBox = (
+    context: CanvasRenderingContext2D,
+    xPos: number,
+    yPos: number
+  ) => {
+    // context.fillStyle = "green";
+    // context.fillRect(xPos, yPos, 150, 100);
+    context.fillStyle = "yellow";
+    context.fillRect(xPos + 400, yPos, 50, box.h);
+  };
 
   const handlePressKeyDown = (event: any) => {
     const { key } = event;
@@ -127,11 +155,10 @@ export default function Canvas() {
         console.log(key);
         console.log(box);
 
-        
         setBox((prevState: any) => ({
           position: {
             ...prevState.position,
-            xPos: prevState.position.xPos+1,
+            xPos: prevState.position.xPos + 1,
           },
           velocity: {
             ...prevState.velocity,
@@ -146,47 +173,47 @@ export default function Canvas() {
             d: {
               pressed: true,
             },
-            w:{
-              pressed:false
+            w: {
+              pressed: false,
             },
-            s:{
-              pressed:false
-            }
-          }
+            s: {
+              pressed: false,
+            },
+          },
         }));
         break;
-        case 'a':
-          console.log("event",box.keys);
-          setBox((prevState: any) => ({
-            position: {
-              ...prevState.position,
-              xPos: prevState.position.xPos-1,
+      case "a":
+        console.log("event", box.keys);
+        setBox((prevState: any) => ({
+          position: {
+            ...prevState.position,
+            xPos: prevState.position.xPos - 1,
+          },
+          velocity: {
+            ...prevState.velocity,
+            x: prevState.velocity.x + 10,
+          },
+          h: 150,
+          gravity: 0.2,
+          keys: {
+            a: {
+              pressed: true,
             },
-            velocity: {
-              ...prevState.velocity,
-              x: prevState.velocity.x + 10,
+            d: {
+              pressed: false,
             },
-            h: 150,
-            gravity: 0.2,
-            keys: {
-              a: {
-                pressed: true,
-              },
-              d: {
-                pressed: false,
-              },
-              w:{
-                pressed:false
-              },
-              s:{
-                pressed:false
-              }
-            }
-          }));
+            w: {
+              pressed: false,
+            },
+            s: {
+              pressed: false,
+            },
+          },
+        }));
         break;
-        case 'w':
-        console.log('click w')
-        console.log(box)
+      case "w":
+        console.log("click w");
+        console.log(box);
         setBox((prevState: any) => ({
           position: {
             ...prevState.position,
@@ -200,12 +227,12 @@ export default function Canvas() {
           gravity: 0.2,
           keys: {
             ...prevState.keys,
-            w:{
-              pressed:true
-            }
+            w: {
+              pressed: true,
+            },
           },
         }));
-        console.log(box)
+        console.log(box);
         break;
     }
   };
@@ -213,8 +240,8 @@ export default function Canvas() {
   const handlePressKeyUp = (event: any) => {
     switch (event.key) {
       case "d":
-        console.log("event",box.keys);
-        
+        console.log("event", box.keys);
+
         setBox((prevState: any) => ({
           position: {
             ...prevState.position,
@@ -228,54 +255,52 @@ export default function Canvas() {
           gravity: 0.2,
           keys: {
             ...prevState.keys,
-            d:prevState.keys.d.pressed = false
+            d: (prevState.keys.d.pressed = false),
           },
         }));
         break;
-        case "a":
-          console.log("event",box.keys);
-          
-          setBox((prevState: any) => ({
-            position: {
-              ...prevState.position,
-              xPos: prevState.position.xPos,
-            },
-            velocity: {
-              ...prevState.velocity,
-              x: prevState.velocity.x,
-            },
-            h: 150,
-            gravity: 0.2,
-            keys: {
-              ...prevState.keys,
-              a:prevState.keys.a.pressed = false
-            },
-          }));
-          break;
-        case "w":
+      case "a":
+        console.log("event", box.keys);
 
-        console.log('event on key UP', event.key)
-          setBox((prevState: any) => ({
-            position: {
-              ...prevState.position,
-              xPos: prevState.position.xPos,
+        setBox((prevState: any) => ({
+          position: {
+            ...prevState.position,
+            xPos: prevState.position.xPos,
+          },
+          velocity: {
+            ...prevState.velocity,
+            x: prevState.velocity.x,
+          },
+          h: 150,
+          gravity: 0.2,
+          keys: {
+            ...prevState.keys,
+            a: (prevState.keys.a.pressed = false),
+          },
+        }));
+        break;
+      case "w":
+        console.log("event on key UP", event.key);
+        setBox((prevState: any) => ({
+          position: {
+            ...prevState.position,
+            xPos: prevState.position.xPos,
+          },
+          velocity: {
+            ...prevState.velocity,
+            x: prevState.velocity.x,
+          },
+          h: 150,
+          gravity: 0.2,
+          keys: {
+            ...prevState.keys,
+            w: {
+              pressed: false,
             },
-            velocity: {
-              ...prevState.velocity,
-              x: prevState.velocity.x,
-            },
-            h: 150,
-            gravity: 0.2,
-            keys: {
-              ...prevState.keys,
-              w:{
-                pressed:false
-              }
-            },
-          }));
-          console.log('W', box)
-          break;
-       
+          },
+        }));
+        console.log("W", box);
+        break;
     }
   };
   return (

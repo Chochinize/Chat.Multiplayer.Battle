@@ -3,7 +3,7 @@ import Canvas from './Canvas'
 const GameRoom = () => {
   return (
     <div className=''>
-  {/* <Canvas/> */}
+  <Canvas/>
     </div>
   )
 }
