@@ -34,6 +34,10 @@ interface UserJoinnedAction {
     type:ActionType.USERJOINNED,
     payload:boolean
 }
+interface UpdateEnemyAction {
+    type:ActionType.ENEMYUPDATE,
+    payload:any,
+}
 export type Action = 
 DepositAction |
 WithdrawAction|
@@ -42,5 +46,6 @@ JoinPlayerAction|
 GetPlayerAction|
 InvitePlayerAction|
 CharMessageAction|
-UserJoinnedAction
+UserJoinnedAction|
+UpdateEnemyAction
 

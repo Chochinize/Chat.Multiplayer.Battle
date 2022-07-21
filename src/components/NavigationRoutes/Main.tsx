@@ -51,35 +51,6 @@ const MainRoom = () => {
     }
   }, [client.users])
 
-
-  // useEffect(() => {
-  //   if (effectRan.current == false) {
-  //     console.log('once run')
-  //     const interval = setInterval(function ping() {
-  //       client.users?.send(JSON.stringify({
-  //         type: 'keepAlive',
-
-  //       }))
-  //     }, 25000)
-  //   }
-  //   return () => {
-  //     effectRan.current = true
-  //   }
-  // }, [])
-
-  //   useEffect(() => {
-  //   if (effectRan.current == false) {
-  //     console.log('modals changes')
-  //   }
-  //   return () => {
-  //     effectRan.current = true
-  //   }
-  // }, [client.modalsInvitation])
-
-
-
-
-
   useEffect(() => {
 
     if (client.users.length === 0) {
@@ -87,20 +58,12 @@ const MainRoom = () => {
       navigate('/', { replace: true })
 
     }
-
-    //                                  Info:                                   //
-    //    In this component recive data from backend through websockets         //
-    //    case:'subscribe'  subscribe to room and                               //
-    //    case:'unsubscribe' unsubscribe and filter your name from the list     //
-    //    case:'chatmsg' push msg to chatArr                                    //
-    //                                                                          //
-    //                                                                          //
-    client.users.onopen = () => {
-      client.users.send(JSON.stringify({
-        type: 'pushUsersBack',
-
-      }));
-      client.users.onmessage = (message: any) => {
+client.users.onopen = () => {
+client.users.send(JSON.stringify({                                                                                                                                                               /*                         Outer Conector                                */
+        type: 'pushUsersBack',                                                                                                                                                                   /*   In this component recive data from server through websockets        */
+                                                                                                                                                                                                 /*   case:'unsubscribe' unsubscribe and filter your name from the list   */
+      }));                                                                                                                                                                                       /*   case:'chatmsg' push msg to chatArr                                  */
+      client.users.onmessage = (message: any) => {                                                                                                                                               /*                                                                       */
 
         const dataFromServer = JSON.parse(message.data)
 
@@ -149,6 +112,14 @@ const MainRoom = () => {
                 console.log(dataFromServer)
              }
             }
+            break;
+             case 'updateEnemyPosition':
+              // const { userID } = dataFromServer
+              console.log('lets see',dataFromServer)
+              if(  dataFromServer.userID === paramsID){
+                console.log('UID' )
+                                // console.log('dataFromServer',id)
+              }
             break;
         }
       }
@@ -289,7 +260,6 @@ const MainRoom = () => {
       </div>
       <InvitePlayerModal />
       <div className='w-full h-full border-2 border-teal-200'>
-        {/* <Canvas/> */}
       </div>
       <div className='w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500'>
         <ChatBox />

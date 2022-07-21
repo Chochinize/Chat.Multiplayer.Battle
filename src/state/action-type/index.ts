@@ -7,5 +7,6 @@ export enum ActionType{
     MODALS = 'modals',
     REFRESH = 'refresh',
     MESSAGE = 'message',
-    USERJOINNED = 'userjoinned'
+    USERJOINNED = 'userjoinned',
+    ENEMYUPDATE = 'enemyupdate'
 }

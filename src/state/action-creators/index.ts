@@ -70,3 +70,11 @@ export const userSetName = (id:any)=>{
         })
     }
 }
+export const enemyUpdate= (enemy:any)=>{
+    return(dispatch:Dispatch<Action>)=>{
+        dispatch({
+            type:ActionType.ENEMYUPDATE,
+            payload:enemy
+        })
+    }
+}

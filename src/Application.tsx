@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="border-l-[20px]  w-full  h-screen     border-2 border-yellow-400  ">
-      <Canvas/>
+      {/* <Canvas/> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/mainroom/:id" element={<Main />} />
