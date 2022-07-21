@@ -89,7 +89,7 @@ client.users.send(JSON.stringify({                                              
               client.users.send(JSON.stringify({
                 type: 'pushUsersBack',
               }));
-              console.log('join on accept', dataFromServer)
+              // console.log('join on accept', dataFromServer)
               InvitationModal(dataFromServer)
             }
             break;
@@ -103,22 +103,21 @@ client.users.send(JSON.stringify({                                              
             }
             break;
           case 'acceptGameInvitation':
-            InvitationModal(dataFromServer)
-            const { userID, status, roomID } = dataFromServer
-            if (userID === paramsID) {
-              navigate(`/manroom/${dataFromServer.userID}/${dataFromServer.roomID}`, { replace:true})
-              if(status === 'playing'){
-                navigate(`/mainroom/${userID}/${roomID}`, { replace:true})
-                console.log(dataFromServer)
-             }
+            client.users.send(JSON.stringify({
+              type: 'pushUsersBack',
+            }));
+            const { name, roomID,senderID,status,userID} = dataFromServer
+            if(senderID === paramsID || userID === paramsID ){
+              console.log('This user should be reconnected')
+              
+              navigate(`/mainroom/${userID === paramsID ? userID : senderID}/${roomID}`, { replace:true})
             }
             break;
              case 'updateEnemyPosition':
-              // const { userID } = dataFromServer
-              console.log('lets see',dataFromServer)
-              if(  dataFromServer.userID === paramsID){
-                console.log('UID' )
-                                // console.log('dataFromServer',id)
+              
+              const { enemy } = dataFromServer
+              if( dataFromServer.userID.id === paramsID ){
+                console.log('dddddddddCLEAR')
               }
             break;
         }
@@ -143,7 +142,7 @@ client.users.send(JSON.stringify({                                              
     setUser(target);
   };
 
-
+console.log(client)
   // useEffect(() => {
   //   if (effectRan.current === false) {
   //     const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
@@ -157,14 +156,14 @@ client.users.send(JSON.stringify({                                              
 
 
    useEffect(() => {
-    console.log('see what is in client',client)
+    // console.log('see what is in client',client)
     const { senderID, status, roomID,userID } = client.modalsInvitation
     if(paramsID === senderID && status === 'playing'){
       navigate(`/mainroom/${senderID}/${roomID}`)
     }
-    console.log('wwow',senderID)
-    console.log('wwow',status)
-    console.log('wwow',roomID)
+    // console.log('wwow',senderID)
+    // console.log('wwow',status)
+    // console.log('wwow',roomID)
      
   }, [client.modalsInvitation.status])
 

@@ -32,20 +32,20 @@ export default function Canvas() {
   const { pressed:d } = client.enemy.keys.d
   const { pressed:w } = client.enemy.keys.w
 // console.log('SHOW WHAT YOU HAVE',pressed)
-console.log(client?.modalsInvitation?.userID,)
+// console.log(client?.modalsInvitation?.userID,)
   const animate = () => {
     frame.current = requestAnimationFrame(animate);
     const start = Date.now()
     // console.log(start)
     
-    console.log('dsadasdas',client)
+    
       client.users.send(JSON.stringify({
         type:'enemySyncPosition',
         name:client.enemy,
         userID:paramsID,
       }))
     // }
-    console.log(paramsID)
+    
     if (client.enemy.keys.d.pressed) {
             client.enemy.velocity.x = 2;
             client.enemy.position.xPos += client.enemy.velocity.x;
@@ -81,8 +81,8 @@ console.log(client?.modalsInvitation?.userID,)
   // start animation on first render
 }, [a,d,w]);
 
-console.log(frame)
-console.log(paramsID)
+// console.log(frame)
+// console.log(paramsID)
 // console.log(client)
 const handlerKeyDown = (e:any)=>{
 
