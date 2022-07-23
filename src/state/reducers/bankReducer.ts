@@ -16,8 +16,8 @@ const initialState = {
   },
   enemy: {
     position: {
-      xPos: 400,
-      yPos: 0,
+      xPos: 0,
+      yPos: 426,
     },
     velocity: {
       x: 0,
@@ -87,10 +87,6 @@ const reducer = (state: any = initialState, action: Action) => {
                 ...state,
                 enemy: {
                   ...state.enemy,
-                  position:{
-                        ...state.enemy.position,
-                        xPos:state.enemy.position.xPos+1
-                  },
                   keys: {
                     ...state.enemy.keys,
                     d: {
@@ -123,10 +119,6 @@ const reducer = (state: any = initialState, action: Action) => {
                 ...state,
                 enemy: {
                   ...state.enemy,
-                  position:{
-                        ...state.enemy.position,
-                        xPos:state.enemy.position.xPos-1
-                  },
                   keys: {
                     ...state.enemy.keys,
                     a: {
@@ -158,6 +150,10 @@ const reducer = (state: any = initialState, action: Action) => {
                 ...state,
                 enemy: {
                   ...state.enemy,
+                  velocity:{
+                        ...state.enemy.velocity,
+                        y:state.enemy.velocity.y -10 ,
+                  },
                   keys: {
                     ...state.enemy.keys,
                     w: {
@@ -185,13 +181,6 @@ const reducer = (state: any = initialState, action: Action) => {
         default:
           return state;
       }
-    // console.log('action payload', key)
-    // return{
-
-    //       ...state,
-    //       enemy: key
-    //       };
-
     default:
       return state;
   }

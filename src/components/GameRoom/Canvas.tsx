@@ -17,13 +17,13 @@ interface Pos2D {
 }
 
 export default function Canvas() {
-  const { width, height } = getWindowDimensions();
-  // console.log('what')
+  
+  
   const effectRan = useRef(false);
   const frame = useRef(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const paramsID = useParams();
-  // const context = canvasRef.current?.getContext("2d");
+
   const client = useSelector((state: State) => state.bank);
   const dispatch = useDispatch();
   const { enemyUpdate } = bindActionCreators(actionCreators, dispatch);
@@ -31,9 +31,31 @@ export default function Canvas() {
   const { pressed: d } = client.enemy.keys.d;
   const { pressed: w } = client.enemy.keys.w;
 
+  
+  const context = canvasRef.current?.getContext("2d");
+  const clearBackground = (context: CanvasRenderingContext2D) => {
+    const { width, height } = context.canvas;
+    context.canvas.width = 900;
+    context.canvas.height = 576; 
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+  };
+const drawBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
+
+    context.fillStyle = "red";
+    context.fillRect(xPos, yPos, 50, client.enemy.h);
+  };
+  
 
   const animate = (): void => {
+        const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate);
+    // client.users.send(
+    //   JSON.stringify({
+    //     type: "enemySyncPosition",
+    //     name: client.enemy,
+    //     userID: paramsID,
+    //   })
+    // );
     client.users.send(
       JSON.stringify({
         type: "enemySyncPosition",
@@ -41,34 +63,79 @@ export default function Canvas() {
         userID: paramsID,
       })
     );
-    console.log(frame)
+    // if(context != null){
+    //   console.log('run multiple timesdddddddddd')
+    //   clearBackground(context);
+    //   drawBox(context,client.enemy.position.xPos,client.enemy.position.yPos)
+    //   if (client.enemy.keys.d.pressed) {
+    //     client.enemy.velocity.x = 2;
+    //     client.enemy.position.xPos += client.enemy.velocity.x;        
+    //   }
+    //   if (client.enemy.keys.a.pressed) {
+    //     client.enemy.velocity.x = 2;
+    //     client.enemy.position.xPos -= client.enemy.velocity.x;
+    //   }
+    //   if(client.enemy.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height){
+    //     client.enemy.velocity.y = 0
+    //   } else client.enemy.velocity.y += client.enemy.gravity
+    // }
+    if (context != null) {
+          clearBackground(context);
+          drawBox(context, client.enemy.position.xPos, client.enemy.position.yPos);
+          if (client.enemy.keys.d.pressed) {
+            client.enemy.velocity.x = 2;
+            client.enemy.position.xPos += client.enemy.velocity.x;
+          }
+          if (client.enemy.keys.a.pressed) {
+            client.enemy.velocity.x = 4;
+            client.enemy.position.xPos -= client.enemy.velocity.x;
+          }
+          // Enemy
+          if (client.enemy.keys.d.pressed) {
+            client.enemy.velocity.x = 2;
+            client.enemy.position.xPos += client.enemy.velocity.x;
+          }
+          client.enemy.position.yPos += client.enemy.velocity.y;
+          if (client.enemy.position.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height) {
+            client.enemy.velocity.y = 0;
+          } else client.enemy.velocity.y += client.enemy.gravity;
+        }
+  };
+
+useEffect(()=>{
+  const context = canvasRef.current?.getContext("2d");
+  
+  if(context != null){
+    clearBackground(context)
+    drawBox(context,client.enemy.position.xPos,client.enemy.position.yPos)
     if (client.enemy.keys.d.pressed) {
       client.enemy.velocity.x = 2;
-      client.enemy.position.xPos += client.enemy.velocity.x;
+      client.enemy.position.xPos += client.enemy.velocity.x;        
     }
     if (client.enemy.keys.a.pressed) {
       client.enemy.velocity.x = 2;
       client.enemy.position.xPos -= client.enemy.velocity.x;
     }
-  };
+    if(client.enemy.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height){
+      client.enemy.velocity.y = 0
+    } else client.enemy.velocity.y += client.enemy.gravity
+  }
+  
+  console.log('HOOD')
+},[])
 
-
-
-  useEffect(() => {
-    const context = canvasRef.current?.getContext("2d");
-    
-    if(context != null){
-      context.fillStyle = 'black' 
-      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-    }
+  useEffect(() => {  
+    // client.enemy.position.yPos += client.enemy.velocity.y;
     if (a || d || w) {
-      
       frame.current = requestAnimationFrame(animate);
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a, d, w]);
 
-
+  // useEffect(()=>{
+  //   console.log('run every second time')
+  //   frame.current = requestAnimationFrame(animate);
+  // },[])
 
 
 
