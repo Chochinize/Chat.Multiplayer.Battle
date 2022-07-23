@@ -115,10 +115,10 @@ client.users.send(JSON.stringify({                                              
             break;
              case 'updateEnemyPosition':
               
-              const { enemy } = dataFromServer
-              if( dataFromServer.userID.id === paramsID ){
-                console.log('dddddddddCLEAR')
-              }
+              // const { enemy } = dataFromServer
+              // if( dataFromServer.userID.id === paramsID ){
+              //   console.log(enemy.position.xPos)
+              // }
             break;
         }
       }
