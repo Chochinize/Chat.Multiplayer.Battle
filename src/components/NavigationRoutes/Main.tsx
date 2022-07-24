@@ -33,7 +33,7 @@ const MainRoom = () => {
   const [cookie, setCookies] = useCookies(['UID'])
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { playersJoinned, playerChat, userSetName, setUser, InvitationModal } = bindActionCreators(actionCreators, dispatch)
+  const { playersJoinned, playerChat, userSetName, setUser, InvitationModal,enemyUpdate } = bindActionCreators(actionCreators, dispatch)
 
 
 
@@ -115,10 +115,18 @@ client.users.send(JSON.stringify({                                              
             break;
              case 'updateEnemyPosition':
               
-              // const { enemy } = dataFromServer
-              // if( dataFromServer.userID.id === paramsID ){
-              //   console.log(enemy.position.xPos)
-              // }
+               
+              const { enemy,userID:id } = dataFromServer
+            const  restID = id.roomid.slice(0,id.id.length);
+
+            if( restID === paramsID ){
+              
+              console.log('Hooora!!!')
+              console.log(enemy.position.xPos)
+              client.enemy.position.xPos = enemy.position.xPos;
+              
+              console.log(client.enemy)
+            }
             break;
         }
       }

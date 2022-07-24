@@ -40,6 +40,32 @@ const initialState = {
       },
     },
   },
+  self:{
+      position: {
+            xPos: 0,
+            yPos: 426,
+          },
+          velocity: {
+            x: 0,
+            y: 0,
+          },
+          h: 150,
+          gravity: 0.2,
+          keys: {
+            a: {
+              pressed: false,
+            },
+            d: {
+              pressed: false,
+            },
+            w: {
+              pressed: false,
+            },
+            s: {
+              pressed: false,
+            },
+          },
+  }
 };
 
 const reducer = (state: any = initialState, action: Action) => {

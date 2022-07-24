@@ -49,13 +49,13 @@ const drawBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) =
   const animate = (): void => {
     const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate);
-    client.users.send(
-      JSON.stringify({
-        type: "enemySyncPosition",
-        name: client.enemy,
-        userID: paramsID,
-      })
-    );
+    // client.users.send(
+    //   JSON.stringify({
+    //     type: "enemySyncPosition",
+    //     name: client.enemy,
+    //     userID: paramsID,
+    //   })
+    // );
 
     if (context != null) {
           clearBackground(context);
@@ -104,8 +104,24 @@ useEffect(()=>{
 
   useEffect(() => {  
     // client.enemy.position.yPos += client.enemy.velocity.y;
+    frame.current = requestAnimationFrame(animate);
     if (a || d || w) {
-      frame.current = requestAnimationFrame(animate);
+         client.users.send(
+      JSON.stringify({
+        type: "enemySyncPosition",
+        name: client.enemy,
+        userID: paramsID,
+      })
+    );
+    if (client.enemy.keys.d.pressed) {
+      client.enemy.velocity.x = 2;
+      client.enemy.position.xPos += client.enemy.velocity.x;        
+    }
+    if (client.enemy.keys.a.pressed) {
+      client.enemy.velocity.x = 2;
+      client.enemy.position.xPos -= client.enemy.velocity.x;
+    }
+
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a, d, w]);
