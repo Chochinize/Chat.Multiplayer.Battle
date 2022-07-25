@@ -8,5 +8,6 @@ export enum ActionType{
     REFRESH = 'refresh',
     MESSAGE = 'message',
     USERJOINNED = 'userjoinned',
-    ENEMYUPDATE = 'enemyupdate'
+    ENEMYUPDATE = 'enemyupdate',
+    SELFUPDATE = 'selfupdate',
 }

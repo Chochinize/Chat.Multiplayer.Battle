@@ -38,6 +38,10 @@ interface UpdateEnemyAction {
     type:ActionType.ENEMYUPDATE,
     payload:any,
 }
+interface UpdateSelfAction {
+    type:ActionType.SELFUPDATE,
+    payload:any
+}
 export type Action = 
 DepositAction |
 WithdrawAction|
@@ -47,5 +51,5 @@ GetPlayerAction|
 InvitePlayerAction|
 CharMessageAction|
 UserJoinnedAction|
-UpdateEnemyAction
-
+UpdateEnemyAction |
+UpdateSelfAction

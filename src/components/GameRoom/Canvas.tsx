@@ -26,10 +26,14 @@ export default function Canvas() {
 
   const client = useSelector((state: State) => state.bank);
   const dispatch = useDispatch();
-  const { enemyUpdate } = bindActionCreators(actionCreators, dispatch);
+  const { enemyUpdate, selfUpdate, } = bindActionCreators(actionCreators, dispatch);
   const { pressed: a } = client.enemy.keys.a;
   const { pressed: d } = client.enemy.keys.d;
   const { pressed: w } = client.enemy.keys.w;
+
+  const { pressed: a1 } =  client.self.keys.a;
+  const { pressed: d1 } =  client.self.keys.d;
+  const { pressed: w1 } =  client.self.keys.w;
 
   
   const context = canvasRef.current?.getContext("2d");
@@ -39,33 +43,59 @@ export default function Canvas() {
     context.canvas.height = 576; 
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
   };
-const drawBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
 
+
+
+  
+const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
     context.fillStyle = "red";
     context.fillRect(xPos, yPos, 50, client.enemy.h);
   };
-  
+
+  const drawSelf = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
+    context.fillStyle = "yellow";
+    context.fillRect(xPos, yPos, 50, client.self.h);
+  };
+
 
   const animate = (): void => {
     const context = canvasRef.current?.getContext("2d");
-    frame.current = requestAnimationFrame(animate);
-    // client.users.send(
-    //   JSON.stringify({
-    //     type: "enemySyncPosition",
-    //     name: client.enemy,
-    //     userID: paramsID,
-    //   })
-    // );
+    frame.current = requestAnimationFrame(animate); 
 
-    if (context != null) {
+       client.users.send(
+      JSON.stringify({
+        type: "enemySyncPosition",
+        name: client.enemy,
+        userID: paramsID,
+      })
+    );
+    
+    // if(context != null){
+    //   console.log('run multiple timesdddddddddd')
+    //   clearBackground(context);
+    //   drawBox(context,client.enemy.position.xPos,client.enemy.position.yPos)
+    //   if (client.enemy.keys.d.pressed) {
+    //     client.enemy.velocity.x = 2;
+    //     client.enemy.position.xPos += client.enemy.velocity.x;        
+    //   }
+    //   if (client.enemy.keys.a.pressed) {
+    //     client.enemy.velocity.x = 2;
+    //     client.enemy.position.xPos -= client.enemy.velocity.x;
+    //   }
+    //   if(client.enemy.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height){
+    //     client.enemy.velocity.y = 0
+    //   } else client.enemy.velocity.y += client.enemy.gravity
+    // }
+    if (context != null) {  
           clearBackground(context);
-          drawBox(context, client.enemy.position.xPos, client.enemy.position.yPos);
+          drawEnemyBox(context, client.enemy.position.xPos, client.enemy.position.yPos);
+          drawSelf(context, client.self.position.xPos, client.self.position.yPos);
           if (client.enemy.keys.d.pressed) {
             client.enemy.velocity.x = 2;
             client.enemy.position.xPos += client.enemy.velocity.x;
           }
           if (client.enemy.keys.a.pressed) {
-            client.enemy.velocity.x = 4;
+            client.enemy.velocity.x = 4 ;
             client.enemy.position.xPos -= client.enemy.velocity.x;
           }
           // Enemy
@@ -73,73 +103,102 @@ const drawBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) =
             client.enemy.velocity.x = 2;
             client.enemy.position.xPos += client.enemy.velocity.x;
           }
+         
           client.enemy.position.yPos += client.enemy.velocity.y;
+          // enemy.position.yPos += enemy.velocity.y;
+
           if (client.enemy.position.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height) {
             client.enemy.velocity.y = 0;
           } else client.enemy.velocity.y += client.enemy.gravity;
+
+
+          if(client.self.keys.d.pressed){
+            console.log('down key is pressed')
+            console.log(client.self.keys.d.pressed)
+          }
+          // if (client.self.keys.d.pressed) {
+          //   client.self.velocity.x = 2;
+          //   client.self.position.xPos += client.self.velocity.x;        
+          // }
+          // if (client.self.keys.a.pressed) {
+          //   client.self.velocity.x = 4;
+          //   client.self.position.xPos -= client.self.velocity.x;
+          // }
+          // if(client.self.yPos + client.self.h + client.self.velocity.y >= context.canvas.height){
+          //   client.self.velocity.y = 0
+          // } else client.self.velocity.y += client.self.gravity
+        
         }
   };
 
+  
 useEffect(()=>{
   const context = canvasRef.current?.getContext("2d");
   
   if(context != null){
+    
     clearBackground(context)
-    drawBox(context,client.enemy.position.xPos,client.enemy.position.yPos)
+    drawEnemyBox(context,client.enemy.position.xPos,client.enemy.position.yPos);
+    drawSelf(context, client.self.position.xPos, client.self.position.yPos);
     if (client.enemy.keys.d.pressed) {
       client.enemy.velocity.x = 2;
       client.enemy.position.xPos += client.enemy.velocity.x;        
     }
     if (client.enemy.keys.a.pressed) {
-      client.enemy.velocity.x = 2;
+      client.enemy.velocity.x = 4;
       client.enemy.position.xPos -= client.enemy.velocity.x;
     }
     if(client.enemy.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height){
       client.enemy.velocity.y = 0
     } else client.enemy.velocity.y += client.enemy.gravity
+
+
+    if(client.self.keys.d.pressed){
+      
+      console.log('down key is pressed')
+      console.log(client.self.keys.d.pressed)
+    }
+    // if (client.self.keys.d.pressed) {
+    //   client.self.velocity.x = 2;
+    //   client.self.position.xPos += client.self.velocity.x;        
+    // }
+    // if (client.self.keys.a.pressed) {
+    //   client.self.velocity.x = 4;
+    //   client.self.position.xPos -= client.self.velocity.x;
+    // }
+    // if(client.self.yPos + client.self.h + client.self.velocity.y >= context.canvas.height){
+    //   client.self.velocity.y = 0
+    // } else client.self.velocity.y += client.self.gravity
   }
-  
-  console.log('HOOD')
 },[])
 
   useEffect(() => {  
-    // client.enemy.position.yPos += client.enemy.velocity.y;
-    frame.current = requestAnimationFrame(animate);
-    if (a || d || w) {
-         client.users.send(
-      JSON.stringify({
-        type: "enemySyncPosition",
-        name: client.enemy,
-        userID: paramsID,
-      })
-    );
-    if (client.enemy.keys.d.pressed) {
-      client.enemy.velocity.x = 2;
-      client.enemy.position.xPos += client.enemy.velocity.x;        
-    }
-    if (client.enemy.keys.a.pressed) {
-      client.enemy.velocity.x = 2;
-      client.enemy.position.xPos -= client.enemy.velocity.x;
-    }
+  
 
+    
+    if (a || d || w) {
+      frame.current = requestAnimationFrame(animate);
+  
       return () => cancelAnimationFrame(frame.current);
     }
-  }, [a, d, w]);
-
-  // useEffect(()=>{
-  //   console.log('run every second time')
-  //   frame.current = requestAnimationFrame(animate);
-  // },[])
+  }, [a, d, w,]);
 
 
+  
+  useEffect(() => {  
+  
+
+    
+    if (a || d || w) {
+      frame.current = requestAnimationFrame(animate);
+  
+      return () => cancelAnimationFrame(frame.current);
+    }
+  }, [a1, d1, w1,]);
 
 
 
-
-
-
-
-
+console.log(client)
 
 
 
@@ -147,11 +206,21 @@ useEffect(()=>{
 
 
   const handlerKeyDown = (e: any) => {
-    enemyUpdate(e);
+    if(client.modalsInvitation.userID === paramsID.id){
+      selfUpdate(e)
+      console.log(client.self.position.xPos)
+    }
+    else  enemyUpdate(e);
+    // console.log('COOKIES',client.modalsInvitation.userID)
+    // console.log('params', paramsID)
   };
-
+  
   const handlerKeyUp = (e: any) => {
-    enemyUpdate(e);
+    if(client.modalsInvitation.userID === paramsID.id){
+      // console.log('YOU HAVE CONTROL OVER TWO ON RELEASE BUTTON')
+      selfUpdate(e)
+
+    } else enemyUpdate(e);
   };
   useEffect(() => {
     if (effectRan.current === false) {
@@ -190,6 +259,11 @@ useEffect(()=>{
       <div>X position:{client.enemy.position.xPos}</div>
       <div>Y position:{client.enemy.position.yPos}</div>
       <div>W position:{client.enemy.position.wPos}</div>
+      
+      <div>X position:{client.self.position.xPos}</div>
+      <div>Y position:{client.self.position.yPos}</div>
+      <div>W position:{client.self.position.wPos}</div>
+
       <canvas ref={canvasRef} width={900} height={576}>
         Oops! Your browser doesn't support the canvas component.
       </canvas>

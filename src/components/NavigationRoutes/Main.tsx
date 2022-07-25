@@ -108,24 +108,25 @@ client.users.send(JSON.stringify({                                              
             }));
             const { name, roomID,senderID,status,userID} = dataFromServer
             if(senderID === paramsID || userID === paramsID ){
-              console.log('This user should be reconnected')
+              // console.log('This user should be reconnected')
               
               navigate(`/mainroom/${userID === paramsID ? userID : senderID}/${roomID}`, { replace:true})
             }
             break;
              case 'updateEnemyPosition':
               
-               
+              //  console.log('WHAY ', dataFromServer)
               const { enemy,userID:id } = dataFromServer
             const  restID = id.roomid.slice(0,id.id.length);
 
+            
             if( restID === paramsID ){
+              // enemyUpdate(dataFromServer.enemy)
+              console.log('X:',enemy.position.xPos)
+              console.log('visa versa',client.enemy.position.xPos)
+client.enemy.position.xPos = enemy.position.xPos
               
-              console.log('Hooora!!!')
-              console.log(enemy.position.xPos)
-              client.enemy.position.xPos = enemy.position.xPos;
               
-              console.log(client.enemy)
             }
             break;
         }
@@ -149,8 +150,8 @@ client.users.send(JSON.stringify({                                              
 
     setUser(target);
   };
+console.log('CL',client)
 
-console.log(client)
   // useEffect(() => {
   //   if (effectRan.current === false) {
   //     const index = client.players.data?.players[0].users.find((findIndex: any) => findIndex.id === cookie.UID)
@@ -218,7 +219,7 @@ console.log(client)
         </div>)
           :
           ''}
-
+  
         <h1 className='text-center text-[1.5hv] relative top-2 border-t-2  '>Main Room</h1>
         <div className=' relative h-[50vh] w-full overflow-x-auto p-4'>
           <div className='relative    top-10'>

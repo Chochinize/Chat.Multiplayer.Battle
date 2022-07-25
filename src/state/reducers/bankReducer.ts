@@ -40,32 +40,32 @@ const initialState = {
       },
     },
   },
-  self:{
-      position: {
-            xPos: 0,
-            yPos: 426,
-          },
-          velocity: {
-            x: 0,
-            y: 0,
-          },
-          h: 150,
-          gravity: 0.2,
-          keys: {
-            a: {
-              pressed: false,
-            },
-            d: {
-              pressed: false,
-            },
-            w: {
-              pressed: false,
-            },
-            s: {
-              pressed: false,
-            },
-          },
-  }
+  self: {
+    position: {
+      xPos: 420,
+      yPos: 426,
+    },
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    h: 150,
+    gravity: 0.2,
+    keys: {
+      a: {
+        pressed: false,
+      },
+      d: {
+        pressed: false,
+      },
+      w: {
+        pressed: false,
+      },
+      s: {
+        pressed: false,
+      },
+    },
+  },
 };
 
 const reducer = (state: any = initialState, action: Action) => {
@@ -101,6 +101,85 @@ const reducer = (state: any = initialState, action: Action) => {
         ...state,
         modalsInvitation: action.payload,
       };
+    case ActionType.SELFUPDATE:
+      // console.log(state);
+      // console.log("actionpayload", action.payload.key);
+      // console.log("actionpayload", action.payload.type);
+      switch (action.payload.key) {
+        case "d":
+            console.log('d is pressed and shoud update')
+            console.log(action.payload.type)
+          switch (action.payload.type) {
+            case "keydown":
+                  // console.log('keydown is concerned')
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  position:{
+                        ...state.self.position,
+                        xPos:state.self.position.xPos
+                  },
+                  keys: {
+                    ...state.self.keys,
+                    d: {
+                      pressed: true,
+                    },
+                  },
+                },
+              };
+            case "keyup":
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    d: {
+                      pressed: false,
+                    },
+                  },
+                },
+              };
+            default:
+              return state;
+          }
+        case "a":
+          switch (action.payload.type) {
+            case "keydown":
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    a: {
+                      pressed: true,
+                    },
+                  },
+                },
+              };
+            case "keyup":
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    a: {
+                      pressed: false,
+                    },
+                  },
+                },
+              };
+            default:
+              return state;
+          }
+
+        default:
+          return state;
+      }
+
     case ActionType.ENEMYUPDATE:
       const { key, type } = action.payload;
       // console.log(key);
@@ -176,9 +255,9 @@ const reducer = (state: any = initialState, action: Action) => {
                 ...state,
                 enemy: {
                   ...state.enemy,
-                  velocity:{
-                        ...state.enemy.velocity,
-                        y:state.enemy.velocity.y -10 ,
+                  velocity: {
+                    ...state.enemy.velocity,
+                    y: state.enemy.velocity.y - 10,
                   },
                   keys: {
                     ...state.enemy.keys,
@@ -188,19 +267,19 @@ const reducer = (state: any = initialState, action: Action) => {
                   },
                 },
               };
-              case "keyup":
-                  return {
-                    ...state,
-                    enemy: {
-                      ...state.enemy,
-                      keys: {
-                        ...state.enemy.keys,
-                        w: {
-                          pressed: false,
-                        },
-                      },
+            case "keyup":
+              return {
+                ...state,
+                enemy: {
+                  ...state.enemy,
+                  keys: {
+                    ...state.enemy.keys,
+                    w: {
+                      pressed: false,
                     },
-                  };
+                  },
+                },
+              };
             default:
               return state;
           }

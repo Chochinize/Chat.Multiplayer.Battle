@@ -78,3 +78,11 @@ export const enemyUpdate= (enemy:any)=>{
         })
     }
 }
+export const selfUpdate = (self:any)=>{
+    return (dispatch:Dispatch<Action>) =>{
+        dispatch({
+            type:ActionType.SELFUPDATE,
+            payload:self
+        })
+    }
+}
