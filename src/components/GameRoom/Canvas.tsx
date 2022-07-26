@@ -62,13 +62,13 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
     const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate); 
 
-       client.users.send(
-      JSON.stringify({
-        type: "enemySyncPosition",
-        name: client.enemy,
-        userID: paramsID,
-      })
-    );
+    //    client.users.send(
+    //   JSON.stringify({
+    //     type: "enemySyncPosition",
+    //     name: client.enemy,
+    //     userID: paramsID,
+    //   })
+    // );
     
     // if(context != null){
     //   console.log('run multiple timesdddddddddd')
@@ -90,32 +90,79 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
           clearBackground(context);
           drawEnemyBox(context, client.enemy.position.xPos, client.enemy.position.yPos);
           drawSelf(context, client.self.position.xPos, client.self.position.yPos);
+          
+          // Enemy
           if (client.enemy.keys.d.pressed) {
+            client.users.send(
+              JSON.stringify({
+                type: "enemySyncPosition",
+                name: client.enemy,
+                userID: paramsID,
+              })
+            );
             client.enemy.velocity.x = 2;
             client.enemy.position.xPos += client.enemy.velocity.x;
           }
           if (client.enemy.keys.a.pressed) {
+            client.users.send(
+              JSON.stringify({
+                type: "enemySyncPosition",
+                name: client.enemy,
+                userID: paramsID,
+              })
+            );
             client.enemy.velocity.x = 4 ;
             client.enemy.position.xPos -= client.enemy.velocity.x;
           }
-          // Enemy
           if (client.enemy.keys.d.pressed) {
             client.enemy.velocity.x = 2;
             client.enemy.position.xPos += client.enemy.velocity.x;
           }
-         
+         //Self 
+                 if (client.self.keys.d.pressed) {
+            client.users.send(
+              JSON.stringify({
+                type: "selfySyncPosition",
+                name: client.self,
+                userID: paramsID,
+              })
+            );
+            client.self.velocity.x = 2;
+            client.self.position.xPos += client.self.velocity.x;
+          }
+          if (client.self.keys.a.pressed) {
+            client.users.send(
+              JSON.stringify({
+                type: "selfySyncPosition",
+                name: client.self,
+                userID: paramsID,
+              })
+            );
+            client.self.velocity.x = 4 ;
+            client.self.position.xPos -= client.self.velocity.x;
+          }
+          if (client.self.keys.d.pressed) {
+            client.self.velocity.x = 2;
+            client.self.position.xPos += client.self.velocity.x;
+          }
+
+
           client.enemy.position.yPos += client.enemy.velocity.y;
+          client.self.position.yPos += client.self.velocity.y;
           // enemy.position.yPos += enemy.velocity.y;
 
           if (client.enemy.position.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height) {
             client.enemy.velocity.y = 0;
           } else client.enemy.velocity.y += client.enemy.gravity;
 
+          if (client.self.position.yPos + client.self.h + client.self.velocity.y >= context.canvas.height) {
+            client.self.velocity.y = 0;
+          } else client.self.velocity.y += client.self.gravity;
 
-          if(client.self.keys.d.pressed){
-            console.log('down key is pressed')
-            console.log(client.self.keys.d.pressed)
-          }
+          // if(client.self.keys.d.pressed){
+          //   console.log('down key is pressed')
+          //   console.log(client.self.keys.d.pressed)
+          // }
           // if (client.self.keys.d.pressed) {
           //   client.self.velocity.x = 2;
           //   client.self.position.xPos += client.self.velocity.x;        
@@ -153,11 +200,11 @@ useEffect(()=>{
     } else client.enemy.velocity.y += client.enemy.gravity
 
 
-    if(client.self.keys.d.pressed){
+    // if(client.self.keys.d.pressed){
       
-      console.log('down key is pressed')
-      console.log(client.self.keys.d.pressed)
-    }
+    //   console.log('down key is pressed')
+    // }
+ 
     // if (client.self.keys.d.pressed) {
     //   client.self.velocity.x = 2;
     //   client.self.position.xPos += client.self.velocity.x;        
@@ -189,7 +236,7 @@ useEffect(()=>{
   
 
     
-    if (a || d || w) {
+    if (a1 || d1 || w1) {
       frame.current = requestAnimationFrame(animate);
   
       return () => cancelAnimationFrame(frame.current);
@@ -198,7 +245,6 @@ useEffect(()=>{
 
 
 
-console.log(client)
 
 
 
@@ -208,19 +254,15 @@ console.log(client)
   const handlerKeyDown = (e: any) => {
     if(client.modalsInvitation.userID === paramsID.id){
       selfUpdate(e)
-      console.log(client.self.position.xPos)
     }
     else  enemyUpdate(e);
-    // console.log('COOKIES',client.modalsInvitation.userID)
-    // console.log('params', paramsID)
   };
   
   const handlerKeyUp = (e: any) => {
     if(client.modalsInvitation.userID === paramsID.id){
-      // console.log('YOU HAVE CONTROL OVER TWO ON RELEASE BUTTON')
       selfUpdate(e)
-
     } else enemyUpdate(e);
+
   };
   useEffect(() => {
     if (effectRan.current === false) {
@@ -260,9 +302,9 @@ console.log(client)
       <div>Y position:{client.enemy.position.yPos}</div>
       <div>W position:{client.enemy.position.wPos}</div>
       
-      <div>X position:{client.self.position.xPos}</div>
+      {/* <div>X position:{client.self.position.xPos}</div>
       <div>Y position:{client.self.position.yPos}</div>
-      <div>W position:{client.self.position.wPos}</div>
+      <div>W position:{client.self.position.wPos}</div> */}
 
       <canvas ref={canvasRef} width={900} height={576}>
         Oops! Your browser doesn't support the canvas component.

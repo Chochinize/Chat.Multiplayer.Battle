@@ -107,8 +107,6 @@ const reducer = (state: any = initialState, action: Action) => {
       // console.log("actionpayload", action.payload.type);
       switch (action.payload.key) {
         case "d":
-            console.log('d is pressed and shoud update')
-            console.log(action.payload.type)
           switch (action.payload.type) {
             case "keydown":
                   // console.log('keydown is concerned')
@@ -175,7 +173,42 @@ const reducer = (state: any = initialState, action: Action) => {
             default:
               return state;
           }
-
+          case "w":
+            switch (action.payload.type) {
+              case "keydown":
+                  
+                return {
+                  ...state,
+                  enemy: {
+                    ...state.self,
+                    velocity: {
+                      ...state.self.velocity,
+                      y: state.self.velocity.y - 10,
+                    },
+                    keys: {
+                      ...state.self.keys,
+                      w: {
+                        pressed: true,
+                      },
+                    },
+                  },
+                };
+              case "keyup":
+                return {
+                  ...state,
+                  self: {
+                    ...state.self,
+                    keys: {
+                      ...state.self.keys,
+                      w: {
+                        pressed: false,
+                      },
+                    },
+                  },
+                };
+              default:
+                return state;
+            }
         default:
           return state;
       }
