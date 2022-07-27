@@ -139,8 +139,8 @@ const MainRoom = () => {
 
             if (restID === paramsID) {
               // enemyUpdate(dataFromServer.enemy)
-              console.log("X:", enemy.position.xPos);
-              console.log("visa versa", client.enemy.position.xPos);
+              // console.log("ENEMY:", enemy.position.xPos);
+              // console.log("visa versa", client.enemy.position.xPos);
               client.enemy.position.xPos = enemy.position.xPos;
             }
             break;
@@ -151,8 +151,8 @@ const MainRoom = () => {
               
               if (restselfID === selfID) {
                 // enemyUpdate(dataFromServer.enemy)
-                console.log("X:", enemy.position.xPos);
-                console.log("visa versa", client.enemy.position.xPos);
+                // console.log("SELF:", enemy.position.xPos);
+                // console.log("visa versa", client.enemy.position.xPos);
                 client.self.position.xPos = enemy.self.xPos;
               }
               break;
@@ -177,7 +177,7 @@ const MainRoom = () => {
 
     setUser(target);
   };
-  console.log("CL", client);
+
 
   // useEffect(() => {
   //   if (effectRan.current === false) {

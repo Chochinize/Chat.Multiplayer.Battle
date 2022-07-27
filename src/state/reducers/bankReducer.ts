@@ -39,7 +39,14 @@ const initialState = {
         pressed: false,
       },
     },
+    attackBox:{
+      positionX:420,
+      positionY:426,
+      width:100,
+      height:50,
+    }
   },
+  
   self: {
     position: {
       xPos: 420,
@@ -124,6 +131,10 @@ const reducer = (state: any = initialState, action: Action) => {
                       pressed: true,
                     },
                   },
+                  attackBox:{
+                        ...state.self.attackBox,
+                        positionX:state.self.position.xPos
+                  }
                 },
               };
             case "keyup":
@@ -179,7 +190,7 @@ const reducer = (state: any = initialState, action: Action) => {
                   
                 return {
                   ...state,
-                  enemy: {
+                  self: {
                     ...state.self,
                     velocity: {
                       ...state.self.velocity,

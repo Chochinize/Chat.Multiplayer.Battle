@@ -6,6 +6,14 @@ import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 import { actionCreators } from "../../state";
 import { State } from "../../state";
+import terrain from '../../assets/terrain/terrain.jpg'
+import playerOne0 from '../../assets/sprites/walk/HeroKnight_Run_0.png'
+import playerOne1 from '../../assets/sprites/walk/HeroKnight_Run_1.png'
+import playerOne2 from '../../assets/sprites/walk/HeroKnight_Run_2.png'
+import playerOne3 from '../../assets/sprites/walk/HeroKnight_Run_3.png'
+import playerOne4 from '../../assets/sprites/walk/HeroKnight_Run_4.png'
+import playerOne5 from '../../assets/sprites/walk/HeroKnight_Run_5.png'
+
 
 export interface Point2D {
   x: number;
@@ -17,6 +25,12 @@ interface Pos2D {
 }
 
 export default function Canvas() {
+   const [count, setCount] = useState(0)
+   const requestRef = useRef<undefined | number>();
+   const previousTimeRef = useRef();
+  
+  // Use useRef for mutable variables that we want to persist
+  // without triggering a re-render on their change
   
   
   const effectRan = useRef(false);
@@ -41,15 +55,34 @@ export default function Canvas() {
     const { width, height } = context.canvas;
     context.canvas.width = 900;
     context.canvas.height = 576; 
-    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    var imageObj1 = new Image();
+    imageObj1.src = terrain
+    context.drawImage(imageObj1,0,0,width,height);
+    // context.fillRect(0, 0, context.canvas.width, context.canvas.height);
   };
 
+  // const animate2 = (time:any) => {
+  //   if (previousTimeRef.current != undefined) {
+  //     const deltaTime = time - previousTimeRef.current;
+      
+  //     // Pass on a function to the setter of the state
+  //     // to make sure we always have the latest state
+  //     setCount(prevCount => (prevCount + deltaTime * 0.01) % 100);
+  //   }
+  //   previousTimeRef.current = time;
+  //   requestRef.current = requestAnimationFrame(animate2);
+  // }
 
-
-  
+  console.log(client.enemy.attackBox.positionX)
 const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
     context.fillStyle = "red";
-    context.fillRect(xPos, yPos, 50, client.enemy.h);
+    context.fillRect(xPos, yPos, 50, client.enemy.h-20);
+    context.fillStyle = "green";
+    context.fillRect(client.enemy.attackBox.positionX,client.enemy.attackBox.positionY,100,50);
+    
+    var imageObj1 = new Image();
+    imageObj1.src = playerOne0
+    context.drawImage(imageObj1,xPos-70,yPos-70,200,200);
   };
 
   const drawSelf = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
@@ -57,7 +90,7 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
     context.fillRect(xPos, yPos, 50, client.self.h);
   };
 
-
+console.log(client.self.attackBox)
   const animate = (): void => {
     const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate); 
@@ -200,22 +233,22 @@ useEffect(()=>{
     } else client.enemy.velocity.y += client.enemy.gravity
 
 
-    // if(client.self.keys.d.pressed){
+    if(client.self.keys.d.pressed){
       
-    //   console.log('down key is pressed')
-    // }
+      console.log('down key is pressed')
+    }
  
-    // if (client.self.keys.d.pressed) {
-    //   client.self.velocity.x = 2;
-    //   client.self.position.xPos += client.self.velocity.x;        
-    // }
-    // if (client.self.keys.a.pressed) {
-    //   client.self.velocity.x = 4;
-    //   client.self.position.xPos -= client.self.velocity.x;
-    // }
-    // if(client.self.yPos + client.self.h + client.self.velocity.y >= context.canvas.height){
-    //   client.self.velocity.y = 0
-    // } else client.self.velocity.y += client.self.gravity
+    if (client.self.keys.d.pressed) {
+      client.self.velocity.x = 2;
+      client.self.position.xPos += client.self.velocity.x;        
+    }
+    if (client.self.keys.a.pressed) {
+      client.self.velocity.x = 4;
+      client.self.position.xPos -= client.self.velocity.x;
+    }
+    if(client.self.yPos + client.self.h + client.self.velocity.y >= context.canvas.height){
+      client.self.velocity.y = 0
+    } else client.self.velocity.y += client.self.gravity
   }
 },[])
 
@@ -225,7 +258,7 @@ useEffect(()=>{
     
     if (a || d || w) {
       frame.current = requestAnimationFrame(animate);
-  
+      // console.log('SYNC',frame.current % 1000)
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a, d, w,]);
@@ -238,7 +271,7 @@ useEffect(()=>{
     
     if (a1 || d1 || w1) {
       frame.current = requestAnimationFrame(animate);
-  
+      
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a1, d1, w1,]);
