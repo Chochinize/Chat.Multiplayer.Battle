@@ -131,10 +131,7 @@ const reducer = (state: any = initialState, action: Action) => {
                       pressed: true,
                     },
                   },
-                  attackBox:{
-                        ...state.self.attackBox,
-                        positionX:state.self.position.xPos
-                  }
+                 
                 },
               };
             case "keyup":
