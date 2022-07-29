@@ -67,7 +67,7 @@ export default function InvitePlayerModal() {
                     <Dialog.Title as="h3" className="text-lg items-center py-2 leading-6 font-medium text-gray-900">
                       You have been challenged 
                     </Dialog.Title>
-                    <div className="mt-2">
+                    <div className="mt-4">
                       <p className="text-sm text-gray-500 h-10">
                         {client.modalsInvitation.senderName}
                         {client.modalsInvitation.status === 'free' ? '' : '#'}
