@@ -29,7 +29,7 @@ const TextArea = () => {
     console.log('popIcon')
   }
   return (
-    <div className='w-full border-4 flex items-center  border-cyan-500 h-10      '>
+    <div className='w-full  flex items-center   h-10      '>
 
       
         <BsEmojiSmile size={47} className='px-1' onClick={()=>popIconMenu()}/>
@@ -48,7 +48,7 @@ const TextArea = () => {
         
         <button 
         disabled={!client.userJoinned ? true : false}
-        onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-max hover:bg-blue-500  p-1 text-[18px] h-full border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>
+        onClick={()=>sendChatMessage(chat.name,paramsID,client,client.setUserName.name)} className=' w-8 hover:bg-blue-500  p-1 text-[18px] h-8 border-2 border-blue-400 rounded-full bg-blue-300 text-white shadow-2xl'>
 
           <RiSendPlane2Line className='w-5'/>
         </button>

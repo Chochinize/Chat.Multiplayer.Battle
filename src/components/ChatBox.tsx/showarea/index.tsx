@@ -26,15 +26,15 @@ const ShowArea = () => {
   return (
     <div 
     ref={el}
-    className='border-4 text-[20px]    w-full p-2  h-[100%] overflow-x-auto border-red-400 font-Dongle '>
+    className='text-[20px]    w-full   h-[100%] overflow-x-auto  font-Dongle '>
       
     {client.chatPlayer?.map((item: any, index:number) =>
-    <ul key={index} className='flex h-12 mb-2 items-center   border-2  border-teal-400 w-full break-words  '>
+    <ul key={index} className='flex h-8  items-center   w-full break-words  '>
       <li className='ml-2 font-semibold'> {item?.name}</li>  
       <li className='font-semibold'> #</li>  
-      <li className='font-norsemiboldmal mr-2'>{item?.id}</li>
+      <li className='font-semibold'>{item?.id}</li>
       <li className='font-norsemiboldmal'> {} </li> :
-      <li className='ml-2 w-max  border-2 border-semibold '> {item?.chatMessage} </li> 
+      <li className='ml-2 w-max    '> {item?.chatMessage} </li> 
     </ul>
   )}
       

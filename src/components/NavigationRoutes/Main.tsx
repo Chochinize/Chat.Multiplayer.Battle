@@ -209,7 +209,7 @@ const MainRoom = () => {
 
   return (
     <div className="w-[100%] h-full flex   relative">
-      <div className="w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle    border-2 border-red-700 ">
+      <div className="w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle     border-red-700 ">
         {client.users ? (
           <div className="w-max flex flex-col lg:flex-row m-auto gap-2  ">
             <input
@@ -323,8 +323,8 @@ const MainRoom = () => {
         </div>
       </div>
       <InvitePlayerModal />
-      <div className="w-full h-full border-2 border-teal-200"></div>
-      <div className="w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-2 border-red-500">
+      <div className="w-full h-full border-2 "></div>
+      <div className="w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-black  ">
         <ChatBox />
       </div>
     </div>
