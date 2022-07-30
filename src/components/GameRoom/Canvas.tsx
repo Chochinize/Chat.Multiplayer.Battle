@@ -79,7 +79,7 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
     context.fillRect(xPos, yPos, 50, client.enemy.h-20);
     context.fillStyle = "green";
     context.fillRect(client.enemy.attackBox.positionX,client.enemy.attackBox.positionY,100,50);
-    
+      
     var imageObj1 = new Image();
     imageObj1.src = playerOne0
     context.drawImage(imageObj1,xPos-70,yPos-70,200,200);
@@ -90,11 +90,11 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
     context.fillRect(xPos, yPos, 50, client.self.h);
   };
 
-console.log(client.self.attackBox)
+  
   const animate = (): void => {
     const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate); 
-
+    console.log('pos:',client.self.position.xPos)
     //    client.users.send(
     //   JSON.stringify({
     //     type: "enemySyncPosition",
@@ -211,13 +211,14 @@ console.log(client.self.attackBox)
         }
   };
 
+
   
-useEffect(()=>{
-  const context = canvasRef.current?.getContext("2d");
-  
-  if(context != null){
+  useEffect(()=>{
+    const context = canvasRef.current?.getContext("2d");
     
-    clearBackground(context)
+    if(context != null){
+      
+      clearBackground(context)
     drawEnemyBox(context,client.enemy.position.xPos,client.enemy.position.yPos);
     drawSelf(context, client.self.position.xPos, client.self.position.yPos);
     if (client.enemy.keys.d.pressed) {
@@ -259,6 +260,7 @@ useEffect(()=>{
     if (a || d || w) {
       frame.current = requestAnimationFrame(animate);
       // console.log('SYNC',frame.current % 1000)
+      
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a, d, w,]);

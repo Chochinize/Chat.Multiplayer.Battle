@@ -272,21 +272,21 @@ const MainRoom = () => {
             {controversial.map((item: any, indx) => (
               <div
                 key={indx}
-                className="list-none border-[1px]   border-black m-2 w-52 flex justify-between mx-4 "
+                className="list-none border-[1px]    border-black m-2 w-52 flex justify-between mx-4 "
               >
                 <ul className="flex items-center m-4">
                   <li>{item?.name}</li>
                   <li>#{item?.id}</li>
                 </ul>
 
-                <div className="flex items-center gap-2  rounded-full  p-2 m-2  ">
+                <div className="flex items-center gap-2   rounded-full  p-2 m-2  ">
                   {item.status === "busy" ? (
                     <div className="flex h-4 items-center space-x-[2px]  has-tooltip ">
                       <span className="tooltip rounded-tl-full  rounded-tr-full h-8 rounded-bl-full  bg-black shadow-xl right-24 -top-1 -m-4 px-2 w-max    text-white text-[16px] ">
                         This player is in queue
                       </span>
 
-                      <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle1_2s_ease-in-out_infinite]"></div>
+                      <div className="w-1 h-1 bg-gray-400 rounded-full  animate-[wiggle1_2s_ease-in-out_infinite]"></div>
                       <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle2_2s_ease-in-out_infinite]"></div>
                       <div className="w-1 h-1 bg-gray-400 rounded-full animate-[wiggle3_2s_ease-in-out_infinite]"></div>
                     </div>

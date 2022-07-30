@@ -153,31 +153,31 @@ const reducer = (state: any = initialState, action: Action) => {
         case "a":
           switch (action.payload.type) {
             case "keydown":
-              return {
-                ...state,
-                self: {
-                  ...state.self,
-                  keys: {
-                    ...state.self.keys,
-                    a: {
-                      pressed: true,
-                    },
-                  },
-                },
-              };
+                  return {
+                        ...state,
+                        self: {
+                          ...state.self,
+                          keys: {
+                            ...state.self.keys,
+                            a: {
+                              pressed: true,
+                            },
+                          },
+                        },
+                      };
             case "keyup":
-              return {
-                ...state,
-                self: {
-                  ...state.self,
-                  keys: {
-                    ...state.self.keys,
-                    a: {
-                      pressed: false,
-                    },
-                  },
-                },
-              };
+                  return {
+                        ...state,
+                        self: {
+                          ...state.self,
+                          keys: {
+                            ...state.self.keys,
+                            a: {
+                              pressed: false,
+                            },
+                          },
+                        },
+                      };
             default:
               return state;
           }

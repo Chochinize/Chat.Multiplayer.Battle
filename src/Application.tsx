@@ -20,7 +20,8 @@ function App() {
  
 
   return (
-    <div className="border-l-[20px]  w-full  h-screen     border-2 border-yellow-400  ">
+    
+    <div className="border-l-[20px]  w-full  h-screen     border-2 border-yellow-400    ">
       {/* <Canvas/> */}
       <Routes>
         <Route path="/" element={<Layout />}>
