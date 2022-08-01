@@ -73,28 +73,34 @@ export default function Canvas() {
   //   requestRef.current = requestAnimationFrame(animate2);
   // }
 
-  console.log(client.enemy.attackBox.positionX)
+  console.log("posdasda",client.enemy.attackBox.positionX)
+  console.log("XPOS",client.self.position.xPosa)
 const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
     context.fillStyle = "red";
     context.fillRect(xPos, yPos, 50, client.enemy.h-20);
     context.fillStyle = "green";
-    context.fillRect(client.enemy.attackBox.positionX,client.enemy.attackBox.positionY,100,50);
+    client.enemy.attackBox.positionX = client.enemy.position.xPos;
+    context.fillRect(client.enemy.attackBox.positionX,client.enemy.attackBox.positionY,client.enemy.w,10);
       
     var imageObj1 = new Image();
     imageObj1.src = playerOne0
     context.drawImage(imageObj1,xPos-70,yPos-70,200,200);
   };
-
+  let xx = 400;
   const drawSelf = (context: CanvasRenderingContext2D, xPos: number,yPos: number) => {
+    
     context.fillStyle = "yellow";
     context.fillRect(xPos, yPos, 50, client.self.h);
+    context.fillStyle = 'blue';
+    context.fillRect(0,0,50,150);
+    xx++;
   };
 
   
   const animate = (): void => {
     const context = canvasRef.current?.getContext("2d");
     frame.current = requestAnimationFrame(animate); 
-    console.log('pos:',client.self.position.xPos)
+    // console.log('pos:',client.self.position.xPos)
     //    client.users.send(
     //   JSON.stringify({
     //     type: "enemySyncPosition",
@@ -183,7 +189,13 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
           client.enemy.position.yPos += client.enemy.velocity.y;
           client.self.position.yPos += client.self.velocity.y;
           // enemy.position.yPos += enemy.velocity.y;
-
+          // if(client.enemy.attackBox.positionX + client.enemy.attackBox.width >= client.self.position.xPos &&
+          //    client.enemy.attackBox.positionX <= client.self.position.xPos + client.enemy.w ){
+          //   console.log('LINE CROSSED', client.enemy.attackBox.positionX)
+          // }
+          if(client.enemy.attackBox.positionX + client.enemy.attackBox.width >= client.self.position.xPos){
+            console.log('CROSSED')
+          }
           if (client.enemy.position.yPos + client.enemy.h + client.enemy.velocity.y >= context.canvas.height) {
             client.enemy.velocity.y = 0;
           } else client.enemy.velocity.y += client.enemy.gravity;
@@ -211,7 +223,8 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
         }
   };
 
-
+console.log('ENEMY:',client.enemy.attackBox.positionX)
+console.log('Player:',client.self.position.xPos)
   
   useEffect(()=>{
     const context = canvasRef.current?.getContext("2d");
@@ -277,6 +290,20 @@ const drawEnemyBox = (context: CanvasRenderingContext2D, xPos: number,yPos: numb
       return () => cancelAnimationFrame(frame.current);
     }
   }, [a1, d1, w1,]);
+
+
+  useEffect(() => {  
+  
+
+    
+    
+      frame.current = requestAnimationFrame(animate);
+      console.log('MOMCHE')
+      
+  
+  }, []);
+
+
 
 
 

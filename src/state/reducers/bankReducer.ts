@@ -24,6 +24,7 @@ const initialState = {
       y: 0,
     },
     h: 150,
+    w: 0,
     gravity: 0.2,
     keys: {
       a: {
@@ -39,14 +40,14 @@ const initialState = {
         pressed: false,
       },
     },
-    attackBox:{
-      positionX:420,
-      positionY:426,
-      width:100,
-      height:50,
-    }
+    attackBox: {
+      positionX: 420,
+      positionY: 426,
+      width: 0,
+      height: 50,
+    },
   },
-  
+
   self: {
     position: {
       xPos: 420,
@@ -57,6 +58,7 @@ const initialState = {
       y: 0,
     },
     h: 150,
+    w: 50,
     gravity: 0.2,
     keys: {
       a: {
@@ -116,14 +118,13 @@ const reducer = (state: any = initialState, action: Action) => {
         case "d":
           switch (action.payload.type) {
             case "keydown":
-                  // console.log('keydown is concerned')
               return {
                 ...state,
                 self: {
                   ...state.self,
-                  position:{
-                        ...state.self.position,
-                        xPos:state.self.position.xPos
+                  position: {
+                    ...state.self.position,
+                    xPos: state.self.position.xPos,
                   },
                   keys: {
                     ...state.self.keys,
@@ -131,7 +132,6 @@ const reducer = (state: any = initialState, action: Action) => {
                       pressed: true,
                     },
                   },
-                 
                 },
               };
             case "keyup":
@@ -153,70 +153,69 @@ const reducer = (state: any = initialState, action: Action) => {
         case "a":
           switch (action.payload.type) {
             case "keydown":
-                  return {
-                        ...state,
-                        self: {
-                          ...state.self,
-                          keys: {
-                            ...state.self.keys,
-                            a: {
-                              pressed: true,
-                            },
-                          },
-                        },
-                      };
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    a: {
+                      pressed: true,
+                    },
+                  },
+                },
+              };
             case "keyup":
-                  return {
-                        ...state,
-                        self: {
-                          ...state.self,
-                          keys: {
-                            ...state.self.keys,
-                            a: {
-                              pressed: false,
-                            },
-                          },
-                        },
-                      };
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    a: {
+                      pressed: false,
+                    },
+                  },
+                },
+              };
             default:
               return state;
           }
-          case "w":
-            switch (action.payload.type) {
-              case "keydown":
-                  
-                return {
-                  ...state,
-                  self: {
-                    ...state.self,
-                    velocity: {
-                      ...state.self.velocity,
-                      y: state.self.velocity.y - 10,
-                    },
-                    keys: {
-                      ...state.self.keys,
-                      w: {
-                        pressed: true,
-                      },
+        case "w":
+          switch (action.payload.type) {
+            case "keydown":
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  velocity: {
+                    ...state.self.velocity,
+                    y: state.self.velocity.y - 20,
+                  },
+                  keys: {
+                    ...state.self.keys,
+                    w: {
+                      pressed: true,
                     },
                   },
-                };
-              case "keyup":
-                return {
-                  ...state,
-                  self: {
-                    ...state.self,
-                    keys: {
-                      ...state.self.keys,
-                      w: {
-                        pressed: false,
-                      },
+                },
+              };
+            case "keyup":
+              return {
+                ...state,
+                self: {
+                  ...state.self,
+                  keys: {
+                    ...state.self.keys,
+                    w: {
+                      pressed: false,
                     },
                   },
-                };
-              default:
-                return state;
-            }
+                },
+              };
+            default:
+              return state;
+          }
         default:
           return state;
       }
@@ -224,7 +223,7 @@ const reducer = (state: any = initialState, action: Action) => {
     case ActionType.ENEMYUPDATE:
       const { key, type } = action.payload;
       // console.log(key);
-      // console.log(key);
+      console.log(key);
       switch (key) {
         case "d":
           switch (type) {
@@ -298,7 +297,7 @@ const reducer = (state: any = initialState, action: Action) => {
                   ...state.enemy,
                   velocity: {
                     ...state.enemy.velocity,
-                    y: state.enemy.velocity.y - 10,
+                    y: state.enemy.velocity.y - 20,
                   },
                   keys: {
                     ...state.enemy.keys,
@@ -324,6 +323,15 @@ const reducer = (state: any = initialState, action: Action) => {
             default:
               return state;
           }
+          case "Space":
+
+            console.log('space is clicked');
+              switch (type) {
+                case "keydown":
+                  return {};
+                default:
+                  return state;
+              }
         default:
           return state;
       }
