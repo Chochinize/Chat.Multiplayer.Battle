@@ -38,7 +38,7 @@ const Connection = () => {
         setClient(frontclient)
     }
     return (
-        <div className='w-[31%]   text-xs absolute  border-blue-700 '>
+        <div className='w-[31%]   text-xs absolute  border-blue-800 '>
             {cookie.UID 
             ? 
             <button onClick={() => wConnect()} className={`${client ? 'hidden' : 'bg-red-200 p-4 w-full   rounded-md    '}`}> Reconnect</button> 
