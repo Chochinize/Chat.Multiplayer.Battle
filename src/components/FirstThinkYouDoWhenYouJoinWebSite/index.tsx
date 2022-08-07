@@ -36,6 +36,7 @@ const Connection = () => {
    
         joinUser(frontclient)
         setClient(frontclient)
+        console.log('123');
     }
     return (
         <div className='w-[31%]   text-xs absolute  border-blue-800 '>
