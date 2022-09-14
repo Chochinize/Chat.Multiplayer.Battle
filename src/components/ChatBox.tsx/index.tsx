@@ -4,7 +4,7 @@ import TextArea from './textarea'
 
 const index = () => {
   return (
-    <div className=' md:w-[35vw] lg:w-[35vw] sm:relative fixed bottom-2 w-[80vw] xl:w-[20vw] h-full flex  flex-col '>
+    <div className=' md:w-[35vw] lg:w-[35vw] sm:relative fixed top-[55%] sm:top-[0%] w-[95vw] sm:w-[20vw] xl:w-[20vw] h-full flex  flex-col '>
       <ShowArea />
       <TextArea/>
     </div>

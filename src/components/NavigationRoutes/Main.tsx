@@ -208,6 +208,7 @@ const MainRoom = () => {
   };
 const searchForPlayer = (e:any) =>{
   console.log(e.target.value)
+  
 }
   return (
     <div className="w-[100%] h-full flex border-4 border-blue-400  flex-col sm:flex-row">

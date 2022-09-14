@@ -14,19 +14,17 @@ const ShowArea = () => {
   const [messages, setMessages] = useState([]);
 
 
-  useEffect(() => {
-      if (el.current === null) { }
-      else
-          el!.current!.scrollIntoView({ block: 'end', behavior: 'smooth' });
   
-      
   
-  }, [])
-  
+useEffect(()=>{
+  console.log(messages)
+  console.log('Message recived')
+  el.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
+},[messages])
+
   return (
     <div 
-    ref={el}
-    className='text-[20px]    w-full   h-[100%] overflow-x-auto  font-Dongle '>
+    className='text-[20px]   border-2   w-full   h-[40%] sm:h-[100%]   relative sm:top-  overflow-x-auto  font-Dongle '>
       
     {client.chatPlayer?.map((item: any, index:number) =>
     <ul key={index} className='flex h-8  items-center   w-full break-words  '>
@@ -35,6 +33,7 @@ const ShowArea = () => {
       <li className='font-semibold'>{item?.id}</li>
       <li className='font-norsemiboldmal'> {} </li> :
       <li className='ml-2 w-max    '> {item?.chatMessage} </li> 
+      <div ref={el}></div> 
     </ul>
   )}
       
