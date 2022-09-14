@@ -20,7 +20,7 @@ useEffect(()=>{
   console.log(messages)
   console.log('Message recived')
   el.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
-},[messages])
+},[])
 
   return (
     <div 
