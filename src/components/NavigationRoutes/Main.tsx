@@ -208,10 +208,10 @@ const MainRoom = () => {
   };
 
   return (
-    <div className="w-[100%] h-full flex   relative">
-      <div className="w-[70%] h-full flex flex-col  gap-5 text-2xl  font-Dongle     border-red-700 ">
+    <div className="w-[100%] h-full flex border-4 border-blue-400  flex-col sm:flex-row">
+      <div className="w-[100%] sm:w-[70%] h-1/2 sm:h-full flex flex-col  gap-5 text-2xl  font-Dongle   border-2    border-red-700 ">
         {client.users ? (
-          <div className="w-max flex flex-col lg:flex-row m-auto gap-2  ">
+          <div className="w-max flex flex-col lg:flex-row m-auto gap-2 relative top-[2vw]  border-2 border-black">
             <input
               disabled={client.userJoinned ? true : false}
               type="text"
@@ -265,8 +265,8 @@ const MainRoom = () => {
         <h1 className="text-center text-[1.5hv] relative top-2 border-t-2  ">
           Main Room
         </h1>
-        <div className=" relative h-[50vh] w-full overflow-x-auto p-4">
-          <div className="relative    top-10">
+        <div className=" relative  h-[50vh] w-full overflow-x-auto p-4">
+          <div className="relative   border-2 flex items-center flex-col  top-10">
             {/* <RoomSettings /> */}
 
             {controversial.map((item: any, indx) => (
@@ -323,7 +323,7 @@ const MainRoom = () => {
         </div>
       </div>
       <InvitePlayerModal />
-      <div className="w-full h-full border-2 "></div>
+      <div className="w-full h-full border-2 ">SOMETHING</div>
       <div className="w-[20vw] md:w-[35vw] lg:w-[35vw] xl:w-[20vw]  border-black  ">
         <ChatBox />
       </div>
