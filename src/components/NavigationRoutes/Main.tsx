@@ -278,8 +278,8 @@ const searchForPlayer = (e:any) =>{
               onChange={(e) => searchForPlayer(e)}
               />
               </div>
-        <div className=" relative  h-[50vh] w-full overflow-x-auto p-4   border-b-[1px] border-black ">
-          <div className="relative    flex items-center flex-col h-[60vh] top-2  ">
+        <div className=" relative  h-[50vh] w-full overflow-x-auto p-4    bottom-2 ">
+          <div className="relative    flex items-center flex-col h-[60vh] top-2 bottom-2 ">
             {/* <RoomSettings /> */}
 
             {controversial.map((item: any, indx) => (
