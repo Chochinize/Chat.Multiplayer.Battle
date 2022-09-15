@@ -15,7 +15,7 @@ const Layout = () => {
   return (                                                                                                     
 
             //w-[30%]  h-full border-r-[2px] border-black                     
-    <div className='w-full  h-full fixed border-2    '>
+    <div className='w-full  h-[90%] sm:h-[100%] fixed     '>
       
       <Connection />
       <Outlet />
