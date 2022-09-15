@@ -211,8 +211,8 @@ const searchForPlayer = (e:any) =>{
   
 }
   return (
-    <div className="w-[100%] h-full flex border-4 border-blue-400  flex-col sm:flex-row">
-      <div className="w-[100%] sm:w-[70%] h-1/2 sm:h-full flex flex-col  gap-5 text-2xl  font-Dongle   border-2    border-red-700 ">
+    <div className="w-[100%] h-full flex   flex-col sm:flex-row">
+      <div className="w-[100%] sm:w-[70%] h-[65%] sm:h-full flex flex-col  gap-5 text-2xl  font-Dongle    ">
         {client.users ? (
           <div className="w-max flex flex-col lg:flex-row m-auto gap-2 relative top-[2vw]  ">
             <input
@@ -268,15 +268,18 @@ const searchForPlayer = (e:any) =>{
         <h1 className="text-center text-[1.5hv] relative top-2 border-t-2  ">
           Main Room
         </h1>
+        <div className="flex items-center  justify-center">
+
         <input
               type="text"
               name="name"
               placeholder="Search for player"
-              className=" placeholder-shadow-xl outline-none  text-center border-b-0 lg:border-b-2"
+              className=" placeholder-shadow-xl outline-none  h-4  text-center border-b-2 w-max  lg:border-b-2"
               onChange={(e) => searchForPlayer(e)}
-            />
-        <div className=" relative  h-[50vh] w-full overflow-x-auto p-4">
-          <div className="relative   border-2 flex items-center flex-col  top-10">
+              />
+              </div>
+        <div className=" relative  h-[50vh] w-full overflow-x-auto p-4   border-b-[1px] border-black ">
+          <div className="relative    flex items-center flex-col h-[60vh] top-2  ">
             {/* <RoomSettings /> */}
 
             {controversial.map((item: any, indx) => (

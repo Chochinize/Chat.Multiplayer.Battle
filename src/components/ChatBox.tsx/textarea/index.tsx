@@ -32,7 +32,7 @@ const TextArea = () => {
     <div className='w-full  flex items-center   h-10      '>
 
       
-        <BsEmojiSmile size={47} className='px-1' onClick={()=>popIconMenu()}/>
+        <BsEmojiSmile size={47} className='px-2 sm:px-1.5'  onClick={()=>popIconMenu()}/>
         
         <input
             disabled={!client.userJoinned ? true : false}
@@ -41,7 +41,7 @@ const TextArea = () => {
             value={chat.name}
             required
             placeholder='type something...'
-            className="   outline-none  pl-2  text-start   rounded-full h-8  text-[18px]       border-2 w-full "
+            className="   outline-none  pl-2  text-start   rounded-full h-8  text-[18px]       border-2 w-full  mr-1.5"
             onChange={onChangeInput}
             onKeyDown={(e)=>_handleKeyDown(e)}
           />
