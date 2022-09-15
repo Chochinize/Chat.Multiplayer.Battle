@@ -21,7 +21,7 @@ function App() {
 
   return (
     
-    <div className=" w-full  h-screen     border-4    ">
+    <div className=" w-full h-[70rem]     border-black  sm:h-screen    ">
       {/* <Canvas/> */}
       <Routes>
         <Route path="/" element={<Layout />}>
